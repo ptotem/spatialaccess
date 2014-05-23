@@ -1,0 +1,26 @@
+<div id="wrapper">
+  <div id="machine-half">
+    Choose a quiz:
+    <% @clients.each do |client| %>
+    <%= client.name %>
+    <%= client.subdomain %>
+    <% end %>
+
+  </div>
+  <div id="matter-half">
+    <div id="header-panel" style="color:white; font-size: 24px;text-align: center">
+      <%= image_tag "logo.png", id: "logo" %>
+      A <%= link_to "Ptotem", "http://www.ptotem.com", class: "about-link" %> -
+      <%= link_to "Nexus", "http://www.consultnexus.in", class: "about-link" %> initiative
+    </div>
+    <div id="matter-panel">
+      <div id="intro-panel" class="content-panel">
+        <%= image_tag @customization.intro_panel.url(:original), id: "intro-back" %>
+        <div id="intro-text" style="font-size: 24px;">
+          <br/>
+          <%= raw @customization.qhelp %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

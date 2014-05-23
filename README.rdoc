@@ -1,0 +1,15 @@
+1. Change bucket name in config/application.yml
+2. Change app name in
+    - application.rb
+    - development.rb
+    - test.rb
+    - production.rb
+    - environment.rb
+    - routes.rb
+    - rails_admin.rb
+    - secret_token.rb
+    - session_store.rb
+    - Rakefile
+    - client.rb
+    - database.yml
+3. Create the chitterbot_development db under postgres user in pg
