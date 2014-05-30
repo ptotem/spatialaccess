@@ -1,528 +1,306 @@
-<style>
-    .slots li {
-        background-image: url(<%= @customization.background.url(:original) %>);
-    }
-</style>
 <div id="wrapper">
-  <audio id="spinner-sound">
-    <source src="/sounds/spinner.mp3" type="audio/mpeg">
-    <source src="/sounds/spinner.ogg" type="audio/ogg">
-    Your browser does not support this audio format.
-  </audio>
-  <audio id="cranker">
-    <source src="/sounds/crank.mp3" type="audio/mpeg">
-    <source src="/sounds/crank.ogg" type="audio/ogg">
-    Your browser does not support this audio format.
-  </audio>
-  <%= image_tag "spinclick.png", id: "spinclick" %>
-  <div id="machine-half">
-    <div id="machine">
-      <%= image_tag @customization.machine.url(:original), id: "machine-image" %>
-      <div id="handle-wrapper">
-        <%= image_tag @customization.handle.url(:original), id: "slot-handle" %>
-      </div>
-      <div id="slots-panel">
-        <ul class="slots">
-          <li style="background-color:black">
-            <span><%= image_tag @customization.qmark.url(:original), class: "questioner" %></span></li>
-          <li style="background-color:black">
-            <span><%= image_tag @customization.qmark.url(:original), class: "questioner" %></span></li>
-          <% @slotarray.each do |icon| %>
-              <li style="background: <%= icon.backcolor %>"><span><%= image_tag icon.picture.url(:original) %></span>
-              </li>
-          <% end %>
-        </ul>
-        <%= image_tag "over.png", id: "slotOverlay" %>
-      </div>
-    </div>
+  <div id="menu-section" class="col-lg-6 col-lg-offset-0 col-md-offset-0 col-md-4 col-sm-offset-3 col-sm-6 col-xs-6">
+    <ul id="scene">
+      <li id="layer0" class="layer" data-depth="0.10"><img src="/assets/layer0.png"></li>
+      <li id="layer1" class="layer" data-depth="0.20"><img src="/assets/layer1.png"></li>
+      <li id="layer2" class="layer" data-depth="0.30"><img src="/assets/layer2.png"></li>
+      <li id="layer3" class="layer" data-depth="0.40"><img src="/assets/layer3.png"></li>
+      <li id="layer4" class="layer" data-depth="0.50"><img src="/assets/layer4.png"></li>
+      <li id="layer5" class="layer" data-depth="0.60"><img src="/assets/layer5.png"></li>
+      <li id="layer6" class="layer" data-depth="0.70"><img src="/assets/layer6.png"></li>
+    </ul>
+    <div class="grower"><%= image_tag "logoname.png" %></div>
   </div>
-  <div id="matter-half">
-    <div id="header-panel">
-      <%= image_tag "logo.png", id: "logo" %>
-      <br/>
+  <div id="matter-section" class="col-lg-6 col-lg-offset-0 col-md-offset-0 col-md-8 col-sm-12 col-xs-6">
+    <div id="content-boxes" class="col-lg-8 col-lg-offset-0 col-md-6 col-sm-12 col-xs-6">
+      <div id="mb_pattern" class="mb_pattern"></div>
+      <div id="mb_content_wrapper" class="mb_content_wrapper">
+        <span class="mb_close"></span>
 
-      <div id="credits">
-        <div id="creditsVal"></div>
-        <div id="creditsLabel"><%= @customization.credit %></div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="matter-panel">
-      <div id="base-panel">
-        <%= image_tag @customization.intro_panel.url(:original), id: "intro-back" %>
-      </div>
-      <div id="intro-panel" class="content-panel">
-        <%= image_tag @customization.intro_panel.url(:original), id: "intro-back" %>
-        <div id="intro-text">
-          <%= image_tag @customization.logo.url(:original), id: "gamelogo" %>
-          <br/>
-          <%= raw @customization.qhelp %>
-          <br/>
-          <br/>
-          <%= link_to image_tag("exit.png", id: "exiter"), destroy_user_session_path, method: :delete, confirm: "Are you sure you want to stop spinning?" %>
-        </div>
-      </div>
-      <div id="leaderboard-panel" class="content-panel">
-        <%= image_tag @customization.intro_panel.url(:original), id: "leaderboard-back" %>
-        <div id="leaderboard-table">
-          <h1>Leaderboard</h1>
-          <table>
-            <tr>
-              <th>Rank</th>
-              <th>User</th>
-              <th>Credits</th>
-            </tr>
-            <% @leaders[0..5].each_with_index do |leader, index| %>
-                <tr>
-                  <td><%= index+1 %></td>
-                  <td><%= leader.email %></td>
-                  <% if leader==current_user %>
-                      <td><span class="leader-credits"><%= leader.credits %></span></td>
-                  <% else %>
-                      <td><%= leader.credits %></td>
-                  <% end %>
-
-                </tr>
-            <% end %>
-            <% if @leaders.index(current_user)> 4 %>
-                <tr>
-                  <td><%= @leaders.index(current_user)+1 %></td>
-                  <td><%= current_user.email %></td>
-                  <td><span class="leader-credits"><%= current_user.credits %></span></td>
-                </tr>
-            <% end %>
-          </table>
-        </div>
-      </div>
-      <div id="payoff-panel" class="content-panel">
-        <%= image_tag @customization.intro_panel.url(:original), id: "payoff-back" %>
-        <div id="payoff-table">
-          <h1>Payoff Table</h1>
-          <table>
-            <% @sloticons.each_with_index do |icon, index| %>
-                <tr>
-                  <td><%= image_tag icon.picture.url(:original) %><%= image_tag icon.picture.url(:original) %><%= image_tag icon.picture.url(:original) %>
-                    <span id="<%= icon.name %>_3"> <%= (6-index)*10 %></span></td>
-                  <td><%= image_tag icon.picture.url(:original) %><%= image_tag icon.picture.url(:original) %>
-                    <span id="<%= icon.name %>_2"> <%= (6-index)*5 %></span></td>
-                  <% if icon.weight<2 %>
-                      <td><%= image_tag icon.picture.url(:original) %>
-                        <span id="<%= icon.name %>_1"> <%= (3-index)*5 %></span></td>
-                  <% end %>
-                </tr>
-            <% end %>
-          </table>
-          <p style="width:80%;font-weight: bold;"><%= image_tag @customization.qmark.url(:original), class: "qmark-payoff" %>
-            Answer questions to win free spins.</p>
-        </div>
-      </div>
-      <div id="profile-panel" class="content-panel">
-        <%= image_tag @customization.intro_panel.url(:original), id: "intro-back" %>
-        <div id="profile-text">
-          <%= image_tag "ptotemnexus.png" %>
-          <br/>
-          Quizspin is a joint initiative by Ptotem and Nexus, designed to entertain while educating you.
-          If you want to know more about our initiatives in Serious Gaming, please visit
-          the <%= link_to "Ptotem", "http://www.ptotem.com", class: "about-link" %> and
-          the <%= link_to "Nexus", "http://www.consultnexus.in", class: "about-link" %> websites
-        </div>
-      </div>
-      <div id="quiz-panel" class="content-panel">
-        <%= image_tag @customization.intro_panel.url(:original), id: "quiz-back" %>
-        <div id="quiz-content" class="questioned">
-          <div id="qquestion"></div>
-          <div id="qid"></div>
-          <ul id="answerBlock">
-            <li class="answer" id="optax"></li>
-            <li class="answer" id="optbx"></li>
-            <li class="answer" id="optcx"></li>
-            <li class="answer" id="optdx"></li>
-          </ul>
-          <div id="answerMsg"></div>
-        </div>
-      </div>
-      <div id="scoring-panel" class="content-panel">
-        <%= image_tag @customization.intro_panel.url(:original), id: "scoring-back" %>
-        <div id="scoring"></div>
-      </div>
+    <ul id="menu-circles">
+      <li id="menu0" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Audit</span></div>
+        <%= image_tag "audit.png" %>
+      </li>
+      <li id="menu1" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Advisory</span></div>
+        <%= image_tag "advisory.png" %>
+      </li>
+      <li id="menu2" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Analytics</span></div>
+        <%= image_tag "analytics.png" %>
+      </li>
+      <li id="menu3" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Appraisal</span></div>
+        <%= image_tag "assessment.png" %>
+      </li>
+      <li id="menu4" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Training</span></div>
+        <%= image_tag "training.png" %>
+      </li>
+    </ul>
+    <div id="company-background">
     </div>
-    <div id="menu-panel">
-      <div id="standard-menu">
-        <div id="introBtn" class="menuBtn activeBtn" title="Welcome Panel"><%= image_tag @customization.menu_iconset.intro.url(:original) %></div>
-        <div id="payoffBtn" class="menuBtn" title="Payoff Panel"><%= image_tag @customization.menu_iconset.payoff.url(:original) %></div>
-        <div id="leaderboardBtn" class="menuBtn" title="Leaderboard Panel"><%= image_tag @customization.menu_iconset.leaderboard.url(:original) %></div>
-        <div id="profileBtn" class="menuBtn" title="About Us"><%= image_tag @customization.menu_iconset.profile.url(:original) %></div>
-        <!--<div id="profileBtn" class="menuBtn" title="About Us"><%#= image_tag(@customization.menu_iconset.profile.url(:original)), destroy_user_session_path, method: :delete, confirm: "Are you sure want to stop spinning and log out?" %></div>-->
-      </div>
-      <div id="answer-menu">
-        <div id="opta" class="menuBtn answerBtn">A</div>
-        <div id="optb" class="menuBtn answerBtn">B</div>
-        <div id="optc" class="menuBtn answerBtn">C</div>
-        <div id="optd" class="menuBtn answerBtn">D</div>
-      </div>
-      <div id="freespin-counter">
-        <span id="freespin-count"></span> Free Spins Left
-      </div>
-    </div>
-
+    <br/>
+    <br/>
+    <%= link_to "Let us show you something", "#", class: "btn btn-danger", id:"sampler-link" %>
   </div>
 </div>
 
 <script type="text/javascript" charset="utf-8">
-
-    var credits = gon.credits + 10;
-    var won = false;
-    var freespins = 0;
-    var freespinning = false;
-    var freespinTotal = 0;
-    var winnings;
-    var winners = gon.winners;
-    var spinsound = document.getElementById('spinner-sound');
-
-    function bindMenu() {
-        $('#introBtn').on('click', function () {
-            $('.menuBtn').removeClass('activeBtn');
-            $('.content-panel').hide();
-            $('#intro-panel').fadeIn();
-            $('#introBtn').addClass('activeBtn');
-        });
-        $('#leaderboardBtn').on('click', function () {
-            $('.menuBtn').removeClass('activeBtn');
-            $('.content-panel').hide();
-            $('#leaderboard-panel').fadeIn();
-            $('#leaderboardBtn').addClass('activeBtn');
-        });
-        $('#payoffBtn').on('click', function () {
-            $('.menuBtn').removeClass('activeBtn');
-            $('.content-panel').hide();
-            $('#payoff-panel').fadeIn();
-            $('#payoffBtn').addClass('activeBtn');
-        });
-        $('#profileBtn').on('click', function () {
-            $('.menuBtn').removeClass('activeBtn');
-            $('.content-panel').hide();
-            $('#profile-panel').fadeIn();
-            $('#profileBtn').addClass('activeBtn');
-        });
-    }
-    function flickSpinclick() {
-        $('#spinclick').fadeIn(100, function () {
-            setTimeout(function () {
-                $('#spinclick').fadeOut(1000);
-            }, 4000);
-        });
-    }
-    function resetHandle() {
-        $('#slot-handle').animate({
-            left: 0
-        }, 5).css({
-            'pointer-events': 'auto'
-        });
-    }
-    function freespinIt() {
-        $('#slot-handle').animate({
-            left: 0
-        }, 5);
-        freespins -= 1;
-        setTimeout(function () {
-            $('#slot-handle').trigger('click');
-            $('#freespin-count').html(freespins);
-        }, 1000);
-    }
-    function getWinnings(finalNumbers) {
-        $.each(finalNumbers, function (index, element) {
-            if (parseInt(element) > gon.iconcounts[0]) {
-                finalNumbers[index] = parseInt(element) - gon.iconcounts[1];
-            }
-        });
-        var finalArray = [];
-        finalArray[0] = finalNumbers[0];
-        finalArray[1] = 1;
-        if (finalNumbers[0] == finalNumbers[1]) {
-            finalArray[1] = 2;
-            if (finalNumbers[0] == finalNumbers[2]) {
-                finalArray[1] = 3;
-            }
-        }
-        return checkWinner(finalArray);
-    }
-    function showFreeSpins(spinCount) {
-        $('#answer-menu').fadeOut(function () {
-            $('#freespin-count').html(freespins);
-            $('#freespin-counter').fadeIn();
-        });
-    }
-    function winnerAnim(creditsValue, winningValue) {
-        resetHandle();
-        showScore(winningValue);
-    }
-    function startSlots() {
-        $('#slot-handle').animate({
-            left: "-585px"
-        }, 20);
-        $('.slots').removeClass('winner');
-        if (!freespinning) {
-            $('#scoring').css({
-                marginTop: "0px",
-                fontSize: "50px",
-                opacity: 1
-            });
-            updateCredits(gon.cost, "debit");
-            $('.questioner').attr('src', gon.qmark_image);
-        } else {
-            $('.questioner').attr('src', gon.bonus_image);
-        }
-        if ($('#payoffBtn.activeBtn').length == 0) {
-            $('#payoffBtn').trigger("click");
-        }
-    }
-    function endSlots(finalNumbers) {
-        if (freespinning) {
-            setTimeout(function () {
-                winnings = getWinnings(finalNumbers);
-                freespinTotal += winnings;
-                if (winnings > 0) {
-                    $('#free-earnings').append(" +" + winnings);
-                }
-                if (freespins > 0) {
-                    freespinIt();
-                } else {
-                    setTimeout(function () {
-                        freespinning = false;
-                        resetHandle();
-                        endFreeSpins();
-                    }, 1000);
-                }
-            }, 500);
-        } else {
-            $('#payoffTable').fadeOut();
-            endNormal(finalNumbers);
-        }
-    }
-    function winSlots(winCount, winners) {
-        won = true;
-        $.each(winners, function () {
-            this.addClass('winner');
-        });
-        if (freespinning) {
-            freespinTotal += winCount * 25;
-            if (winCount > 0) {
-                $('#free-earnings').append(" <span style='color:gold'>+" + winCount * 50 + "</span>");
-            }
-        } else {
-            $('#slot-handle').css({
-                'pointer-events': 'none'
-            });
-            // Get a Question of winCount difficulty
-            $.ajax({
-                url: '/askquestion/' + winCount,
-                method: 'GET',
-                success: function (data) {
-                    setTimeout(function () {
-                        $('#payoff-panel').fadeOut();
-                        $('#quiz-panel').fadeIn();
-                        $('#standard-menu').fadeOut(function () {
-                            $('#answer-menu').fadeIn();
-                        });
-                        $('#quiz-content').fadeIn();
-                        $('#qquestion').html(data.name);
-                        $('#qid').html(data.id);
-                        $('#optax').html('<div class="answer-bullet" id="bulletA">A</div>' + data.opta);
-                        $('#optbx').html('<div class="answer-bullet" id="bulletB">B</div>' + data.optb);
-                        $('#optcx').html('<div class="answer-bullet" id="bulletC">C</div>' + data.optc);
-                        $('#optdx').html('<div class="answer-bullet" id="bulletD">D</div>' + data.optd);
-                        $('#answerBlock').fadeIn();
-                    }, 1000);
-                }
-            });
-        }
-    }
-
-    function PlaySound(soundobj) {
-        var thissound=document.getElementById(soundobj);
-        $('#'+soundobj).stop();
-        thissound.volume=1;
-        thissound.play();
-        $('#'+soundobj).animate({volume: 0.1}, 8000, function(){
-            thissound.volume=1;
-        });
-    }
-
-    function StopSound(soundobj) {
-        var thissound=document.getElementById(soundobj);
-        thissound.pause();
-        thissound.currentTime = 0;
-    }
-
-    function initializeSlots() {
-        $('.slots').jSlots({
-            number: 3,
-            winnerNumber: [1, 2],
-            spinner: '#slot-handle',
-            easing: 'easeOutSine',
-            time: 4000,
-            loops: 10,
-            onStart: function () {
-                PlaySound('cranker');
-                setTimeout(function(){
-                    PlaySound('spinner-sound');
-                },400);
-                startSlots();
-            },
-            onEnd: function (finalNumbers) {
-                StopSound('spinner-sound');
-                endSlots(finalNumbers);
-            },
-            onWin: function (winCount, winners) {
-                winSlots(winCount, winners);
-            }
-        });
-        var clicking
-    }
-    function processAnswers(answer) {
-        $.ajax({
-            url: '/checkanswer/' + $('#qid').html() + '/' + answer,
-            method: 'POST',
-            success: function (data) {
-                var resultMsg = data.split('||')[1];
-                var correctAnswer = data.split('||')[2];
-                freespins = parseInt(data.split('||')[0]);
-                showResult(resultMsg, correctAnswer, freespins);
-                setTimeout(function () {
-                    if (parseInt(freespins) > 0) {
-                        freespinning = true;
-                        showFreeSpins(freespins);
-                        setTimeout(function () {
-                            freespinIt();
-                        }, 1000);
-                    } else {
-                        $('#scoring-panel').fadeOut('slow');
-                        $('#payoff-panel').fadeIn();
-                        $('#answer-menu').fadeOut(function () {
-                            $('#standard-menu').fadeIn();
-                            resetHandle();
-                        });
-                        won = false;
-                    }
-                }, 3000);
-            }
-        });
-    }
-    function bindAnswers() {
-        $('.answerBtn').on('click', function () {
-            processAnswers($(this).attr("id"));
-        });
-        $('.answer').on('click', function () {
-            processAnswers($(this).attr("id").split("x")[0]);
-        });
-    }
-    function checkWinner(pattern) {
-        var winnings = 0;
-        $.each(winners, function (index, element) {
-            if (pattern[0] == element[0] && pattern[1] == element[1]) {
-                winnings = element[2];
-            }
-        });
-        return winnings;
-    }
-    function endNormal(finalNumbers) {
-        winnings = getWinnings(finalNumbers);
-        updateCredits(winnings, "credit");
-        winnerAnim(credits, winnings);
-        setTimeout(function () {
-            if (!won) {
-                flickSpinclick();
-                $('#payoff-panel').fadeIn('fast');
-                $('#scoring-panel').fadeOut('slow');
-            }
-        }, 1000);
-
-    }
-    function showResult(resultMsg, correctAnswer, freespinsCount) {
-        $('.content-panel').hide();
-        $('#scoring-panel').fadeIn();
-        $('#scoring').css({marginTop: "-50px"}).html("<div class='scribble'>" + resultMsg + "<br/>The correct answer is: <h3 style='color:gold;margin:0;padding:3px;'>" + correctAnswer + "</h3>You won </div>" + freespinsCount + " <div class='scribble'>free spins </div></div> ").delay(5000).animate({
-            marginTop: "-100px",
-            fontSize: "120px",
-            opacity: 0
-        }, function () {
-            $('#scoring').html("<h3 style='margin:0;padding:0;color:gold'>Free Spins</h3><div class='small-scribble'> The machine will spin automatically " + freespinsCount + " times for free. Over and above the usual payoff, you will receive 25 <%= @customization.credit %> for each bonus block that appears. <h3>Earnings: <div id='free-earnings'></div></h3></div>").css({
-                marginTop: "-50px",
-                fontSize: "50px",
-                opacity: 1
-            })
-        });
-
-    }
-    function endFreeSpins() {
-        setTimeout(function () {
-            $('#scoring').html("").css({
-                marginTop: "0px",
-                fontSize: "50px",
-                opacity: 1
-            });
-            winnerAnim(credits, freespinTotal);
-            updateCredits(freespinTotal, "credit");
-            setTimeout(function () {
-                $('#freespin-counter').fadeOut(function () {
-                    $('#standard-menu').fadeIn();
-                    $('#scoring-panel').fadeOut('slow');
-                    $('#payoff-panel').fadeIn('fast');
-                    freespinTotal = 0;
-                    won = false;
-                });
-                flickSpinclick();
-            }, 2000);
-        }, 500);
-    }
-    function showScore(winningValue) {
-        $('.content-panel').fadeOut('slow');
-        $('#scoring-panel').fadeIn('fast');
-        $('#scoring').html("<div class='scribble'>You won</div>" + winningValue + "<div class='scribble'><%= @customization.credit %></div> ").delay(1500).animate({
-            marginTop: "-50px",
-            fontSize: "120px",
-            opacity: 0
-        }, function () {
-            if (!won) {
-                $('#scoring-panel').fadeOut('slow');
-                $('#payoff-panel').fadeIn('fast');
-            }
-            $('#scoring').html("").css({
-                marginTop: "0px",
-                fontSize: "50px",
-                opacity: 1
-            })
-        });
-
-    }
-    function updateCredits(payoff, txn) {
-        var cTo = (txn == "debit" ? -1 : 1);
-        $.ajax({
-            url: '/crediting/' + gon.userid + '/' + payoff + '/' + txn,
-            method: 'POST',
-            success: function (data) {
-                $('#creditsVal').countTo({
-                    from: parseInt(data) - cTo * parseInt(payoff),
-                    to: parseInt(data),
-                    speed: 1000,
-                    refreshInterval: 10
-                });
-                $('.leader-credits').html(data);
-            }
-        });
-    }
-
-
     $(function () {
-        initializeSlots();
-        bindAnswers();
-        bindMenu();
-        $('#creditsVal').countTo({
-            from: 0,
-            to: credits,
-            speed: 1000,
-            refreshInterval: 10
-        });
-        flickSpinclick()
+        $('#scene').parallax();
+        setTimeout(function () {
+            $('#scene').fadeIn(1500, function () {
+                $('.grower').animate({
+                    width: "50%",
+                    opacity: 1,
+                    marginTop: "0px"
+                }, 1000, function () {
+                    $('#menu-circles li').fade1by1();
+                    setTimeout(function () {
+                        var text = "India's first Media & Marketing Services Audit & Advisory Company, providing a wide range of audit, advisory and analytical services, our team services more than 120 clients across 7 cities in India and 6 countries across the globe.";
+                        var $company = $('#company-background');
+                        $.each(text.split(''), function (i, letter) {
+                            setTimeout(function () {
+                                $company.html($company.html() + letter);
+                            }, 20 * i);
+                        });
+                        setTimeout(function(){
+                            $('#sampler-link').fadeIn();
+                            $('#mb_pattern').fadeIn();
+                        },20*text.length);
+                    }, 500 * $('#menu-circles li img').length);
+                });
+            });
+        }, 500);
+
+
     });
 
+    (function ($) {
+        $.fn.fade1by1 = function (options) {
+            var opt = $.extend({
+                'delay': 500,
+                'speed': 500,
+                'ease': 'linear'
+            }, options);
+            var that = this;
+            for (var i = 0, d = 0, l = that.length; i < l; i++, d += opt.delay) {
+                that.eq(i).find('div').delay(d).animate({opacity: 0.8}, opt.speed, opt.ease, function () {
+                    var $this = $(this);
+                    setTimeout(function () {
+                        $this.next().fadeIn(opt.speed, opt.ease);
+                        $this.next().hover(
+                                function () {
+                                    $(this).css('opacity', 0);
+                                }, function () {
+                                    $(this).css('opacity', 1);
+                                });
+                    }, 6000);
+                });
+            }
+        };
+    })(jQuery);
+
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        var $menu = $('#menu-circles'),
+                $menuItems = $menu.children('li'),
+                $mbWrapper = $('#mb_content_wrapper'),
+                $mbClose = $mbWrapper.children('.mb_close'),
+                $mbContentItems = $mbWrapper.children('.mb_content'),
+                $mbContentInnerItems = $mbContentItems.children('.mb_content_inner');
+        $mbPattern = $('#mb_pattern');
+
+        Menu = (function () {
+
+            var init = function () {
+                        initPlugins();
+                        initPattern();
+                        initEventsHandler();
+                    },
+            //initialise the jScollPane (scroll plugin)
+                    initPlugins = function () {
+                    },
+            /*
+             draws 16 boxes on a specific area of the page.
+             we randomly calculate the top, left, and rotation angle for each one of them
+             */
+                    initPattern = function () {
+                        for (var i = 0; i < 16; ++i) {
+                            //random opacity, top, left and angle
+                            var o = 0.3,
+                                    t = Math.floor(Math.random() * 196) + 5, // between 5 and 200
+                                    l = Math.floor(Math.random() * 546) + 75, // between 5 and 700
+                                    a = Math.floor(Math.random() * 101) - 50; // between -50 and 50
+
+                            $el = $('<div>').css({
+                                opacity: o,
+                                top: t + 'px',
+                                left: l + 'px'
+                            });
+
+                            $el.transform({'rotate': a + 'deg'});
+
+                            $el.appendTo($mbPattern);
+                        }
+                    },
+            /*
+             when the User closes a content item, we move the boxes back to the original place,
+             with new random values for top, left and angle though
+             */
+                    disperse = function () {
+                        $.each($mbPattern.children(), function (i) {
+                            //random opacity, top, left and angle
+                            var o = 0.3,
+                                    t = Math.floor(Math.random() * 196) + 5, // between 5 and 200
+                                    l = Math.floor(Math.random() * 546) + 75, // between 5 and 700
+                                    a = Math.floor(Math.random() * 101) - 50; // between -50 and 50
+                            $el = $(this),
+                                    param = {
+                                        width: '50px',
+                                        height: '50px',
+                                        opacity: o,
+                                        top: t + 'px',
+                                        left: l + 'px',
+                                        transform: 'rotate(' + a + 'deg)'
+                                    };
+
+                            $el.animate(param, 1000, 'easeOutExpo');
+                        });
+                        setTimeout(function(){
+                            $('#company-background').fadeIn();
+                            $('#sampler-link').fadeIn();
+                        },1200);
+                    },
+                    initEventsHandler = function () {
+                        /*
+                         click a link in the menu
+                         */
+                        $menuItems.bind('click', function (e) {
+                            var $this = $(this),
+                                    pos = $this.index(),
+                                    speed = $this.data('speed'),
+                                    easing = $this.data('easing');
+                            //if an item is not yet shown
+                            if (!$menu.data('open')) {
+                                $('#company-background').fadeOut();
+                                $('#sampler-link').fadeOut();
+                                //if current animating return
+                                if ($menu.data('moving')) return false;
+                                $menu.data('moving', true);
+                                $.when(openItem(pos, speed, easing)).done(function () {
+                                    $menu.data({
+                                        open: true,
+                                        moving: false
+                                    });
+                                    showContentItem(pos);
+                                    $mbPattern.children().fadeOut(500);
+                                });
+                            }
+                            else
+                                showContentItem(pos);
+                            return false;
+                        });
+
+                        /*
+                         click close makes the boxes animate to the top of the page
+                         */
+                        $mbClose.on('click', function (e) {
+                            $menu.data('open', false);
+                            $mbPattern.children().fadeIn(500, function () {
+                                $mbContentItems.hide();
+                                $mbWrapper.hide();
+                            });
+
+                            disperse();
+                            return false;
+                        });
+
+                    },
+            /*
+             This shows a content item when there is already one shown:
+             */
+                    showContentItem = function (pos) {
+                        $mbContentItems.hide();
+                        $mbWrapper.show();
+                        $mbContentItems.eq(pos).show().children('.mb_content_inner');
+                    },
+            /*
+             moves the boxes from the top to the center of the page,
+             and shows the respective content item
+             */
+                    openItem = function (pos, speed, easing) {
+                        return $.Deferred(
+                                function (dfd) {
+                                    $mbPattern.children().each(function (i) {
+                                        $(this).animate({
+                                            width: '100px',
+                                            height: '100px',
+                                            top: 100 * Math.floor(i / 4)-45,
+                                            left: 200 + 100 * (i % 4),
+                                            opacity: 0.8,
+                                            transform: 'rotate(' + 0 + 'deg)'
+                                        }, speed, easing, dfd.resolve);
+                                    });
+                                }
+                        ).promise();
+                    };
+
+            return {
+                init: init
+            };
+
+        })();
+
+        /*
+         call the init method of Menu
+         */
+        Menu.init();
+    });
 </script>
