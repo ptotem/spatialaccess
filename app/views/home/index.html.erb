@@ -145,6 +145,19 @@
         };
     })(jQuery);
 
+    $.fn.animateRotate = function(angle, duration, easing, complete) {
+        var args = $.speed(duration, easing, complete);
+        var step = args.step;
+        return this.each(function(i, e) {
+            args.step = function(now) {
+                $.style(e, 'transform', 'rotate(' + now + 'deg)');
+                if (step) return step.apply(this, arguments);
+            };
+
+            $({deg: 0}).animate({deg: angle}, args);
+        });
+    };
+
 
 </script>
 <script type="text/javascript">
@@ -210,8 +223,8 @@
                                         left: l + 'px',
                                         transform: 'rotate(' + a + 'deg)'
                                     };
-
                             $el.animate(param, 1000, 'easeOutExpo');
+                            $el.animateRotate(a);
                         });
                         setTimeout(function(){
                             $('#company-background').fadeIn();
@@ -287,6 +300,7 @@
                                             opacity: 0.8,
                                             transform: 'rotate(' + 0 + 'deg)'
                                         }, speed, easing, dfd.resolve);
+                                        $(this).animateRotate(0);
                                     });
                                 }
                         ).promise();
