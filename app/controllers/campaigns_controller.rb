@@ -16,31 +16,35 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
-    @channels=@campaign.channels.uniq
+
+    @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
+    @annochannels=[]
+    @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
 
     @channel_slots=[]
-    @channels.each do |channel|
+    @annochannels.each do |annochannel|
       @tvr=[]
       Hour.all.each do |hour|
-        @tvr << [hour.name.to_i, Slot.where(channel_id: channel.id, hour_id: hour.id).first.tvr]
+        @tvr << [hour.name.to_i, Slot.where(channel_id: annochannel.channel_id, hour_id: hour.id).first.tvr]
       end
-      @channel_slots<<[channel.name, @tvr]
+      @channel_slots<<[annochannel.channel.name, @tvr]
     end
 
     @channel_spots=[]
     @totalcount=[]
-    @channels.each_with_index do |channel, index|
+    @annochannels.each_with_index do |annochannel, index|
       @hourcount=[]
       Hour.all.each do |hour|
-        @hourcount << Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count
+        @hourcount << Spot.where(channel_id: annochannel.channel.id, campaign_id: @campaign.id, hour_id: hour.id).count
       end
       @totalcount[index]=@hourcount.sum
       @hoursum=[]
       Hour.all.each do |hour|
-        @hoursum << [hour.name.to_i, (Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i]
+        @hoursum << [hour.name.to_i, (Spot.where(channel_id: annochannel.channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i]
       end
-      @channel_spots<<[channel.name, @hoursum]
+      @channel_spots<<[annochannel.channel.name, @hoursum]
     end
+    gon.channels=@annochannels.map { |c| c.channel.name }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
 

@@ -265,6 +265,7 @@ span.mb_close:hover{
   font-size: 14px;
   line-height: 1.2em;
 }
+
 .channelname-placeholder {
   float: left;
   margin: 0;
@@ -310,10 +311,22 @@ span.mb_close:hover{
 
 .annotation_field{
   position: absolute;
-  margin-top:-28px;
-  margin-left:-14px;
+  top:15px;
+  left:-180px;
+  width:175px;
   text-align: center;
   display: inline;
+  font-size: 16px;
+}
+
+.show_annotation_field{
+  position: absolute;
+  top:15px;
+  left:-180px;
+  width:175px;
+  text-align: right;
+  display: inline;
+  font-size: 16px;
 }
 
 .confirmer{

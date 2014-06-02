@@ -1,3 +1,176 @@
 <h1 style="color:white">Select a Channel</h1>
-<%= render 'form' %>
+<style>
+    html, body {
+        overflow: auto;
+        width: 100%;
+        padding-left: 20px;
+    }
+</style>
+
+<%= nested_form_for(@campaign) do |f| %>
+    <%= select_tag :channel, options_for_select(@channels.each_with_index.map { |c, i| [c.name, i] }) %>
+    <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
+        <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
+          <div class="menu">
+            <div class="controls" id="controls_<%= annochannel.options[:child_index] %>">
+              <%= annochannel.fields_for :annotations do |annotation| %>
+                  <%= annotation.hidden_field :comment %>
+                  <%= annotation.hidden_field :shape %>
+                  <%= annotation.hidden_field :posx %>
+                  <%= annotation.hidden_field :posy %>
+                  <%= annotation.hidden_field :height %>
+                  <%= annotation.hidden_field :width %>
+                  <%= annotation.link_to_remove "", id: "remover-#{annochannel.options[:child_index]}_#{annotation.options[:child_index]}" %>
+              <% end %>
+              <%= annochannel.link_to_add image_tag("highlight.png"), :annotations %>
+              <%= annochannel.label "Show to Client" %>
+              <%= annochannel.check_box :showable %>
+            </div>
+            <%= annochannel.text_field :header, placeholder: "Put in the title caption for the graph", class: "title-placeholder" %>
+            <h3 id="channel_<%= annochannel.options[:child_index] %>" class="channelname-placeholder"></h3>
+          </div>
+          <div id="grapher_<%= annochannel.options[:child_index] %>" class="graph-placeholder"></div>
+        </div>
+
+    <% end %>
+    <div class="actions">
+      <%= f.submit "Submit", class: "btn btn-lg btn-danger" %>
+    </div>
+<% end %>
+
+<script>
+    var plots = [];
+    function show_graph(index) {
+        $('#channel_' + index).html(gon.channels[index]);
+        plots[index] = $.plot("#grapher_" + index, [
+                    {
+                        label: "Campaign Ad Spots",
+                        data: gon.channel_spots[index][1],
+                        bars: { show: true, fill: true }
+                    },
+                    {
+                        label: "TVR",
+                        data: gon.channel_slots[index][1],
+                        yaxis: 2
+                    }
+                ],
+                {
+                    xaxis: {
+                        ticks: [
+                            0,
+                            [ 2, "2AM" ],
+                            [ 3, "3AM" ],
+                            [ 4, "4AM" ],
+                            [ 5, "5AM" ],
+                            [ 6, "6AM" ],
+                            [ 7, "7AM" ],
+                            [ 8, "8AM" ],
+                            [ 9, "9AM" ],
+                            [ 10, "10AM" ],
+                            [ 11, "11AM" ],
+                            [ 12, "12PM" ],
+                            [ 13, "1PM" ],
+                            [ 14, "2PM" ],
+                            [ 15, "3PM" ],
+                            [ 16, "4PM" ],
+                            [ 17, "5PM" ],
+                            [ 18, "6PM" ],
+                            [ 19, "7PM" ],
+                            [ 20, "8PM" ],
+                            [ 21, "9PM" ],
+                            [ 22, "10PM" ],
+                            [ 23, "11PM" ],
+                            [ 24, "12AM" ],
+                            [ 25, "1AM" ]
+                        ]
+                    },
+                    yaxes: [
+                        { },
+                        {
+                            // align if we are to the right
+                            alignTicksWithAxis: 1,
+                            position: "right"
+                        }
+                    ],
+                    legend: { position: "nw" }
+                }
+        );
+        $.each($('#controls_' + index).find('.fields'), function (i, elm) {
+            create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i);
+        });
+    }
+    function create_annotation(field, posx, posy, height, width, comment, counter) {
+        var parentid = $(field).parent().attr('id').split("_")[1];
+        var fieldid = counter;
+        if (counter=="-1"){
+            fieldid = $(field).parent().find('.fields').length - 1;
+        }
+
+        $(field).attr("id", "anno-" + parentid + "_" + fieldid);
+        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='circle' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;' id='circle-" + parentid + "_" + fieldid + "'><a href='#' class='canceler btn btn-xs btn-danger' id='cancel-" + parentid + "_" + fieldid + "'>x</a></div>");
+        var $circle = $('#circle-' + parentid + "_" + fieldid);
+        $circle.append('<textarea class="annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '" placeholder="Put in the comment">' + comment + '</textarea><a href="#" class="confirmer btn btn-xs btn-danger" id="confirm-' + parentid + "_" + fieldid + '">OK</a>');
+        var $annocomment = $('#annotationfield-' + parentid + "_" + fieldid);
+        var $confirmer = $('#confirm-' + parentid + "_" + fieldid);
+        var $canceler = $('#cancel-' + parentid + "_" + fieldid);
+        $annocomment.on('focus', function () {
+            $confirmer.removeClass('confirmer');
+        });
+        $annocomment.on('blur', function () {
+            $confirmer.addClass('confirmer');
+            $annocomment.val($("#anno-" + parentid + "_" + $confirmer.attr("id").split("_")[1]).find('input').eq(0).val());
+        });
+        $confirmer.on("click", function () {
+            var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
+            $annotation.find('input').eq(0).val($annocomment.val());
+            $annocomment.blur();
+        });
+        $canceler.on("click", function () {
+            $(this).parent().remove();
+            $("#anno-"+ parentid+"_" + $confirmer.attr("id").split("_")[1]).find('a').eq(0).click();
+        });
+        $circle.draggable({
+            containment: "parent",
+            stop: function (event, ui) {
+                var Stoppos = $(this).position();
+                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
+                $annotation.find('input').eq(2).val(Stoppos.left);
+                $annotation.find('input').eq(3).val(Stoppos.top);
+            }
+        });
+        $circle.resizable({
+            containment: "parent",
+            stop: function (event, ui) {
+                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
+                $annotation.find('input').eq(4).val(ui.size.height);
+                $annotation.find('input').eq(5).val(ui.size.width);
+            }
+        });
+    }
+
+    $(function () {
+        $('#graph-container_0').show();
+        show_graph(0);
+        $('#channel').on('change', function () {
+            var index = parseInt($(this).val());
+            $('.editable-graph-container').hide();
+            $('#graph-container_' + index).fadeIn(function () {
+                show_graph(index);
+            });
+        });
+
+        $(document).on('nested:fieldAdded', function (event) {
+            var field = event.field;
+            create_annotation(field, 250, 100, 100, 100, "", -1);
+        });
+
+        $("form").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+
+    });
+
+</script>
 
