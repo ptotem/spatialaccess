@@ -1,0 +1,33 @@
+<h1>Listing slots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slots.each do |slot| %>
+      <tr>
+        <td><%= link_to 'Show', slot %></td>
+        <td><%= link_to 'Edit', edit_slot_path(slot) %></td>
+        <td><%= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Slot', new_slot_path %>
+
+
+<h2>Import Slots</h2>
+<%= form_tag import_slots_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+<% end %>
+

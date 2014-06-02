@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  channel_id: 1
+  hour_id: 1
+  tvr: 1
+
+two:
+  channel_id: 1
+  hour_id: 1
+  tvr: 1

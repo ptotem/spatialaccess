@@ -2,6 +2,7 @@ class Client < ActiveRecord::Base
 
   has_many :users
   has_many :customizations, dependent: :destroy
+  has_many :campaigns, dependent: :destroy
   has_attached_file :icon, :styles => { :thumb => "100x100>" }, :default_url => "/assets/missing_background.jpg"
   validates_attachment_content_type :icon, :content_type => /\Aimage\/.*\Z/
 

@@ -14,6 +14,8 @@ gem "rails_12factor"
 gem "better_errors"
 gem "binding_of_caller"
 gem 'gon'
+gem 'roo'
+gem 'nested_form'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -29,6 +31,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-easing-rails'
 gem 'paperclip'
 gem 'aws-sdk'

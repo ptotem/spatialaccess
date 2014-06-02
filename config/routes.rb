@@ -6,6 +6,14 @@ SpatialAccess::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
+
+  resources :slots do
+    collection { post :import }
+  end
+  resources :campaigns do
+    collection { post :import }
+  end
+
   root 'home#index'
 
   # Example of regular route:

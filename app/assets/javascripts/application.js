@@ -11,6 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.ui.draggable
+//= require jquery.ui.droppable
+//= require jquery.ui.resizable
 //= require jquery_ujs
 //= require jquery.easing
+//= require jquery_nested_form
 //= require_tree .
