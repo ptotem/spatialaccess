@@ -13,6 +13,10 @@
       <%= select_tag :channel, options_for_select([["HOME", 999]]+@annochannels.each_with_index.map { |c, i| [c.channel.name.upcase, i] }) %>
       <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
       <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
+      <% if current_user.email=="admin@spatialaccess.com" %>
+          <%= link_to "Edit", edit_campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
+      <% end %>
+      <!--<a href="http://pdf-ace.com/pdfme" target="_blank"><img src="http://pdf-ace.com/images/buttons/save-as-pdf-3.gif" width="120" height="27" alt="Save as PDF" /></a>-->
     </div>
 
     <div class="home-container">
@@ -214,7 +218,7 @@
             $(this).hide();
             $('.home-container').fadeIn();
             $('#showcards').fadeIn();
-            $.each($('.editable-graph-container'), function(index, elm){
+            $.each($('.editable-graph-container'), function (index, elm) {
                 $('#graph-container_' + index).fadeIn(function () {
                     show_graph(index);
                 });

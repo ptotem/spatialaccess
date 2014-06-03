@@ -11,6 +11,7 @@
       <h1 style="color:white">Select a Channel</h1>
       <%= select_tag :channel, options_for_select(@channels.each_with_index.map { |c, i| [c.name.upcase, i] }) %>
       <%= f.submit "Save All", class: "btn btn-danger", style: "margin-top:-7px" %>
+      <%= link_to "Cancel", campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
     </div>
 
     <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
