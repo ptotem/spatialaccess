@@ -16,7 +16,8 @@
       <% if current_user.email=="admin@spatialaccess.com" %>
           <%= link_to "Edit", edit_campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
       <% end %>
-      <!--<a href="http://pdf-ace.com/pdfme" target="_blank"><img src="http://pdf-ace.com/images/buttons/save-as-pdf-3.gif" width="120" height="27" alt="Save as PDF" /></a>-->
+      <%= link_to "Download as PDF", "/htmltopdf/#{@campaign.id}", class: "btn btn-info", style: "margin-top:-7px;" %>
+
     </div>
 
     <div class="home-container">

@@ -36,6 +36,7 @@ gem 'jquery-easing-rails'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'quiet_assets', :group => :development
+gem 'hypdf', '~> 1.0.2'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

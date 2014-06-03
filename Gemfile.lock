@@ -31,6 +31,7 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    bcrypt (3.1.7)
     bcrypt (3.1.7-x86-mingw32)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -67,6 +68,14 @@ GEM
     haml (4.0.5)
       tilt
     hike (1.2.3)
+    httmultiparty (0.3.10)
+      httparty (>= 0.7.3)
+      multipart-post
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    hypdf (1.0.7)
+      httmultiparty (= 0.3.10)
     i18n (0.6.9)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -89,7 +98,11 @@ GEM
     mini_portile (0.5.3)
     minitest (4.7.5)
     multi_json (1.9.2)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     nested_form (0.3.2)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     nokogiri (1.6.1-x86-mingw32)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -98,6 +111,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    pg (0.17.1)
     pg (0.17.1-x86-mingw32)
     polyglot (0.3.4)
     quiet_assets (1.0.2)
@@ -198,6 +212,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   gon
+  hypdf (~> 1.0.2)
   jbuilder (~> 1.2)
   jquery-easing-rails
   jquery-rails

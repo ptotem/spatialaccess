@@ -6,6 +6,11 @@ class CampaignsController < ApplicationController
     redirect_to '/admin', notice: "Campaign imported."
   end
 
+  def htmltopdf
+    hypdf = HyPDF.htmltopdf(render_to_string('/campaigns/'+params[:id]))
+    send_data(hypdf[:pdf], filename: 'hypdf_test.pdf', type: 'application/pdf')
+  end
+
 
   # GET /campaigns
   # GET /campaigns.json
