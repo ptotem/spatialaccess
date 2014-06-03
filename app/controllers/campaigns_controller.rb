@@ -31,6 +31,7 @@ class CampaignsController < ApplicationController
     end
 
     @channel_spots=[]
+    @channel_maxes=[]
     @totalcount=[]
     @annochannels.each_with_index do |annochannel, index|
       @hourcount=[]
@@ -39,14 +40,21 @@ class CampaignsController < ApplicationController
       end
       @totalcount[index]=@hourcount.sum
       @hoursum=[]
+      @maxvalue=0
       Hour.all.each do |hour|
-        @hoursum << [hour.name.to_i, (Spot.where(channel_id: annochannel.channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i]
+        spotscore=(Spot.where(channel_id: annochannel.channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i
+        @hoursum << [hour.name.to_i, spotscore]
+        if spotscore>@maxvalue
+          @maxvalue=spotscore
+        end
       end
       @channel_spots<<[annochannel.channel.name, @hoursum]
+      @channel_maxes<<[annochannel.channel.name, @maxvalue]
     end
-    gon.channels=@annochannels.map { |c| c.channel.name }
+    gon.channels=@annochannels.map { |c| c.channel.name.upcase }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
+    gon.channel_max=@channel_maxes
 
   end
 
@@ -80,6 +88,7 @@ class CampaignsController < ApplicationController
     end
 
     @channel_spots=[]
+    @channel_maxes=[]
     @totalcount=[]
     @channels.each_with_index do |channel, index|
       @hourcount=[]
@@ -88,14 +97,22 @@ class CampaignsController < ApplicationController
       end
       @totalcount[index]=@hourcount.sum
       @hoursum=[]
+      @maxvalue=0
       Hour.all.each do |hour|
-        @hoursum << [hour.name.to_i, (Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i]
+        spotscore=(Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i
+        @hoursum << [hour.name.to_i, spotscore]
+        if spotscore>@maxvalue
+          @maxvalue=spotscore
+        end
       end
       @channel_spots<<[channel.name, @hoursum]
+      @channel_maxes<<[channel.name, @maxvalue]
     end
-    gon.channels=@channels.map { |c| c.name }
+
+    gon.channels=@channels.map { |c| c.name.upcase }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
+    gon.channel_max=@channel_maxes
 
   end
 
@@ -148,7 +165,7 @@ class CampaignsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
     params.require(:campaign).permit(:client_id, :name, :tg, :start_date, :end_date, :markets,
-                                     :annochannels_attributes => [:id, :campaign_id, :channel_id, :showable, :header,
+                                     :annochannels_attributes => [:id, :campaign_id, :channel_id, :showable, :header, :comment,
                                                                   :annotations_attributes => [:id, :annochannel_id, :comment, :shape, :posx, :posy, :height, :width, :_destroy]
                                      ]
     )

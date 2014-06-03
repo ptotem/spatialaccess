@@ -1,4 +1,3 @@
-<h1 style="color:white">Select a Channel</h1>
 <style>
     html, body {
         overflow: auto;
@@ -8,7 +7,35 @@
 </style>
 
 <%= nested_form_for(@campaign) do |f| %>
-    <%= select_tag :channel, options_for_select(@annochannels.each_with_index.map { |c, i| [c.channel.name, i] }) %>
+
+    <div style="text-align: center;" id="selector">
+      <h1 style="color:white">Select a Channel</h1>
+      <%= select_tag :channel, options_for_select([["HOME", 999]]+@annochannels.each_with_index.map { |c, i| [c.channel.name.upcase, i] }) %>
+      <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
+      <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
+    </div>
+
+    <div class="home-container">
+      <%= image_tag "titler.jpg", style: "width:60%;float:left" %>
+      <div style="float:left;width:38%;margin-left:2%">
+        <h1>Campaign Preliminaries</h1>
+
+        <h3>Target Group:</h3>
+        M, 25-44, SEC AB, C&S
+        <%#= @campaign.tg %>
+        <h3>Time Period: </h3>
+        15th Nov’13
+        <%#= @campaign.start_date %>
+        to
+        <%#= @campaign.end_date %>
+        14th Dec’13
+        <h3>Markets: </h3>
+        All India, NEW
+        <%#= @campaign.markets %>
+      </div>
+    </div>
+
+
     <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
         <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
           <div class="menu">
@@ -22,10 +49,16 @@
                   <%= annotation.hidden_field :width %>
               <% end %>
             </div>
-            <%= annochannel.object.header %>
-            <h3 id="channel_<%= annochannel.options[:child_index] %>" class="channelname-placeholder"></h3>
+            <div class="title-placeholder" style="margin-left: 20px;">
+              <%= annochannel.object.header %>
+            </div>
           </div>
           <div id="grapher_<%= annochannel.options[:child_index] %>" class="graph-placeholder"></div>
+          <div class="commented-area">
+            <h1 id="channel_<%= annochannel.options[:child_index] %>" class="channelname-placeholder"></h1>
+
+            <div class="commented-placeholder"><%= annochannel.object.comment %></div>
+          </div>
         </div>
 
     <% end %>
@@ -39,7 +72,7 @@
                     {
                         label: "Campaign Ad Spots",
                         data: gon.channel_spots[index][1],
-                        bars: { show: true, fill: true }
+                        bars: { show: true, fill: true, align: "center", barWidth: 0.5 }
                     },
                     {
                         label: "TVR",
@@ -78,16 +111,25 @@
                         ]
                     },
                     yaxes: [
-                        { },
+                        { max: parseInt(gon.channel_max[index][1]) * 1.8
+                        },
                         {
                             // align if we are to the right
                             alignTicksWithAxis: 1,
-                            position: "right"
+                            position: "right",
+                            min: -0.005
                         }
                     ],
-                    legend: { position: "nw" }
+                    legend: { position: "nw" },
+                    grid: {
+                        hoverable: true,
+                        borderWidth: 2,
+                        backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+                    }
                 }
         );
+        $("#grapher_" + index).UseTooltip();
+
         $.each($('#controls_' + index).find('.fields'), function (i, elm) {
             create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i);
         });
@@ -95,7 +137,7 @@
     function create_annotation(field, posx, posy, height, width, comment, counter) {
         var parentid = $(field).parent().attr('id').split("_")[1];
         var fieldid = counter;
-        if (counter=="-1"){
+        if (counter == "-1") {
             fieldid = $(field).parent().find('.fields').length - 1;
         }
 
@@ -103,53 +145,88 @@
         $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='circle' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;' id='circle-" + parentid + "_" + fieldid + "'></div>");
         var $circle = $('#circle-' + parentid + "_" + fieldid);
         $circle.append('<div class="show_annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '">' + comment + '</div>');
-        var $annocomment = $('#annotationfield-' + parentid + "_" + fieldid);
-        var $confirmer = $('#confirm-' + parentid + "_" + fieldid);
-        var $canceler = $('#cancel-' + parentid + "_" + fieldid);
-        $annocomment.on('focus', function () {
-            $confirmer.removeClass('confirmer');
-        });
-        $annocomment.on('blur', function () {
-            $confirmer.addClass('confirmer');
-            $annocomment.val($("#anno-" + parentid + "_" + $confirmer.attr("id").split("_")[1]).find('input').eq(0).val());
-        });
-        $confirmer.on("click", function () {
-            var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-            $annotation.find('input').eq(0).val($annocomment.val());
-            $annocomment.blur();
-        });
-        $canceler.on("click", function () {
-            $(this).parent().remove();
-            $("#anno-" + $confirmer.attr("id").split("_")[1]).find('a').eq(0).click();
-        });
-        $circle.draggable({
-            containment: "parent",
-            stop: function (event, ui) {
-                var Stoppos = $(this).position();
-                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-                $annotation.find('input').eq(2).val(Stoppos.left);
-                $annotation.find('input').eq(3).val(Stoppos.top);
+    }
+
+
+    var previousPoint = null, previousLabel = null;
+
+    $.fn.UseTooltip = function () {
+        $(this).bind("plothover", function (event, pos, item) {
+            if (item) {
+                if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                    previousPoint = item.dataIndex;
+                    previousLabel = item.series.label;
+                    $("#tooltip").remove();
+
+                    var x = item.datapoint[0];
+                    var y = item.datapoint[1];
+
+                    var color = item.series.color;
+
+
+                    showTooltip(item.pageX,
+                            item.pageY,
+                            color,
+                                    "<strong>" + item.series.label + "</strong><br>" + item.series.xaxis.ticks[x - 1].label + " to " + item.series.xaxis.ticks[x].label + " : <strong>" + y + "</strong>");
+                }
+            } else {
+                $("#tooltip").remove();
+                previousPoint = null;
             }
         });
-        $circle.resizable({
-            containment: "parent",
-            stop: function (event, ui) {
-                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-                $annotation.find('input').eq(4).val(ui.size.height);
-                $annotation.find('input').eq(5).val(ui.size.width);
-            }
-        });
+    };
+
+    function showTooltip(x, y, color, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css({
+            position: 'absolute',
+            display: 'none',
+            top: y - 40,
+            left: x - 120,
+            border: '2px solid ' + color,
+            padding: '3px',
+            'font-size': '9px',
+            'border-radius': '5px',
+            'background-color': '#fff',
+            'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+            opacity: 0.9
+        }).appendTo("body").fadeIn(200);
     }
 
     $(function () {
-        $('#graph-container_0').show();
-        show_graph(0);
+
         $('#channel').on('change', function () {
             var index = parseInt($(this).val());
-            $('.editable-graph-container').hide();
-            $('#graph-container_' + index).fadeIn(function () {
-                show_graph(index);
+            if (index == 999) {
+                $('.editable-graph-container').hide();
+                $('.home-container').fadeIn();
+            } else {
+                $('.home-container').hide();
+                $('.editable-graph-container').hide();
+                $('#graph-container_' + index).fadeIn(function () {
+                    show_graph(index);
+                });
+            }
+            $('#showcards').hide();
+            $('#showall').fadeIn();
+        });
+
+        $('#showall').on("click", function () {
+            $(this).hide();
+            $('.home-container').fadeIn();
+            $('#showcards').fadeIn();
+            $.each($('.editable-graph-container'), function(index, elm){
+                $('#graph-container_' + index).fadeIn(function () {
+                    show_graph(index);
+                });
             });
+
+
+        });
+        $('#showcards').on("click", function () {
+            $(this).hide();
+            $('#showall').fadeIn();
+            $('.editable-graph-container').hide();
+            $('.home-container').fadeIn();
         });
 
         $(document).on('nested:fieldAdded', function (event) {

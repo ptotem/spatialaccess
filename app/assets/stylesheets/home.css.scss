@@ -220,43 +220,36 @@ span.mb_close:hover{
   padding-top: 20px;
   padding-right: 15px;
   padding-left: 15px;
-  padding-bottom: 60px;
+  padding-bottom: 150px;
   margin: 15px auto 30px auto;
   border: 1px solid #ddd;
-  background: #fff;
-  background: linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  -o-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 20px;
+//  background: #fff;
+  background: url('/assets/cardback.jpg');
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -ms-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
 }
-
-.graph-container {
+.home-container {
+  position: relative;
   box-sizing: border-box;
   width: 960px;
   height: 450px;
   padding-top: 20px;
   padding-right: 15px;
   padding-left: 15px;
-  padding-bottom: 30px;
+  padding-bottom: 150px;
   margin: 15px auto 30px auto;
   border: 1px solid #ddd;
-  background: #fff;
-  background: linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
-  background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  -o-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 20px;
+  background: url('/assets/cardback.jpg');
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -ms-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
 }
 
 .graph-placeholder {
@@ -266,20 +259,46 @@ span.mb_close:hover{
   line-height: 1.2em;
 }
 
-.channelname-placeholder {
-  float: left;
-  margin: 0;
-  padding: 0;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1.2em;
-}
-
 .title-placeholder {
+  float: left;
   width:400px;
   text-align: center;
-  box-shadow: dodgerblue 0 0 10px;
-  border-radius: 5px;
+  background: palegoldenrod;
+  padding: 3px;
+}
+.comment-placeholder {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 10px;
+  text-align: center;
+  width:100%;
+  height: 50px;
+  background: palegoldenrod;
+  padding: 3px;
+}
+
+.commented-area{
+  position: relative;
+  display: table;
+  width:93%;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.channelname-placeholder {
+  margin: 0;
+  padding-right: 10px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.commented-placeholder {
+  margin: 0 auto;
+  width:100%;
+  height: 50px;
+  background: palegoldenrod;
+  padding: 10px;
+  display: table-cell;
+  font-weight: bold;
 }
 
 .legend table {
@@ -335,4 +354,9 @@ span.mb_close:hover{
 
 .canceler{
   float:right;
+}
+
+select {
+  font-size: 20px;
+  padding: 2px;
 }
