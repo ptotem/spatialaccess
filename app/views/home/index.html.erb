@@ -87,7 +87,7 @@
     <br/>
     <%= link_to "Let us show you something", campaign_path(current_client.campaigns.where(active:true).last), class: "btn btn-danger", id: "sampler-link" %>
     <br/>
-    <% if current_client.name=="Home" and current_user.email=="admin@spatialaccessapp.in" %>
+    <% if request.subdomain=="www" and current_user.email=="admin@spatialaccessapp.in" %>
         <%= link_to "Admin Panel", '/admin', class: "btn btn-warning" %>
     <% elsif current_user.email=="admin@spatialaccessapp.in"%>
         <%= link_to "Admin Panel", '/admin', class: "btn btn-warning" %>
