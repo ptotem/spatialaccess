@@ -30,6 +30,11 @@ class Client < ActiveRecord::Base
       field :name
       field :subdomain
     end
+    edit do
+      field :name
+      field :subdomain
+    end
+
   end
 
 end
