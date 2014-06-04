@@ -90,7 +90,7 @@
     <% if current_user.email=="admin@spatialaccessapp.in" %>
         <%= link_to "Admin Panel", '/admin', class: "btn btn-warning" %>
         <%= link_to "Campaigns List", campaigns_path, class: "btn btn-info" %>
-    <% elsif current_user.email=="demo@spatialaccessapp.in"%>
+    <% elsif current_user.email=="content@spatialaccessapp.in"%>
         <%= link_to "Campaigns List", campaigns_path, class: "btn btn-warning" %>
     <% end %>
   </div>

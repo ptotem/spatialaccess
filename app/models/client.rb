@@ -10,6 +10,7 @@ class Client < ActiveRecord::Base
 
   def create_base_users
     User.create!(client_id: self.id, email: "admin@spatialaccessapp.in", password: "mediagods", password_confirmation: "mediagods")
+    User.create!(client_id: self.id, email: "content@spatialaccessapp.in", password: "mediagods", password_confirmation: "mediagods")
     User.create!(client_id: self.id, email: "demo@spatialaccessapp.in", password: "mediagods", password_confirmation: "mediagods")
   end
 
