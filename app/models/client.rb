@@ -23,7 +23,7 @@ class Client < ActiveRecord::Base
 
   rails_admin do
     visible do
-      bindings[:controller].current_user.email == "admin@spatialaccessapp.in" and bindings[:controller].current_client.name == "Home"
+      bindings[:controller].current_user.email == "admin@spatialaccessapp.in" and bindings[:controller].current_user.client.name == "Home"
     end
     list do
       field :name
