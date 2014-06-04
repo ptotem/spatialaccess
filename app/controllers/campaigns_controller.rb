@@ -74,6 +74,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1/edit
   def build_campaign
 
+    @campaign=Campaign.find(params[:id])
     @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
     @annochannels=[]
     if @campaign.annochannels.blank?
