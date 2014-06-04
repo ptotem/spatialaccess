@@ -1,234 +1,33 @@
 <style>
-    html, body {
-        overflow: auto;
-        width: 100%;
-        padding-left: 20px;
+    #fwrapper {
+        margin: 40px;
+        padding: 40px;
+        background: white;;
     }
 </style>
+<div id="fwrapper">
+  <h1>New campaign for <%= current_client.name.titlecase %></h1>
 
-<%= nested_form_for(@campaign) do |f| %>
-    <div style="text-align: center;">
-      <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select(@channels.each_with_index.map { |c, i| [c.name.upcase, i] }) %>
-      <%= f.submit "Save All", class: "btn btn-danger", style: "margin-top:-7px" %>
-      <%= link_to "Cancel", campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
-    </div>
+  <%= form_for(@campaign) do |f| %>
+      <br/>
+      <%= f.hidden_field :client_id, value: current_client.id %>
+      <%= f.text_field :name, placeholder: "Campaign Name", style: "font-size:24px;margin-bottom:5px;padding-left:5px;" %>
+      <br/>
+      <%= f.text_field :tg, placeholder: "Target Group", style: "font-size:24px;margin-bottom:5px;padding-left:5px;" %>
+      <br/>
+      <%= f.text_field :markets, placeholder: "Markets", style: "font-size:24px;margin-bottom:5px;padding-left:5px;" %>
+      <br/>
+      <%= f.label "Make this the default campaign" %>
+      <%= f.check_box :active %>
+      <br/>
+      <br/>
 
-    <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
-        <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
-          <div class="menu">
-            <div class="controls" id="controls_<%= annochannel.options[:child_index] %>">
-              <%= annochannel.fields_for :annotations do |annotation| %>
-                  <%= annotation.hidden_field :comment %>
-                  <%= annotation.hidden_field :shape %>
-                  <%= annotation.hidden_field :posx %>
-                  <%= annotation.hidden_field :posy %>
-                  <%= annotation.hidden_field :height %>
-                  <%= annotation.hidden_field :width %>
-                  <%= annotation.link_to_remove "", id: "remover-#{annochannel.options[:child_index]}_#{annotation.options[:child_index]}" %>
-              <% end %>
-              <%= annochannel.link_to_add image_tag("highlight.png"), :annotations %>
-              <%= annochannel.label "Show to Client" %>
-              <%= annochannel.check_box :showable %>
-            </div>
-            <%= annochannel.text_field :header, placeholder: "Put in the title caption for the graph", class: "title-placeholder" %>
+      <div style="font-size: 24px">Campaign Dates</div>
+      <%= f.date_select :start_date, placeholder: "Campaign Start Date" %> ---
+      <%= f.date_select :end_date, placeholder: "Campaign End Date" %>
+      <br/>
+      <br/>
+      <%= f.submit "Create Campaign", class: "btn btn-danger btn-lg" %>
+  <% end %>
 
-          </div>
-          <div id="grapher_<%= annochannel.options[:child_index] %>" class="graph-placeholder"></div>
-          <%= annochannel.text_area :comment, placeholder: "Put in your comments here", class: "comment-placeholder" %>
-        </div>
-
-
-    <% end %>
-
-<% end %>
-
-<script>
-    var plots = [];
-    function show_graph(index) {
-        $('#channel_' + index).html(gon.channels[index]);
-        plots[index] = $.plot("#grapher_" + index, [
-                    {
-                        label: "Campaign Ad Spots",
-                        data: gon.channel_spots[index][1],
-                        bars: { show: true, fill: true, align: "center", barWidth: 0.5 }
-                    },
-                    {
-                        label: "TVR",
-                        data: gon.channel_slots[index][1],
-                        yaxis: 2
-                    }
-                ],
-                {
-                    xaxis: {
-                        ticks: [
-                            0,
-                            [ 2, "2AM" ],
-                            [ 3, "3AM" ],
-                            [ 4, "4AM" ],
-                            [ 5, "5AM" ],
-                            [ 6, "6AM" ],
-                            [ 7, "7AM" ],
-                            [ 8, "8AM" ],
-                            [ 9, "9AM" ],
-                            [ 10, "10AM" ],
-                            [ 11, "11AM" ],
-                            [ 12, "12PM" ],
-                            [ 13, "1PM" ],
-                            [ 14, "2PM" ],
-                            [ 15, "3PM" ],
-                            [ 16, "4PM" ],
-                            [ 17, "5PM" ],
-                            [ 18, "6PM" ],
-                            [ 19, "7PM" ],
-                            [ 20, "8PM" ],
-                            [ 21, "9PM" ],
-                            [ 22, "10PM" ],
-                            [ 23, "11PM" ],
-                            [ 24, "12AM" ],
-                            [ 25, "1AM" ]
-                        ]
-                    },
-                    yaxes: [
-                        { max: parseInt(gon.channel_max[index][1]) * 1.8
-                        },
-                        {
-                            // align if we are to the right
-                            alignTicksWithAxis: 1,
-                            position: "right",
-                            min: -0.005
-                        }
-                    ],
-                    legend: { position: "nw" },
-                    grid: {
-                        hoverable: true,
-                        borderWidth: 2,
-                        backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
-                    }
-                });
-        $("#grapher_" + index).UseTooltip();
-        $.each($('#controls_' + index).find('.fields'), function (i, elm) {
-            create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i);
-        });
-    }
-    function create_annotation(field, posx, posy, height, width, comment, counter) {
-        var parentid = $(field).parent().attr('id').split("_")[1];
-        var fieldid = counter;
-        if (counter == "-1") {
-            fieldid = $(field).parent().find('.fields').length - 1;
-        }
-
-        $(field).attr("id", "anno-" + parentid + "_" + fieldid);
-        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='circle' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;' id='circle-" + parentid + "_" + fieldid + "'><a href='#' class='canceler btn btn-xs btn-danger' id='cancel-" + parentid + "_" + fieldid + "'>x</a></div>");
-        var $circle = $('#circle-' + parentid + "_" + fieldid);
-        $circle.append('<textarea class="annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '" placeholder="Put in the comment">' + comment + '</textarea><a href="#" class="confirmer btn btn-xs btn-danger" id="confirm-' + parentid + "_" + fieldid + '">OK</a>');
-        var $annocomment = $('#annotationfield-' + parentid + "_" + fieldid);
-        var $confirmer = $('#confirm-' + parentid + "_" + fieldid);
-        var $canceler = $('#cancel-' + parentid + "_" + fieldid);
-        $annocomment.on('focus', function () {
-            $confirmer.removeClass('confirmer');
-        });
-        $annocomment.on('blur', function () {
-            $confirmer.addClass('confirmer');
-            $annocomment.val($("#anno-" + parentid + "_" + $confirmer.attr("id").split("_")[1]).find('input').eq(0).val());
-        });
-        $confirmer.on("click", function () {
-            var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-            $annotation.find('input').eq(0).val($annocomment.val());
-            $annocomment.blur();
-        });
-        $canceler.on("click", function () {
-            $(this).parent().remove();
-            $("#anno-" + parentid + "_" + $confirmer.attr("id").split("_")[1]).find('a').eq(0).click();
-        });
-        $circle.draggable({
-            containment: "parent",
-            stop: function (event, ui) {
-                var Stoppos = $(this).position();
-                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-                $annotation.find('input').eq(2).val(Stoppos.left);
-                $annotation.find('input').eq(3).val(Stoppos.top);
-            }
-        });
-        $circle.resizable({
-            containment: "parent",
-            stop: function (event, ui) {
-                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-                $annotation.find('input').eq(4).val(ui.size.height);
-                $annotation.find('input').eq(5).val(ui.size.width);
-            }
-        });
-    }
-
-    var previousPoint = null, previousLabel = null;
-
-    $.fn.UseTooltip = function () {
-        $(this).bind("plothover", function (event, pos, item) {
-            if (item) {
-                if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
-                    previousPoint = item.dataIndex;
-                    previousLabel = item.series.label;
-                    $("#tooltip").remove();
-
-                    var x = item.datapoint[0];
-                    var y = item.datapoint[1];
-
-                    var color = item.series.color;
-
-
-                    showTooltip(item.pageX,
-                            item.pageY,
-                            color,
-                                    "<strong>" + item.series.label + "</strong><br>" + item.series.xaxis.ticks[x - 1].label + " to " + item.series.xaxis.ticks[x].label + " : <strong>" + y + "</strong>");
-                }
-            } else {
-                $("#tooltip").remove();
-                previousPoint = null;
-            }
-        });
-    };
-
-    function showTooltip(x, y, color, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css({
-            position: 'absolute',
-            display: 'none',
-            top: y - 40,
-            left: x - 120,
-            border: '2px solid ' + color,
-            padding: '3px',
-            'font-size': '9px',
-            'border-radius': '5px',
-            'background-color': '#fff',
-            'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-            opacity: 0.9
-        }).appendTo("body").fadeIn(200);
-    }
-
-    $(function () {
-        $('#graph-container_0').show();
-        show_graph(0);
-        $('#channel').on('change', function () {
-            var index = parseInt($(this).val());
-            $('.editable-graph-container').hide();
-            $('#graph-container_' + index).fadeIn(function () {
-                if (plots[index] == null) {
-                    show_graph(index);
-                }
-            });
-        });
-
-        $(document).on('nested:fieldAdded', function (event) {
-            var field = event.field;
-            create_annotation(field, 250, 100, 100, 100, "", -1);
-        });
-
-        $("form").on("keypress", function (e) {
-            if (e.keyCode == 13) {
-                e.stopPropagation();
-            }
-        });
-
-    });
-
-</script>
-
+</div>

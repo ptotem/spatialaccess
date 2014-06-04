@@ -9,6 +9,7 @@ SpatialAccess::Application.routes.draw do
 
   post "/htmltopdf/:id" => 'campaigns#htmltopdf'
   get "/get_content/:id" => 'campaigns#get_content', as: "get_content"
+  get "/build_campaign/:id" => 'campaigns#build_campaign', as: "build_the_campaign"
   post "/import_content/:id" => 'campaigns#import_content', as: "import_content"
 
   resources :clients

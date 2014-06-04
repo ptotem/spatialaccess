@@ -87,10 +87,11 @@
     <br/>
     <%= link_to "Let us show you something", campaign_path(current_client.campaigns.where(active:true).last), class: "btn btn-danger", id: "sampler-link" %>
     <br/>
-    <% if current_client.name=="Home" and current_user.email=="admin@spatialaccessapp.in" %>
+    <% if current_user.email=="admin@spatialaccessapp.in" %>
         <%= link_to "Admin Panel", '/admin', class: "btn btn-warning" %>
-    <% elsif current_user.email=="admin@spatialaccessapp.in"%>
-        <%= link_to "Admin Panel", '/admin', class: "btn btn-warning" %>
+        <%= link_to "Campaigns List", campaigns_path, class: "btn btn-info" %>
+    <% elsif current_user.email=="demo@spatialaccessapp.in"%>
+        <%= link_to "Campaigns List", campaigns_path, class: "btn btn-warning" %>
     <% end %>
   </div>
 </div>

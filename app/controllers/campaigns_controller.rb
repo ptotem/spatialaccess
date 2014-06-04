@@ -68,8 +68,11 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new
   end
 
-  # GET /campaigns/1/edit
   def edit
+  end
+
+  # GET /campaigns/1/edit
+  def build_campaign
 
     @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
     @annochannels=[]
