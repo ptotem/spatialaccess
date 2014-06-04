@@ -211,7 +211,9 @@
             var index = parseInt($(this).val());
             $('.editable-graph-container').hide();
             $('#graph-container_' + index).fadeIn(function () {
-                show_graph(index);
+                if (plots[index] == null) {
+                    show_graph(index);
+                }
             });
         });
 

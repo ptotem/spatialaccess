@@ -1,30 +1,33 @@
-<h1>Listing campaigns</h1>
-
-<table>
-  <thead>
+<style>
+    #fwrapper {
+        margin: 40px;
+        padding: 40px;
+        background: white;;
+    }
+</style>
+<div id="fwrapper">
+  <h1>Listing campaigns for <%= current_client.name.titlecase %></h1>
+  <table>
+    <thead>
     <tr>
       <th></th>
       <th></th>
       <th></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @campaigns.each do |campaign| %>
-      <tr>
-        <td><%= link_to 'Show', campaign %></td>
-        <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
-        <td><%= link_to 'Destroy', campaign, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tr>
+          <td><%= link_to 'Show', campaign %></td>
+          <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
+          <td><%= link_to 'Destroy', campaign, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
-
-<h2>Import Campaign</h2>
-<%= form_tag import_campaigns_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-<% end %>
+  <br>
+  <%= link_to "New Campaign", new_campaign_path, class: "btn btn-danger btn-lg" %>
+</div>
 

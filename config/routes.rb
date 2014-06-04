@@ -8,6 +8,8 @@ SpatialAccess::Application.routes.draw do
   # You can have the root of your site routed with "root"
 
   post "/htmltopdf/:id" => 'campaigns#htmltopdf'
+  get "/get_content/:id" => 'campaigns#get_content', as: "get_content"
+  post "/import_content/:id" => 'campaigns#import_content', as: "import_content"
 
   resources :slots do
     collection { post :import }

@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Client.create!(name:"Home", subdomain: "spatialaccess")
+Client.create!(name:"Home", subdomain: "spatialaccess")
 
 (2..23).each do |i|
   Hour.create!(name:i,start_time:Time.new(1970, 1, 1, i, 0, 0, "+00:00"),end_time:Time.new(1970, 1, 1, i, 59, 59, "+00:00"),)

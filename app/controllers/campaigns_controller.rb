@@ -128,13 +128,22 @@ class CampaignsController < ApplicationController
 
     respond_to do |format|
       if @campaign.save
-        format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @campaign }
+        format.html { redirect_to get_content_path(@campaign), notice: 'Campaign was successfully created.' }
       else
         format.html { render action: 'new' }
-        format.json { render json: @campaign.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def get_content
+    @campaign=Campaign.find(params[:id])
+  end
+
+  def import_content
+    @campaign=Campaign.find(params[:id])
+    Slot.import(params[:tvrfile], @campaign.id)
+    Campaign.import(params[:spotsfile], @campaign.id)
+    redirect_to edit_campaign_path(@campaign), notice: "Campaign imported."
   end
 
   # PATCH/PUT /campaigns/1

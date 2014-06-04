@@ -1,0 +1,22 @@
+<style>
+    #fwrapper {
+        margin: 40px;
+        padding: 40px;
+        background: white;;
+    }
+</style>
+<div id="fwrapper">
+  <h1>Import Data for <%= @campaign.name %> Campaign for <%= current_client.name.titlecase %></h1>
+  <%= form_tag import_content_path(@campaign), multipart: true do %>
+      Add the TVR File
+      <%= file_field_tag :tvrfile %>
+      <br/>
+      Add the Ad Spots File
+      <%= file_field_tag :spotsfile %>
+      <br/>
+      <%= submit_tag "Import", class: "btn btn-danger btn-lg" %>
+      <br/>
+      <h3>P.S. This will take about 5 odd minutes, please be patient.</h3>
+  <% end %>
+</div>
+

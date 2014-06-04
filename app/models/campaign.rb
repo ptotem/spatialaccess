@@ -1,5 +1,6 @@
 class Campaign < ActiveRecord::Base
   belongs_to :client
+  has_many :slots, dependent: :destroy
   has_many :spots, dependent: :destroy
   has_many :channels, through: :spots
   has_many :annotations, dependent: :destroy
@@ -8,19 +9,14 @@ class Campaign < ActiveRecord::Base
 
   require 'roo'
 
-  def self.import(file, client)
+  def self.import(file, campaign)
     spreadsheet = open_spreadsheet(file)
-    if Campaign.where(client_id: client.id, name: spreadsheet.row(6)[2]).blank?
-      campaign=Campaign.create!(client_id: client.id, name: spreadsheet.row(6)[2])
-    else
-      campaign=Campaign.where(client_id: client.id, name: spreadsheet.row(6)[2]).first
-    end
-
     (6..spreadsheet.last_row-31).each do |i|
-      unless Channel.find_by_name(spreadsheet.row(i)[0]).blank?
+      channel=Channel.find_by_name(spreadsheet.row(i)[0])
+      unless channel.blank?
         spot=Spot.new
-        spot.campaign_id=campaign.id
-        spot.channel_id=Channel.find_by_name(spreadsheet.row(i)[0]).id
+        spot.campaign_id=campaign
+        spot.channel_id=channel.id
         spot.airdate=spreadsheet.row(i)[2]
         spot.programme=spreadsheet.row(i)[5]
         spothour=Time.at(spreadsheet.row(i)[4]).getgm.hour
