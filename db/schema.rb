@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603142542) do
+ActiveRecord::Schema.define(version: 20140604032955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140603142542) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "markets"
+    t.boolean  "active",     default: true
   end
 
   create_table "channels", force: true do |t|

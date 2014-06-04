@@ -11,6 +11,7 @@ SpatialAccess::Application.routes.draw do
   get "/get_content/:id" => 'campaigns#get_content', as: "get_content"
   post "/import_content/:id" => 'campaigns#import_content', as: "import_content"
 
+  resources :clients
   resources :slots do
     collection { post :import }
   end

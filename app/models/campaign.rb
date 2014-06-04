@@ -45,5 +45,14 @@ class Campaign < ActiveRecord::Base
     end
   end
 
+  rails_admin do
+    list do
+      field :name
+      field :start_date
+      field :end_date
+      field :active
+    end
+  end
+
 
 end
