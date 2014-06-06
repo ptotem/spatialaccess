@@ -1,15 +1,23 @@
 <style>
+    body, html {
+        overflow: auto;
+    }
+
     #fwrapper {
-        margin: 40px;
+        width: 960px;
+        margin: 40px auto;
         padding: 40px;
         background: white;;
     }
 </style>
 <div id="fwrapper">
   <h1>Listing campaigns for <%= current_client.name.titlecase %></h1>
-  <table>
+  <table class="table">
     <thead>
     <tr>
+      <th>Campaign Name</th>
+      <th>Campaign Status</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -19,6 +27,8 @@
     <tbody>
     <% @campaigns.each do |campaign| %>
         <tr>
+          <td><%= campaign.name %></td>
+          <td><%= campaign.active %></td>
           <td><%= link_to 'Show', campaign %></td>
           <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
           <td><%= link_to 'Build Campaign', build_the_campaign_path(campaign) %></td>
