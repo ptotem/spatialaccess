@@ -13,7 +13,7 @@
       <%= select_tag :channel, options_for_select([["HOME", 999]]+@annochannels.each_with_index.map { |c, i| [c.channel.name.upcase, i] }) %>
       <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
       <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
-      <% if current_user.email=="admin@spatialaccess.com" %>
+      <% if current_user.email=="admin@spatialaccess.com" or current_user.email=="content@spatialaccess.com" %>
           <%= link_to "Edit", edit_campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
       <% end %>
       <%= link_to "Download as PDF", "/htmltopdf/#{@campaign.id}", class: "btn btn-info", style: "margin-top:-7px;" %>
