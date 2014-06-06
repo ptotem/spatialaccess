@@ -28,7 +28,7 @@
     <% @campaigns.each do |campaign| %>
         <tr>
           <td><%= campaign.name %></td>
-          <td><%= campaign.active %></td>
+          <td><%= campaign.active ? "Active": "Inactive" %></td>
           <td><%= link_to 'Show', campaign %></td>
           <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
           <td><%= link_to 'Build Campaign', build_the_campaign_path(campaign) %></td>
