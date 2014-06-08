@@ -15,7 +15,7 @@ class Campaign < ActiveRecord::Base
 
   def self.import(campaign)
     @campaign = Campaign.find(campaign)
-    file = @campaign.cfile
+    file = @campaign.cfile.url(:original)
     puts "---------------------------------------------------------------------------------"
     puts file
     puts "---------------------------------------------------------------------------------"
