@@ -8,6 +8,9 @@ class Slot < ActiveRecord::Base
   def self.import(campaign)
     @campaign = Campaign.find(campaign)
     file = @campaign.sfile
+    puts "---------------------------------------------------------------------------------"
+    puts file
+    puts "---------------------------------------------------------------------------------"
     spreadsheet = open_spreadsheet(file)
     (6..spreadsheet.last_row-22).each do |i|
       slot=Slot.new
