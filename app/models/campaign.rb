@@ -15,7 +15,7 @@ class Campaign < ActiveRecord::Base
 
   def self.import(campaign)
     @campaign = Campaign.find(campaign)
-    file = @campaign.cfile.url(:original)
+    file = @campaign.cfile
     puts "---------------------------------------------------------------------------------"
     puts file
     puts "---------------------------------------------------------------------------------"
@@ -48,7 +48,7 @@ class Campaign < ActiveRecord::Base
       when '.xls' then
         Roo::Excel.new(file.path, nil, :ignore)
       when '.xlsx' then
-        Roo::Excelx.new(file.path, nil, :ignore)
+        Roo::Excelx.new(file.url, nil, :ignore)
       else
         raise "Unknown file type: #{file.original_filename}"
     end
