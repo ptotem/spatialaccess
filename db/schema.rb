@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604032955) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20140607091607) do
 
   create_table "annochannels", force: true do |t|
     t.integer  "campaign_id"
@@ -47,7 +44,15 @@ ActiveRecord::Schema.define(version: 20140604032955) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "markets"
-    t.boolean  "active",     default: true
+    t.boolean  "active",             default: true
+    t.string   "cfile_file_name"
+    t.string   "cfile_content_type"
+    t.integer  "cfile_file_size"
+    t.datetime "cfile_updated_at"
+    t.string   "sfile_file_name"
+    t.string   "sfile_content_type"
+    t.integer  "sfile_file_size"
+    t.datetime "sfile_updated_at"
   end
 
   create_table "channels", force: true do |t|
@@ -77,6 +82,22 @@ ActiveRecord::Schema.define(version: 20140604032955) do
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
   end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "hours", force: true do |t|
     t.string   "name"

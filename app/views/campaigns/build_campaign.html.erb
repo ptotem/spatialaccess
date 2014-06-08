@@ -14,7 +14,7 @@
       <%= link_to "Cancel", campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
     </div>
 
-    <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
+    <%= f.fields_for :annochannels, @annochannels.compact! do |annochannel| %>
         <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
           <div class="menu">
             <div class="controls" id="controls_<%= annochannel.options[:child_index] %>">

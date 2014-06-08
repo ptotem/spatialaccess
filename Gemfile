@@ -64,3 +64,9 @@ end
 
 
 gem "devise"
+
+#Use delayed Job for background processing
+gem 'delayed_job_active_record'
+# gem "wkhtmltopdf-heroku"
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'

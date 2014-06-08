@@ -30,7 +30,7 @@ class CampaignsController < ApplicationController
     @annochannels.each do |annochannel|
       @tvr=[]
       Hour.all.each do |hour|
-        @tvr << [hour.name.to_i, Slot.where(channel_id: annochannel.channel_id, hour_id: hour.id).first.tvr]
+        @tvr << [hour.name.to_i, (Slot.where(channel_id: annochannel.channel_id, hour_id: hour.id).first.tvr rescue '')]
       end
       @channel_slots<<[annochannel.channel.name, @tvr]
     end
@@ -60,6 +60,8 @@ class CampaignsController < ApplicationController
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
+
+    # render :pdf => 'show_report'
 
   end
 
@@ -91,7 +93,7 @@ class CampaignsController < ApplicationController
     @channels.each do |channel|
       @tvr=[]
       Hour.all.each do |hour|
-        @tvr << [hour.name.to_i, Slot.where(channel_id: channel.id, hour_id: hour.id).first.tvr]
+        @tvr << [hour.name.to_i, (Slot.where(channel_id: channel.id, hour_id: hour.id).first.tvr rescue "")]
       end
       @channel_slots<<[channel.name, @tvr]
     end
@@ -145,8 +147,13 @@ class CampaignsController < ApplicationController
 
   def import_content
     @campaign=Campaign.find(params[:id])
-    Slot.import(params[:tvrfile], @campaign.id)
-    Campaign.import(params[:spotsfile], @campaign.id)
+    @campaign.sfile = params[:tvrfile]
+    @campaign.cfile = params[:spotsfile]
+    @campaign.save
+    # render :json => @campaign
+    # return
+    Slot.delay.import(@campaign.id)
+    Campaign.delay.import(@campaign.id)
     redirect_to edit_campaign_path(@campaign), notice: "Campaign imported."
   end
 

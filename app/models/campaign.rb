@@ -5,11 +5,17 @@ class Campaign < ActiveRecord::Base
   has_many :channels, through: :spots
   has_many :annotations, dependent: :destroy
   has_many :annochannels, dependent: :destroy
+  has_attached_file :cfile
+  has_attached_file :sfile
+  do_not_validate_attachment_file_type :cfile
+  do_not_validate_attachment_file_type :sfile
   accepts_nested_attributes_for :annochannels
 
   require 'roo'
 
-  def self.import(file, campaign)
+  def self.import(campaign)
+    @campaign = Campaign.find(campaign)
+    file = @campaign.cfile
     spreadsheet = open_spreadsheet(file)
     (6..spreadsheet.last_row-31).each do |i|
       channel=Channel.find_by_name(spreadsheet.row(i)[0])
