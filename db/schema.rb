@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607091607) do
+ActiveRecord::Schema.define(version: 20140702140821) do
 
   create_table "annochannels", force: true do |t|
     t.integer  "campaign_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140607091607) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "comment"
+    t.string   "class_name"
   end
 
   create_table "annotations", force: true do |t|
@@ -33,6 +34,17 @@ ActiveRecord::Schema.define(version: 20140607091607) do
     t.integer  "posy"
     t.integer  "height"
     t.integer  "width"
+    t.string   "class_name"
+  end
+
+  create_table "calculated_data", force: true do |t|
+    t.integer  "campaign_id"
+    t.integer  "channel_id"
+    t.hstore   "channel_slots"
+    t.hstore   "channel_spots"
+    t.hstore   "channel_maxes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "campaigns", force: true do |t|
@@ -73,6 +85,13 @@ ActiveRecord::Schema.define(version: 20140607091607) do
     t.datetime "icon_updated_at"
   end
 
+  create_table "cslides", force: true do |t|
+    t.integer  "child_id"
+    t.integer  "slide_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "customizations", force: true do |t|
     t.integer  "client_id"
     t.datetime "created_at"
@@ -107,6 +126,31 @@ ActiveRecord::Schema.define(version: 20140607091607) do
     t.datetime "updated_at"
   end
 
+  create_table "presentation_templates", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "footer"
+    t.integer  "presentation_id"
+    t.integer  "slide_id"
+  end
+
+  create_table "presentations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+  end
+
+  create_table "presesntation_slides", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "presesntations", force: true do |t|
+    t.string   "header"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
     t.string   "username"
@@ -119,6 +163,16 @@ ActiveRecord::Schema.define(version: 20140607091607) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
+
+  create_table "slides", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "name"
+  end
 
   create_table "slots", force: true do |t|
     t.integer  "channel_id"

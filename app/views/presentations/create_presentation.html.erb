@@ -1,0 +1,277 @@
+<style>
+    ul#menu-circles li {
+        list-style: none;
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+    }
+
+    ul#menu-circles li img{
+        width:100%;
+        position: absolute;
+        left:0;
+        display: none;
+    }
+    ul#menu-circles li div{
+        width:200px;
+        height:200px;
+        vertical-align: top;
+        color:white;
+        font-size: 1.5em;
+        border-radius: 50%;
+        border:5px solid black;
+        background: #111;
+    }
+
+</style>
+<div id="wrapper">
+  <div class="col-lg-2 col-md-2" style="margin-top: 23%;">
+    <!--<a href="#" class="btn btn-info" id="prev" style="float:right;">Prev</a>-->
+    <img src="/assets/left-arrow.png" alt="" style="float:right;box-shadow: 0px 0px 5px #fff" id="prev"/>
+  </div>
+  <div id="matter-section" class="col-lg-8 col-lg-offset-0 col-md-offset-0 col-md-8 col-sm-8 col-xs-8">
+    <ul id="menu-circles">
+      <li id="menu0" data-speed="100" data-easing="easeOutBack">
+        <div><span>Audit</span></div>
+        <%= image_tag "audit.png" %>
+      </li>
+      <li id="menu1" data-speed="100" data-easing="easeOutBack">
+        <div><span>Advisory</span></div>
+        <%= image_tag "advisory.png" %>
+      </li>
+      <li id="menu2" data-speed="100" data-easing="easeOutBack">
+        <div><span>Analytics</span></div>
+        <%= image_tag "analytics.png" %>
+      </li>
+      <li id="menu3" data-speed="100" data-easing="easeOutBack">
+        <div><span>Appraisal</span></div>
+        <%= image_tag "assessment.png" %>
+      </li>
+    </ul>
+    <div id="company-background">
+
+    </div>
+    <section class="main">
+
+      <ul class="ch-grid">
+        <li>
+          <div class="ch-item">
+            <div class="ch-info">
+              <div class="ch-info-front ch-img-1"></div>
+              <div class="ch-info-back">
+                <!--<h3>Mouse</h3>-->
+                <h5>Person Name</h5>
+                <p>Over 30 years in Advertising, Marketing and Media , MD of Zee TV in 1987, Set up Carat in India from scratch - India's first media specialist. Responsible for India, Thailand, Malaysia & Pakistan. In October 2003 launched Spatial Access Media Solutions, India's first Media Audit & Advisory firm. Winner of many marketing & advertising awards</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ch-item">
+            <div class="ch-info">
+              <div class="ch-info-front ch-img-2"></div>
+              <div class="ch-info-back">
+                <h3>You</h3>
+                <p>by Zoe Ingram <a href="http://drbl.in/eCcV">View on Dribbble</a></p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ch-item">
+            <div class="ch-info">
+              <div class="ch-info-front ch-img-3"></div>
+              <div class="ch-info-back">
+                <h3>Love</h3>
+                <p>by Eileen Tjan <a href="http://drbl.in/ewTL">View on Dribbble</a></p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <br/>
+        <li>
+          <div class="ch-item">
+            <div class="ch-info">
+              <div class="ch-info-front ch-img-1"></div>
+              <div class="ch-info-back">
+                <!--<h3>Mouse</h3>-->
+                <h5>Person Name</h5>
+                <p>Over 30 years in Advertising, Marketing and Media , MD of Zee TV in 1987, Set up Carat in India from scratch - India's first media specialist. Responsible for India, Thailand, Malaysia & Pakistan. In October 2003 launched Spatial Access Media Solutions, India's first Media Audit & Advisory firm. Winner of many marketing & advertising awards</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ch-item">
+            <div class="ch-info">
+              <div class="ch-info-front ch-img-2"></div>
+              <div class="ch-info-back">
+                <h3>You</h3>
+                <p>by Zoe Ingram <a href="http://drbl.in/eCcV">View on Dribbble</a></p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ch-item">
+            <div class="ch-info">
+              <div class="ch-info-front ch-img-3"></div>
+              <div class="ch-info-back">
+                <h3>Love</h3>
+                <p>by Eileen Tjan <a href="http://drbl.in/ewTL">View on Dribbble</a></p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+    </section>
+
+
+
+
+
+  </div>
+  <div class="col-lg-2 col-md-2" style="margin-top: 23%;">
+    <!--<a href="#" class="btn btn-info" id="next">Next</a>-->
+    <img src="/assets/right-arrow.png" alt="" style="box-shadow: 0px 0px 5px #fff" id="next"/>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    var counter = 1;
+    var counter1 = 0;
+    var img_arr = [];
+    $(function () {
+        setTimeout(function () {
+            $('#menu-circles li').fade1by1();
+            setTimeout(function () {
+                $('#sampler-link').fadeIn();
+                $('#mb_pattern').fadeIn();
+                $('#admin-blocks').fadeIn();
+            }, 50);
+        }, 50);
+
+        $('ul#menu-circles li').on('click',function(){
+            $('ul#menu-circles li').css({'height':'100px','width':'100px'})
+            $('ul#menu-circles li > div').css({'height':'100px','width':'100px'});
+            $('#menu-circles').animate({
+                marginTop: "-70px"
+            },1000,function(){
+                change_slide(1);
+            });
+        });
+
+        $('#next').on('click',function(){
+            counter++;
+            change_slide(counter);
+        });
+
+        $('#prev').on('click',function(){
+            counter--;
+            change_slide(counter);
+        });
+
+    });
+
+    function change_slide(cnt){
+        $(".ch-grid").hide();
+        switch(cnt) {
+            case 1:
+                $("#company-background").html('<img src="/assets/titler.jpg" width="60%">');
+                break;
+            case 2:
+                $("#company-background").html('<img src="/assets/layer2.png" width="60%">');
+                break;
+            case 4:
+                find_menu();
+                break;
+            case 3:
+                $("#company-background").html('');
+                $(".ch-grid").show();
+                break;
+
+            default:
+                if(counter1 < img_arr.length)
+                {
+                    console.log(img_arr[counter1]);
+                    $.get('/get_image/'+img_arr[counter1],function(data) {
+                        $("#company-background").html('<img src="' + data + '" width="100%"/>');
+                        counter1++;
+                    });
+                }
+//                default code block
+        }
+    }
+
+    function find_menu(){
+        $("#company-background").html('<section class="color-1" style="margin-top: 110px;">'+
+                '<nav id= "subnav" class="cl-effect-20">'+
+                '</nav>'+
+                '</section>');
+        $.get('/menu/3',function(data){
+            $.each(data,function(i,v){
+                $('#subnav').append('<a href="#" onclick="call_change_slide('+ v.id+')"><span data-hover="'+ v.name+'">'+ v.name+'</span></a>')
+//                console.log(v.name)
+            });
+        });
+    }
+
+    function call_change_slide(id){
+        img_arr = []
+        $.get('/menu/'+id,function(data){
+//            var a = []
+            $.each(data,function(i,v){
+                img_arr.push(v.id)
+//                console.log(v.id)
+            });
+//            console.log(a)
+//            img_arr = a
+            counter++;
+            change_slide(counter);
+        });
+
+    }
+
+    (function ($) {
+        $.fn.fade1by1 = function (options) {
+            var opt = $.extend({
+                'delay': 500,
+                'speed': 500,
+                'ease': 'linear'
+            }, options);
+            var that = this;
+            for (var i = 0, d = 0, l = that.length; i < l; i++, d += opt.delay) {
+                that.eq(i).find('div').delay(d).animate({opacity: 0.8}, opt.speed, opt.ease, function () {
+                    var $this = $(this);
+                    setTimeout(function () {
+                        $this.next().fadeIn(opt.speed, opt.ease);
+                        $this.next().hover(
+                                function () {
+                                    $(this).css('opacity', 0);
+                                }, function () {
+                                    $(this).css('opacity', 1);
+                                });
+                    }, 1000);
+                });
+            }
+        };
+    })(jQuery);
+
+    $.fn.animateRotate = function (angle, duration, easing, complete) {
+        var args = $.speed(duration, easing, complete);
+        var step = args.step;
+        return this.each(function (i, e) {
+            args.step = function (now) {
+                $.style(e, 'transform', 'rotate(' + now + 'deg)');
+                if (step) return step.apply(this, arguments);
+            };
+
+            $({deg: 0}).animate({deg: angle}, args);
+        });
+    };
+
+
+</script>

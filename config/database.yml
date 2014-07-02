@@ -4,14 +4,18 @@ development:
   pool: 5
   timeout: 5000
   username: postgres
-  password: 19loki76
+  password: p20o20e13
+  host: localhost
+#  template: template0
 test:
   adapter: postgresql
   database: spatialaccess_test
   pool: 5
   timeout: 5000
   username: postgres
-  password: 19loki76
+  password: p20o20e13
+  host: localhost
+#  template: template0
 
 production:
   adapter: postgresql

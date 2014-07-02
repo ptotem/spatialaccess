@@ -10,7 +10,7 @@
 
     <div style="text-align: center;" id="selector">
       <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select([["HOME", 999]]+@annochannels.each_with_index.map { |c, i| [c.channel.name.upcase, i] }) %>
+      <%= select_tag :channel, options_for_select([["HOME", 999]]+@annochannels.sort.each_with_index.map { |c, i| [c.channel.name.upcase, c.channel_id] }) %>
       <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
       <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
       <% if current_user.email=="admin@spatialaccess.com" or current_user.email=="content@spatialaccess.com" %>
@@ -43,7 +43,7 @@
 
     <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
         <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
-          <div class="menu">
+          <div class="menu-show-page">
             <div class="controls" id="controls_<%= annochannel.options[:child_index] %>">
               <%= annochannel.fields_for :annotations do |annotation| %>
                   <%= annotation.hidden_field :comment %>
@@ -54,15 +54,18 @@
                   <%= annotation.hidden_field :width %>
               <% end %>
             </div>
-            <div class="title-placeholder" style="margin-left: 20px;">
-              <%= annochannel.object.header %>
-            </div>
+            <% if !annochannel.object.header.blank? %>
+                <div class="title-placeholder-show-page" style="margin-left: 20px;">
+                  <%= annochannel.object.header %>
+                </div>
+            <% end %>
           </div>
           <div id="grapher_<%= annochannel.options[:child_index] %>" class="graph-placeholder"></div>
           <div class="commented-area">
             <h1 id="channel_<%= annochannel.options[:child_index] %>" class="channelname-placeholder"></h1>
-
+            <% if !annochannel.object.comment.blank? %>
             <div class="commented-placeholder"><%= annochannel.object.comment %></div>
+            <% end %>
           </div>
         </div>
 
@@ -140,10 +143,11 @@
         $("#grapher_" + index).UseTooltip();
 
         $.each($('#controls_' + index).find('.fields'), function (i, elm) {
-            create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i);
+            create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i,$($(elm).find('input:hidden')[1]).val());
         });
     }
-    function create_annotation(field, posx, posy, height, width, comment, counter) {
+    function create_annotation(field, posx, posy, height, width, comment, counter,shape) {
+//        alert(shape);
         var parentid = $(field).parent().attr('id').split("_")[1];
         var fieldid = counter;
         if (counter == "-1") {
@@ -151,7 +155,7 @@
         }
 
         $(field).attr("id", "anno-" + parentid + "_" + fieldid);
-        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='circle' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;' id='circle-" + parentid + "_" + fieldid + "'></div>");
+        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='"+shape+"' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;position:absolute;' id='circle-" + parentid + "_" + fieldid + "'></div>");
         var $circle = $('#circle-' + parentid + "_" + fieldid);
         $circle.append('<div class="show_annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '">' + comment + '</div>');
     }
@@ -266,7 +270,7 @@
 
         $(document).on('nested:fieldAdded', function (event) {
             var field = event.field;
-            create_annotation(field, 50, 200, 100, 100, "", -1);
+            create_annotation(field, 50, 200, 100, 100, "", -1,"");
         });
 
         $("form").on("keypress", function (e) {

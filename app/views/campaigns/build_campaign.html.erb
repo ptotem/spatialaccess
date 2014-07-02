@@ -9,7 +9,7 @@
 <%= nested_form_for(@campaign) do |f| %>
     <div style="text-align: center;">
       <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select(@channels.each_with_index.map { |c, i| [c.name.upcase, i] }) %>
+      <%= select_tag :channel, options_for_select(CalculatedData.where(:campaign_id => 1).map{|i| [Channel.find(i.channel_id).name, i.channel_id]}) %>
       <%= f.submit "Save All", class: "btn btn-danger", style: "margin-top:-7px" %>
       <%= link_to "Cancel", campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
     </div>
@@ -25,6 +25,7 @@
                   <%= annotation.hidden_field :posy %>
                   <%= annotation.hidden_field :height %>
                   <%= annotation.hidden_field :width %>
+                  <%= annotation.hidden_field :class_name %>
                   <%= annotation.link_to_remove "", id: "remover-#{annochannel.options[:child_index]}_#{annotation.options[:child_index]}" %>
               <% end %>
               <%= annochannel.link_to_add image_tag("highlight.png"), :annotations %>
@@ -108,10 +109,10 @@
                 });
         $("#grapher_" + index).UseTooltip();
         $.each($('#controls_' + index).find('.fields'), function (i, elm) {
-            create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i);
+            create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i,$($(elm).find('input:hidden')[1]).val());
         });
     }
-    function create_annotation(field, posx, posy, height, width, comment, counter) {
+    function create_annotation(field, posx, posy, height, width, comment, counter,shape) {
         var parentid = $(field).parent().attr('id').split("_")[1];
         var fieldid = counter;
         if (counter == "-1") {
@@ -119,9 +120,29 @@
         }
 
         $(field).attr("id", "anno-" + parentid + "_" + fieldid);
-        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='circle' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;' id='circle-" + parentid + "_" + fieldid + "'><a href='#' class='canceler btn btn-xs btn-danger' id='cancel-" + parentid + "_" + fieldid + "'>x</a></div>");
+        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='"+shape+"' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;position:absolute;' id='circle-" + parentid + "_" + fieldid + "'><a href='#' class='canceler btn btn-xs btn-danger' id='cancel-" + parentid + "_" + fieldid + "'>x</a></div>");
         var $circle = $('#circle-' + parentid + "_" + fieldid);
-        $circle.append('<textarea class="annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '" placeholder="Put in the comment">' + comment + '</textarea><a href="#" class="confirmer btn btn-xs btn-danger" id="confirm-' + parentid + "_" + fieldid + '">OK</a>');
+        $circle.append('<textarea class="annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '" placeholder="Put in the comment">' + comment + '</textarea>'+
+                       '<select class = "change_circle">'+
+                       '<option value="red-circle">Red Circle</option>'+
+                       '<option value="blue-circle">Blue Circle</option>'+
+                       '<option value="green-circle">Green Circle</option>'+
+                       '<option value="red-square">Red Square</option>'+
+                       '<option value="blue-square">Blue Square</option>'+
+                       '<option value="green-square">Green Square</option>'+
+                       '<option value="red-circle-translucent">Red Circle Translucent</option>'+
+                       '<option value="blue-circle-translucent">Blue Circle Translucent</option>'+
+                       '<option value="green-circle-translucent">Green Circle Translucent</option>'+
+                       '<option value="red-square-translucent">Red Square Translucent</option>'+
+                       '<option value="blue-square-translucent">Blue Square Translucent</option>'+
+                       '<option value="green-square-translucent">Green Square Translucent</option>'+
+                       '</select>'+
+                       '<a href="#" class="confirmer btn btn-xs btn-danger" id="confirm-' + parentid + "_" + fieldid + '">OK</a>');
+//        $circle.append('<textarea class="annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '" placeholder="Put in the comment">' + comment + '</textarea><a href="#" class="confirmer btn btn-xs btn-danger" id="confirm-' + parentid + "_" + fieldid + '">OK</a>');
+        $('.change_circle').on("change",function(){
+            $circle.removeClass().addClass($(this).val());
+            $($(this).parents('.editable-graph-container').find('input:hidden')[1]).val($(this).val());
+        });
         var $annocomment = $('#annotationfield-' + parentid + "_" + fieldid);
         var $confirmer = $('#confirm-' + parentid + "_" + fieldid);
         var $canceler = $('#cancel-' + parentid + "_" + fieldid);
@@ -205,13 +226,17 @@
     }
 
     $(function () {
-        $('#graph-container_0').show();
-        show_graph(0);
+
+        var channel_first_option_val = $('#channel option:first-child').val();
+        $('#graph-container_'+channel_first_option_val).show();
+        show_graph(channel_first_option_val);
         $('#channel').on('change', function () {
             var index = parseInt($(this).val());
+            //alert(index);
             $('.editable-graph-container').hide();
             $('#graph-container_' + index).fadeIn(function () {
                 if (plots[index] == null) {
+
                     show_graph(index);
                 }
             });
@@ -219,7 +244,7 @@
 
         $(document).on('nested:fieldAdded', function (event) {
             var field = event.field;
-            create_annotation(field, 250, 100, 100, 100, "", -1);
+            create_annotation(field, 250, 100, 100, 100, "", -1,"red-circle");
         });
 
         $("form").on("keypress", function (e) {

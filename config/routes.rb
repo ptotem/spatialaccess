@@ -1,5 +1,11 @@
 SpatialAccess::Application.routes.draw do
 
+  resources :presentations
+
+  resources :slides
+
+  resources :presesntations
+
   get "home/index"
   devise_for :users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
@@ -11,6 +17,13 @@ SpatialAccess::Application.routes.draw do
   get "/get_content/:id" => 'campaigns#get_content', as: "get_content"
   get "/build_campaign/:id" => 'campaigns#build_campaign', as: "build_the_campaign"
   post "/import_content/:id" => 'campaigns#import_content', as: "import_content"
+
+  get "/create_presentation" => 'presentations#create_presentation', as: "create_presentation"
+
+  get "/menu/:id" => 'slides#menu'
+  get "/menu_new/:id" => 'slides#menu_new'
+  get "/get_image/:id" => 'slides#get_image'
+
 
   resources :clients
   resources :slots do

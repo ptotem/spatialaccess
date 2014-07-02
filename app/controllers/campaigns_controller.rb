@@ -2,8 +2,8 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   def import
-    Campaign.import(params[:file], current_client)
-    redirect_to '/admin', notice: "Campaign imported."
+    # Campaign.import(params[:file], current_client)
+    # redirect_to '/admin', notice: "Campaign imported."
   end
 
   def htmltopdf
@@ -24,45 +24,28 @@ class CampaignsController < ApplicationController
 
     @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
     @annochannels=[]
-    @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
-
+    # @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
+    @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all
     @channel_slots=[]
-    @annochannels.each do |annochannel|
-      @tvr=[]
-      Hour.all.each do |hour|
-        @tvr << [hour.name.to_i, (Slot.where(channel_id: annochannel.channel_id, hour_id: hour.id).first.tvr rescue '')]
-      end
-      @channel_slots<<[annochannel.channel.name, @tvr]
-    end
-
     @channel_spots=[]
     @channel_maxes=[]
-    @totalcount=[]
-    @annochannels.each_with_index do |annochannel, index|
-      @hourcount=[]
-      Hour.all.each do |hour|
-        @hourcount << Spot.where(channel_id: annochannel.channel.id, campaign_id: @campaign.id, hour_id: hour.id).count
+    CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
+    CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+      if !i.channel_spots.nil?
+        i.channel_spots.map{|i,v| @channel_spots<<[i,eval(v)]}
       end
-      @totalcount[index]=@hourcount.sum
-      @hoursum=[]
-      @maxvalue=0
-      Hour.all.each do |hour|
-        spotscore=(Spot.where(channel_id: annochannel.channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i
-        @hoursum << [hour.name.to_i, spotscore]
-        if spotscore>@maxvalue
-          @maxvalue=spotscore
-        end
+    end
+    CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+      if !i.channel_maxes.nil?
+        i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
       end
-      @channel_spots<<[annochannel.channel.name, @hoursum]
-      @channel_maxes<<[annochannel.channel.name, @maxvalue]
     end
     gon.channels=@annochannels.map { |c| c.channel.name.upcase }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
-
-    # render :pdf => 'show_report'
-
+    # render :json => @annochannels
+    # return
   end
 
   # GET /campaigns/new
@@ -89,42 +72,76 @@ class CampaignsController < ApplicationController
       end
     end
 
-    @channel_slots=[]
-    @channels.each do |channel|
-      @tvr=[]
-      Hour.all.each do |hour|
-        @tvr << [hour.name.to_i, (Slot.where(channel_id: channel.id, hour_id: hour.id).first.tvr rescue "")]
+    #This code will come inside a
+    if CalculatedData.where(:campaign_id => @campaign.id).blank?
+      @channel_slots=[]
+      @channels.each do |channel|
+        @tvr=[]
+        Hour.all.each do |hour|
+          @tvr << [hour.name.to_i, (Slot.where(channel_id: channel.id, hour_id: hour.id).first.tvr rescue "")]
+        end
+        temp = Hash.new
+        temp[channel.name] = @tvr
+        @channel_slots<<[channel.name, @tvr]
+        #Creating Calculated data record for each channel slots
+        CalculatedData.create!(:campaign_id => @campaign.id, :channel_id =>channel.id, :channel_slots => temp)
       end
-      @channel_slots<<[channel.name, @tvr]
-    end
 
-    @channel_spots=[]
-    @channel_maxes=[]
-    @totalcount=[]
-    @channels.each_with_index do |channel, index|
-      @hourcount=[]
-      Hour.all.each do |hour|
-        @hourcount << Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count
+      @channel_spots=[]
+      @channel_maxes=[]
+      @totalcount=[]
+      @channels.each_with_index do |channel, index|
+        @hourcount=[]
+        Hour.all.each do |hour|
+          @hourcount << Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count
+        end
+        @totalcount[index]=@hourcount.sum
+        @hoursum=[]
+        @maxvalue=0
+        Hour.all.each do |hour|
+          spotscore=(Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i
+          @hoursum << [hour.name.to_i, spotscore]
+          if spotscore>@maxvalue
+            @maxvalue=spotscore
+          end
+        end
+        #Finding calculated data created earlier and updating channel spots and channel maxes
+        @cal_data = CalculatedData.where(:campaign_id => @campaign.id, :channel_id => channel.id).first
+        @channel_spots<<[channel.name, @hoursum]
+        temp1 = Hash.new
+        temp1[channel.name] = @hoursum
+        @cal_data.channel_spots = temp1
+        @channel_maxes<<[channel.name, @maxvalue]
+        temp2 = Hash.new
+        temp2[channel.name] = @maxvalue
+        @cal_data.channel_maxes = temp2
+        @cal_data.save
+        # Spot.where()
       end
-      @totalcount[index]=@hourcount.sum
-      @hoursum=[]
-      @maxvalue=0
-      Hour.all.each do |hour|
-        spotscore=(Spot.where(channel_id: channel.id, campaign_id: @campaign.id, hour_id: hour.id).count*100/@totalcount[index]).to_i
-        @hoursum << [hour.name.to_i, spotscore]
-        if spotscore>@maxvalue
-          @maxvalue=spotscore
+      @campaign.delay.delete_all_slots_and_spots
+    else
+      @campaign.delay.delete_all_slots_and_spots
+      @channel_slots=[]
+      @channel_spots=[]
+      @channel_maxes=[]
+      CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
+      CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+        if !i.channel_spots.nil?
+          i.channel_spots.map{|i,v| @channel_spots<<[i,eval(v)]}
         end
       end
-      @channel_spots<<[channel.name, @hoursum]
-      @channel_maxes<<[channel.name, @maxvalue]
+      CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+        if !i.channel_maxes.nil?
+          i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
+        end
+      end
     end
-
     gon.channels=@channels.map { |c| c.name.upcase }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
-
+    # render :json => @channel_maxes
+    # return
   end
 
   # POST /campaigns
@@ -150,10 +167,9 @@ class CampaignsController < ApplicationController
     @campaign.sfile = params[:tvrfile]
     @campaign.cfile = params[:spotsfile]
     @campaign.save
-    # render :json => @campaign
-    # return
     Slot.delay.import(@campaign.id)
     Campaign.delay.import(@campaign.id)
+    # Campaign.delay.calculate_data(@campaign.id)
     redirect_to edit_campaign_path(@campaign), notice: "Campaign imported."
   end
 
