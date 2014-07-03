@@ -140,7 +140,7 @@ class CampaignsController < ApplicationController
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
-    render :json => @channels.map { |c| c.name.upcase }
+    render :json => gon.channel_slots
     return
   end
 
