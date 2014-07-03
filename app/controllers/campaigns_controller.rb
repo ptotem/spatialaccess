@@ -136,12 +136,12 @@ class CampaignsController < ApplicationController
         end
       end
     end
-    gon.channels=@channels.map { |c| c.name.upcase }
+    gon.channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).map { |c| c.channel_name.upcase }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
-    render :json => gon.channel_slots
-    return
+    # render :json => gon.channels
+    # return
   end
 
   # POST /campaigns
