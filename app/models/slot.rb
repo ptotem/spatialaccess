@@ -7,7 +7,7 @@ class Slot < ActiveRecord::Base
 
   def self.import(campaign)
     @campaign = Campaign.find(campaign)
-    file = @campaign.sfile#.url(:original)
+    file = @campaign.sfile.url(:original)
     puts "---------------------------------------------------------------------------------"
     puts file
     puts "---------------------------------------------------------------------------------"
