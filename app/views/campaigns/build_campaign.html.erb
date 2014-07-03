@@ -9,12 +9,13 @@
 <%= nested_form_for(@campaign) do |f| %>
     <div style="text-align: center;">
       <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select(CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, i.channel_id]}) %>
+      <%= select_tag :channel, options_for_select(CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}) %>
       <%= f.submit "Save All", class: "btn btn-danger", style: "margin-top:-7px" %>
       <%= link_to "Cancel", campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
     </div>
 
-    <%= f.fields_for :annochannels, @annochannels.compact! do |annochannel| %>
+    <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
+
         <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
           <div class="menu">
             <div class="controls" id="controls_<%= annochannel.options[:child_index] %>">
@@ -234,11 +235,11 @@
         show_graph(channel_first_option_val);
         $('#channel').on('change', function () {
             var index = parseInt($(this).val());
-            //alert(index);
+//            alert(index);
             $('.editable-graph-container').hide();
             $('#graph-container_' + index).fadeIn(function () {
                 if (plots[index] == null) {
-
+//
                     show_graph(index);
                 }
             });

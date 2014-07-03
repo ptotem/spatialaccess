@@ -60,20 +60,23 @@ class CampaignsController < ApplicationController
   def build_campaign
 
     @campaign=Campaign.find(params[:id])
-    @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
-    @annochannels=[]
-    if @campaign.annochannels.blank?
-      @channels.each do |channel|
-        @annochannels << Annochannel.create!(channel_id: channel.id, campaign_id: @campaign.id)
-      end
-    else
-      @channels.each do |channel|
-        @annochannels << Annochannel.where(channel_id: channel.id, campaign_id: @campaign.id).first
-      end
-    end
+
 
     #This code will come inside a
     if CalculatedData.where(:campaign_id => @campaign.id).blank?
+
+      @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
+      @annochannels=[]
+      if @campaign.annochannels.blank?
+        @channels.each do |channel|
+          @annochannels << Annochannel.create!(channel_id: channel.id, campaign_id: @campaign.id)
+        end
+      else
+        @channels.each do |channel|
+          @annochannels << Annochannel.where(channel_id: channel.id, campaign_id: @campaign.id).first
+        end
+      end
+
       @channel_slots=[]
       @channels.each do |channel|
         @tvr=[]
@@ -135,6 +138,21 @@ class CampaignsController < ApplicationController
           i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
         end
       end
+
+      @channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name)
+      @annochannels=[]
+      if @campaign.annochannels.blank?
+        @channels.each do |channel|
+          @annochannels << Annochannel.create!(channel_id: channel.id, campaign_id: @campaign.id)
+        end
+      else
+        @channels.each do |channel|
+          @annochannels << Annochannel.where(channel_id: channel.channel_id, campaign_id: @campaign.id).first
+        end
+      end
+      # render :json => @annochannels
+      # return
+
     end
     gon.channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).map { |c| c.channel_name.upcase }
     gon.channel_slots=@channel_slots
