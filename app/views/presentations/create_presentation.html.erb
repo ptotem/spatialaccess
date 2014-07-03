@@ -33,20 +33,20 @@
   </div>
   <div id="matter-section" class="col-lg-8 col-lg-offset-0 col-md-offset-0 col-md-8 col-sm-8 col-xs-8">
     <ul id="menu-circles">
-      <li id="menu0" data-speed="100" data-easing="easeOutBack">
-        <div><span>Audit</span></div>
+      <li id="menu0" data-speed="100" data-easing="easeOutBack" data-val="3">
+        <div><span>Marketing Audit</span></div>
         <%= image_tag "audit.png" %>
       </li>
-      <li id="menu1" data-speed="100" data-easing="easeOutBack">
-        <div><span>Advisory</span></div>
+      <li id="menu1" data-speed="100" data-easing="easeOutBack" data-val="4">
+        <div><span>Media Audit</span></div>
         <%= image_tag "advisory.png" %>
       </li>
-      <li id="menu2" data-speed="100" data-easing="easeOutBack">
-        <div><span>Analytics</span></div>
+      <li id="menu2" data-speed="100" data-easing="easeOutBack" data-val="5">
+        <div><span>Partner Advisory</span></div>
         <%= image_tag "analytics.png" %>
       </li>
-      <li id="menu3" data-speed="100" data-easing="easeOutBack">
-        <div><span>Appraisal</span></div>
+      <li id="menu3" data-speed="100" data-easing="easeOutBack" data-val="6">
+        <div><span>Technology Solutions</span></div>
         <%= image_tag "assessment.png" %>
       </li>
     </ul>
@@ -61,8 +61,7 @@
             <div class="ch-info">
               <div class="ch-info-front ch-img-1"></div>
               <div class="ch-info-back">
-                <!--<h3>Mouse</h3>-->
-                <h5>Person Name</h5>
+                <h5>Meenakshi Menon</h5>
                 <p>Over 30 years in Advertising, Marketing and Media , MD of Zee TV in 1987, Set up Carat in India from scratch - India's first media specialist. Responsible for India, Thailand, Malaysia & Pakistan. In October 2003 launched Spatial Access Media Solutions, India's first Media Audit & Advisory firm. Winner of many marketing & advertising awards</p>
               </div>
             </div>
@@ -73,8 +72,8 @@
             <div class="ch-info">
               <div class="ch-info-front ch-img-2"></div>
               <div class="ch-info-back">
-                <h3>You</h3>
-                <p>by Zoe Ingram <a href="http://drbl.in/eCcV">View on Dribbble</a></p>
+                <h5>Nikhil Rangnekar</h5>
+                <p>With over 14 years of experience in Strategic Planning in Starcom, Nikhil brings his analytic skills to the fray for Clients in the Media audits & analytics arena.</p>
               </div>
             </div>
           </div>
@@ -84,8 +83,8 @@
             <div class="ch-info">
               <div class="ch-info-front ch-img-3"></div>
               <div class="ch-info-back">
-                <h3>Love</h3>
-                <p>by Eileen Tjan <a href="http://drbl.in/ewTL">View on Dribbble</a></p>
+                <h5>Geetanjali Bhattacharji</h5>
+                <p>Production, Below the line, Events, PR, areas where Geetanjali’s mastery comes to the fore. With over 12 years of managing clients & their needs, she heads the Marketing Services practice.</p>
               </div>
             </div>
           </div>
@@ -94,11 +93,10 @@
         <li>
           <div class="ch-item">
             <div class="ch-info">
-              <div class="ch-info-front ch-img-1"></div>
+              <div class="ch-info-front ch-img-4"></div>
               <div class="ch-info-back">
-                <!--<h3>Mouse</h3>-->
-                <h5>Person Name</h5>
-                <p>Over 30 years in Advertising, Marketing and Media , MD of Zee TV in 1987, Set up Carat in India from scratch - India's first media specialist. Responsible for India, Thailand, Malaysia & Pakistan. In October 2003 launched Spatial Access Media Solutions, India's first Media Audit & Advisory firm. Winner of many marketing & advertising awards</p>
+                <h5>Manjiri Kamat</h5>
+                <p>Over 20 years of experience in the advertising and media industry, Manjiri brings on board regional experience across markets like India, Malaysia and Singapore, across a vast client network.</p>
               </div>
             </div>
           </div>
@@ -106,10 +104,10 @@
         <li>
           <div class="ch-item">
             <div class="ch-info">
-              <div class="ch-info-front ch-img-2"></div>
+              <div class="ch-info-front ch-img-5"></div>
               <div class="ch-info-back">
-                <h3>You</h3>
-                <p>by Zoe Ingram <a href="http://drbl.in/eCcV">View on Dribbble</a></p>
+                <h5>Archana Vyas</h5>
+                <p>With over  250 TV commercials under her belt, Archana is the resident Film production expert who helps decipher film production costs for Clients.</p>
               </div>
             </div>
           </div>
@@ -117,10 +115,10 @@
         <li>
           <div class="ch-item">
             <div class="ch-info">
-              <div class="ch-info-front ch-img-3"></div>
+              <div class="ch-info-front ch-img-6"></div>
               <div class="ch-info-back">
-                <h3>Love</h3>
-                <p>by Eileen Tjan <a href="http://drbl.in/ewTL">View on Dribbble</a></p>
+                <h5>Rabel Advani</h5>
+                <p>Over 16 years experience in Finance and Treasury functions</p>
               </div>
             </div>
           </div>
@@ -142,7 +140,7 @@
 
 <script type="text/javascript" charset="utf-8">
     var counter = 1;
-    var counter1 = 0;
+    var counter1;
     var img_arr = [];
     $(function () {
         setTimeout(function () {
@@ -155,12 +153,14 @@
         }, 50);
 
         $('ul#menu-circles li').on('click',function(){
+            counter1 = $(this).attr("data-val");
             $('ul#menu-circles li').css({'height':'100px','width':'100px'})
-            $('ul#menu-circles li > div').css({'height':'100px','width':'100px'});
+            $('ul#menu-circles li > div').css({'height':'100px','width':'100px','font-size':'1.2em'});
             $('#menu-circles').animate({
                 marginTop: "-70px"
             },1000,function(){
-                change_slide(1);
+                counter = 1;
+                change_slide(counter);
             });
         });
 
@@ -180,10 +180,10 @@
         $(".ch-grid").hide();
         switch(cnt) {
             case 1:
-                $("#company-background").html('<img src="/assets/titler.jpg" width="60%">');
+                $("#company-background").html('<img src="/assets/Slide1.JPG" width="100%">');
                 break;
             case 2:
-                $("#company-background").html('<img src="/assets/layer2.png" width="60%">');
+                $("#company-background").html('<img src="/assets/Slide2.JPG" width="100%">');
                 break;
             case 4:
                 find_menu();
@@ -194,15 +194,14 @@
                 break;
 
             default:
-                if(counter1 < img_arr.length)
+                if((cnt-5) < img_arr.length)
                 {
-                    console.log(img_arr[counter1]);
-                    $.get('/get_image/'+img_arr[counter1],function(data) {
+                    console.log(img_arr[cnt-5]);
+                    $.get('/get_image/'+img_arr[cnt-5],function(data) {
                         $("#company-background").html('<img src="' + data + '" width="100%"/>');
                         counter1++;
                     });
                 }
-//                default code block
         }
     }
 
@@ -211,10 +210,9 @@
                 '<nav id= "subnav" class="cl-effect-20">'+
                 '</nav>'+
                 '</section>');
-        $.get('/menu/3',function(data){
+        $.get('/menu/'+counter1,function(data){
             $.each(data,function(i,v){
                 $('#subnav').append('<a href="#" onclick="call_change_slide('+ v.id+')"><span data-hover="'+ v.name+'">'+ v.name+'</span></a>')
-//                console.log(v.name)
             });
         });
     }
@@ -222,17 +220,12 @@
     function call_change_slide(id){
         img_arr = []
         $.get('/menu/'+id,function(data){
-//            var a = []
             $.each(data,function(i,v){
                 img_arr.push(v.id)
-//                console.log(v.id)
             });
-//            console.log(a)
-//            img_arr = a
             counter++;
             change_slide(counter);
         });
-
     }
 
     (function ($) {

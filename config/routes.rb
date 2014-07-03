@@ -18,7 +18,7 @@ SpatialAccess::Application.routes.draw do
   get "/build_campaign/:id" => 'campaigns#build_campaign', as: "build_the_campaign"
   post "/import_content/:id" => 'campaigns#import_content', as: "import_content"
 
-  get "/create_presentation" => 'presentations#create_presentation', as: "create_presentation"
+  get "/create_presentation/:id" => 'presentations#create_presentation', as: "create_presentation"
 
   get "/menu/:id" => 'slides#menu'
   get "/menu_new/:id" => 'slides#menu_new'

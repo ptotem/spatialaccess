@@ -10,6 +10,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/1
   # GET /presentations/1.json
   def show
+    redirect_to "/create_presentation/#{@presentation.id}"
   end
 
   # GET /presentations/new
@@ -62,7 +63,7 @@ class PresentationsController < ApplicationController
   end
 
   def create_presentation
-
+    @presentation = Presentation.find(params[:id])
   end
 
   private
@@ -73,6 +74,7 @@ class PresentationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def presentation_params
-      params[:presentation]
+      params.require(:presentation).permit(:title)
+      # params[:presentation]
     end
 end

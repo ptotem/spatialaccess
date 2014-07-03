@@ -54,7 +54,7 @@ class SlidesController < ApplicationController
   def menu
     @slide = Slide.find(params[:id])
     @children = []
-    @slide.childs.each do |i|
+    @slide.childs.order(:seq).each do |i|
       @children << {id: i.id, name: i.name}
     end
 

@@ -56,15 +56,27 @@
 }
 
 .ch-img-1 { 
-	background-image: url(/assets/cardback.jpg);
+	background-image: url(/assets/ppl1.jpg);
 }
 
 .ch-img-2 { 
-	background-image: url(/assets/cardback.jpg);
+	background-image: url(/assets/ppl2.png);
 }
 
 .ch-img-3 { 
-	background-image: url(/assets/cardback.jpg);
+	background-image: url(/assets/ppl3.png);
+}
+
+.ch-img-4 {
+    background-image: url(/assets/cardback.jpg);
+}
+
+.ch-img-5 {
+    background-image: url(/assets/ppl5.png);
+}
+
+.ch-img-6 {
+    background-image: url(/assets/ppl6.png);
 }
 
 .ch-info h5 {
