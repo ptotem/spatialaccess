@@ -3,7 +3,7 @@ class Campaign < ActiveRecord::Base
   has_many :slots, dependent: :destroy
   has_many :spots, dependent: :destroy
   has_many :channels, through: :spots
-  has_many :annotations, dependent: :destroy
+  has_many :annotations#, dependent: :destroy
   has_many :annochannels, dependent: :destroy
   has_attached_file :cfile
   has_attached_file :sfile
