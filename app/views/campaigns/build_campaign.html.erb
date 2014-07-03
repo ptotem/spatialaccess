@@ -47,6 +47,7 @@
 <script>
     var plots = [];
     function show_graph(index) {
+        console.log(index)
         $('#channel_' + index).html(gon.channels[index]);
         plots[index] = $.plot("#grapher_" + index, [
                     {
