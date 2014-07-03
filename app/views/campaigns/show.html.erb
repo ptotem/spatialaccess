@@ -54,15 +54,21 @@
                   <%= annotation.hidden_field :width %>
               <% end %>
             </div>
-            <% if !annochannel.object.header.blank? %>
-                <div class="title-placeholder-show-page" style="margin-left: 20px;">
+            <%# if !annochannel.object.header.blank? %>
+                <div class="title-placeholder-show-page" style="margin-left: 20px;" id="channel_<%= annochannel.options[:child_index] %>">
                   <%= annochannel.object.header %>
                 </div>
-            <% end %>
+            <%# end %>
+
           </div>
+          <% if !annochannel.object.header.blank? %>
+              <div class="title-header" style="margin-left: 20px;font-weight: bold;color: #ed1d24" >
+                <%= annochannel.object.header %>
+              </div>
+          <% end %>
           <div id="grapher_<%= annochannel.options[:child_index] %>" class="graph-placeholder"></div>
-          <div class="commented-area">
-            <h1 id="channel_<%= annochannel.options[:child_index] %>" class="channelname-placeholder"></h1>
+          <div class="commented-area" style="margin-top:0px;">
+            <h1  class="channelname-placeholder"></h1>
             <% if !annochannel.object.comment.blank? %>
             <div class="commented-placeholder"><%= annochannel.object.comment %></div>
             <% end %>
@@ -155,7 +161,7 @@
         }
 
         $(field).attr("id", "anno-" + parentid + "_" + fieldid);
-        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='"+shape+"' style='left:" + posx + "px;top:" + posy + "px;height:" + height + "px;width:" + width + "px;position:absolute;' id='circle-" + parentid + "_" + fieldid + "'></div>");
+        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='"+shape+"' style='left:" + posx + "px;top:" + (parseInt(posy)+80) + "px;height:" + height + "px;width:" + width + "px;position:absolute;' id='circle-" + parentid + "_" + fieldid + "'></div>");
         var $circle = $('#circle-' + parentid + "_" + fieldid);
         $circle.append('<div class="show_annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '">' + comment + '</div>');
     }

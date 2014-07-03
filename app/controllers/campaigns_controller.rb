@@ -24,18 +24,18 @@ class CampaignsController < ApplicationController
 
     @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
     @annochannels=[]
-    # @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
-    @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all
+    @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
+    # @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all
     @channel_slots=[]
     @channel_spots=[]
     @channel_maxes=[]
-    CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
-    CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+    CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
+    CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
       if !i.channel_spots.nil?
         i.channel_spots.map{|i,v| @channel_spots<<[i,eval(v)]}
       end
     end
-    CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+    CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
       if !i.channel_maxes.nil?
         i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
       end
@@ -84,7 +84,7 @@ class CampaignsController < ApplicationController
         temp[channel.name] = @tvr
         @channel_slots<<[channel.name, @tvr]
         #Creating Calculated data record for each channel slots
-        CalculatedData.create!(:campaign_id => @campaign.id, :channel_id =>channel.id, :channel_slots => temp)
+        CalculatedData.create!(:campaign_id => @campaign.id, :channel_id =>channel.id, :channel_name=> channel.name, :channel_slots => temp)
       end
 
       @channel_spots=[]
@@ -124,13 +124,13 @@ class CampaignsController < ApplicationController
       @channel_slots=[]
       @channel_spots=[]
       @channel_maxes=[]
-      CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
-      CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+      CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
+      CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
         if !i.channel_spots.nil?
           i.channel_spots.map{|i,v| @channel_spots<<[i,eval(v)]}
         end
       end
-      CalculatedData.where(:campaign_id =>1).uniq_by(&:channel_id).map do |i|
+      CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
         if !i.channel_maxes.nil?
           i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
         end

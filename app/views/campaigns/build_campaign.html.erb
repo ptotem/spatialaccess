@@ -231,7 +231,7 @@
         $('#graph-container_'+channel_first_option_val).show();
         show_graph(channel_first_option_val);
         $('#channel').on('change', function () {
-            var index = parseInt($(this).val());
+            var index = parseInt($(this).val())-1;
             //alert(index);
             $('.editable-graph-container').hide();
             $('#graph-container_' + index).fadeIn(function () {

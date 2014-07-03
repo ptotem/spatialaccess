@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703043110) do
+ActiveRecord::Schema.define(version: 20140703135408) do
 
   create_table "annochannels", force: true do |t|
     t.integer  "campaign_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140703043110) do
     t.hstore   "channel_maxes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "channel_name"
   end
 
   create_table "campaigns", force: true do |t|
