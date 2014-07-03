@@ -29,13 +29,13 @@ class CampaignsController < ApplicationController
     @channel_slots=[]
     @channel_spots=[]
     @channel_maxes=[]
-    CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
-    CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
+    CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
+    CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).uniq_by(&:channel_id).map do |i|
       if !i.channel_spots.nil?
         i.channel_spots.map{|i,v| @channel_spots<<[i,eval(v)]}
       end
     end
-    CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
+    CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).uniq_by(&:channel_id).map do |i|
       if !i.channel_maxes.nil?
         i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
       end
@@ -124,13 +124,13 @@ class CampaignsController < ApplicationController
       @channel_slots=[]
       @channel_spots=[]
       @channel_maxes=[]
-      CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
-      CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
+      CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).uniq_by(&:channel_id).map{|i| i.channel_slots.map{|i,v| @channel_slots<<[i,eval(v)]}}
+      CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).uniq_by(&:channel_id).map do |i|
         if !i.channel_spots.nil?
           i.channel_spots.map{|i,v| @channel_spots<<[i,eval(v)]}
         end
       end
-      CalculatedData.where(:campaign_id =>1).order(:channel_name).uniq_by(&:channel_id).map do |i|
+      CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).uniq_by(&:channel_id).map do |i|
         if !i.channel_maxes.nil?
           i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
         end
