@@ -86,7 +86,7 @@
     <br/>
     <br/>
     <%= link_to "Let us show you something", campaign_path(current_client.campaigns.where(active: true).last), class: "btn btn-danger", id: "sampler-link" %>
-    <%= link_to "Presentation", new_presentation_path , class: "btn btn-danger", id: "presentation-link" %>
+
     <br/>
     <br/>
 
@@ -94,8 +94,10 @@
       <% if current_user.email=="admin@spatialaccessapp.in" %>
           <%= link_to "Admin Panel", '/admin', class: "btn btn-warning btn-lg" %>
           <%= link_to "Campaigns List", campaigns_path, class: "btn btn-info btn-lg" %>
+          <%= link_to "Presentation", new_presentation_path , class: "btn btn-danger btn-lg", id: "presentation-link" %>
       <% elsif current_user.email=="content@spatialaccessapp.in" %>
           <%= link_to "Campaigns List", campaigns_path, class: "btn btn-warning btn-lg" %>
+          <%= link_to "Presentation", new_presentation_path , class: "btn btn-danger btn-lg", id: "presentation-link" %>
       <% end %>
     </div>
   </div>
