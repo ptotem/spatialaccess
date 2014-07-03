@@ -231,7 +231,7 @@
         var channel_first_option_val = $('#channel option:first-child').val();
         console.log(channel_first_option_val)
         $('#graph-container_'+channel_first_option_val).show();
-        show_graph(channel_first_option_val);
+        show_graph(0);
         $('#channel').on('change', function () {
             var index = parseInt($(this).val())-1;
             //alert(index);
