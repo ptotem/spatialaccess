@@ -19,7 +19,8 @@ class Campaign < ActiveRecord::Base
     puts "---------------------------------------------------------------------------------"
     puts file
     puts "---------------------------------------------------------------------------------"
-    spreadsheet = open_spreadsheet(file)
+    # spreadsheet = open_spreadsheet(file)
+    spreadsheet = Roo::Excelx.new(file, nil, :ignore)
     (6..spreadsheet.last_row-31).each do |i|
       channel=Channel.find_by_name(spreadsheet.row(i)[0])
       unless channel.blank?

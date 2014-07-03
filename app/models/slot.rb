@@ -11,7 +11,8 @@ class Slot < ActiveRecord::Base
     puts "---------------------------------------------------------------------------------"
     puts file
     puts "---------------------------------------------------------------------------------"
-    spreadsheet = open_spreadsheet(file)
+    spreadsheet = Roo::Excelx.new(file, nil, :ignore)
+    # spreadsheet = open_spreadsheet(file)
     (6..spreadsheet.last_row-22).each do |i|
       slot=Slot.new
       channel=Channel.find_by_name(spreadsheet.row(i)[0])
