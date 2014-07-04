@@ -10,7 +10,7 @@
 
     <div style="text-align: center;" id="selector">
       <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, i.channel_id]}) %>
+      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}) %>
       <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
       <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
       <% if current_user.email=="admin@spatialaccess.com" or current_user.email=="content@spatialaccess.com" %>
