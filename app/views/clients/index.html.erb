@@ -1,0 +1,40 @@
+<style>
+    body, html {
+        overflow: auto;
+    }
+
+    #fwrapper {
+        width: 960px;
+        margin: 40px auto;
+        padding: 40px;
+        background: white;;
+    }
+</style>
+<div id="fwrapper">
+  <h1>Listing clients</h1>
+
+  <table class="table" style="font-size:24px;">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Subdomain</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @clients.each do |client| %>
+        <tr>
+          <td><%= client.name %></td>
+          <td><%= client.subdomain %></td>
+          <td><%= link_to 'Edit', edit_client_path(client), class: "btn btn-primary" %>
+            <%= link_to 'Destroy', client, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-warning" %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'New Client', new_client_path, class: "btn btn-danger btn-lg" %>
+</div>

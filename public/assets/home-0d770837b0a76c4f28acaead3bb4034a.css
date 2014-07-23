@@ -1,0 +1,245 @@
+/* Wrappers and Basic Layout */
+/*---------------------------------------*/
+/* line 4, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+html {
+  width: 100%;
+  height: 100%;
+  background: url("/assets/htmlBack.jpg");
+  background-size: 100% 100%;
+}
+
+/* line 12, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+body {
+  margin: 0 auto;
+  background: transparent;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+/* line 19, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#wrapper {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  background: transparent;
+  font-size: 1em;
+  padding-top: 40px;
+}
+
+/* line 28, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#menu-section {
+  text-align: center;
+}
+
+/* line 32, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#matter-section {
+  text-align: center;
+  padding: 40px;
+  height: 600px;
+}
+
+/* line 38, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.layer img {
+  width: 80%;
+}
+
+/* line 42, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.grower {
+  opacity: 0;
+  width: 20%;
+  margin: 0 auto;
+  margin-top: -20px;
+}
+
+/* line 49, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.grower img {
+  width: 100%;
+}
+
+/* line 53, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#scene {
+  display: none;
+  margin-top: 40px;
+}
+
+/* line 58, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#company-background {
+  margin-top: 30px;
+  font-size: 1.8em;
+  color: white;
+  font-weight: bold;
+  width: 80%;
+  margin-left: 10%;
+  position: relative;
+  z-index: 100;
+}
+
+/* line 69, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#content-boxes {
+  position: absolute;
+  left: -7%;
+}
+
+@media all and (max-width: 1151px) {
+  /* line 75, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+  .layer img {
+    width: 100%;
+  }
+}
+@media all and (max-width: 1000px) {
+  /* line 80, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+  #content-boxes {
+    left: -2%;
+  }
+}
+/* line 86, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#mb_pattern {
+  position: relative;
+  margin-top: 200px;
+}
+
+/* line 95, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+ul#menu-circles {
+  margin-top: 40px;
+  margin-left: -30px;
+}
+
+/* line 100, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+ul#menu-circles li {
+  list-style: none;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+/* line 109, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+ul#menu-circles li img {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  display: none;
+}
+
+/* line 115, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+ul#menu-circles li div {
+  width: 100px;
+  height: 100px;
+  vertical-align: top;
+  color: white;
+  font-size: 1.5em;
+  border-radius: 50%;
+  border: 5px solid black;
+  background: #111;
+}
+
+/* line 126, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+ul#menu-circles li > div {
+  position: absolute;
+  opacity: 0;
+  display: table;
+  width: 100px;
+  height: 100px;
+}
+
+/* line 134, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+ul#menu-circles li > div > span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* line 140, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+#sampler-link {
+  display: none;
+  position: relative;
+  margin-top: 50px;
+  font-size: 2em;
+  z-index: 100;
+}
+
+/* line 148, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_pattern {
+  display: none;
+}
+
+/* line 152, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_pattern div {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #410710;
+  z-index: 10;
+  border: 2px solid #410710;
+}
+
+/* line 160, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_heading h1 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 86px;
+  color: #000;
+  text-shadow: 0px 0px 1px #fff;
+  z-index: 4;
+}
+
+/* line 169, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_content_wrapper {
+  background: transparent url(/assets/htmlBack.jpg) repeat top left;
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 154px;
+  left: 200px;
+  z-index: 4;
+  display: none;
+}
+
+/* line 179, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+span.mb_close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 11px;
+  height: 12px;
+  cursor: pointer;
+  background: transparent url(/assets/close.png) no-repeat top left;
+  opacity: 0.8;
+}
+
+/* line 189, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+span.mb_close:hover {
+  opacity: 1.0;
+}
+
+/* line 192, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_content {
+  padding: 30px;
+  display: none;
+}
+
+/* line 196, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_content h2 {
+  font-family: "Astloch";
+  color: white;
+  text-shadow: 0px 0px 1px #fff;
+  font-size: 42px;
+  background: transparent url(/assets/line.png) repeat-x bottom left;
+  padding: 0px 0px 5px 0px;
+  margin-bottom: 10px;
+}
+
+/* line 205, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_content_inner {
+  line-height: 24px;
+  height: 268px;
+  outline: none;
+}
+
+/* line 210, C:/Users/Arijit/RubymineProjects/SpatialAccess/app/assets/stylesheets/home.css.scss */
+.mb_content_inner p {
+  padding: 5px 0px;
+  color: white;
+}

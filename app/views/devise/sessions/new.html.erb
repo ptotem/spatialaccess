@@ -1,0 +1,25 @@
+<div id="wrapper">
+  <table>
+    <tr>
+      <td>
+        <%= image_tag "logo.png", id: "large-logo" %>
+      </td>
+      <td>
+        <div id="login-box" class="login-form content-panel" style="display: block;">
+          <h1>Sign in</h1>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <%= devise_error_messages! %>
+              <div><%= f.email_field :email, autofocus: true, placeholder: "Email Address" %></div>
+              <div><%= f.password_field :password, placeholder: "Enter Password" %></div>
+
+              <div><%= f.submit "Log in" %></div>
+          <% end %>
+
+          <%#= render "devise/shared/links" %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+

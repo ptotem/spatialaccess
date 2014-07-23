@@ -1,0 +1,33 @@
+<style>
+    #fwrapper {
+        margin: 40px;
+        padding: 40px;
+        background: white;;
+    }
+</style>
+<div id="fwrapper">
+  <h1>New campaign for <%= current_client.name.titlecase %></h1>
+
+  <%= form_for(@campaign) do |f| %>
+      <br/>
+      <%= f.hidden_field :client_id, value: current_client.id %>
+      <%= f.text_field :name, placeholder: "Campaign Name", style: "font-size:24px;margin-bottom:5px;padding-left:5px;" %>
+      <br/>
+      <%= f.text_field :tg, placeholder: "Target Group", style: "font-size:24px;margin-bottom:5px;padding-left:5px;" %>
+      <br/>
+      <%= f.text_field :markets, placeholder: "Markets", style: "font-size:24px;margin-bottom:5px;padding-left:5px;" %>
+      <br/>
+      <%= f.label "Make this the default campaign" %>
+      <%= f.check_box :active %>
+      <br/>
+      <br/>
+
+      <div style="font-size: 24px">Campaign Dates</div>
+      <%= f.date_select :start_date, placeholder: "Campaign Start Date" %> ---
+      <%= f.date_select :end_date, placeholder: "Campaign End Date" %>
+      <br/>
+      <br/>
+      <%= f.submit "Create Campaign", class: "btn btn-danger btn-lg" %>
+  <% end %>
+
+</div>

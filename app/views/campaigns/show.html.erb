@@ -1,0 +1,291 @@
+<style>
+    html, body {
+        overflow: auto;
+        width: 100%;
+        padding-left: 20px;
+    }
+</style>
+
+<%= nested_form_for(@campaign) do |f| %>
+
+    <div style="text-align: center;" id="selector">
+      <h1 style="color:white">Select a Channel</h1>
+      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}) %>
+      <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
+      <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
+      <% if current_user.email=="admin@spatialaccess.com" or current_user.email=="content@spatialaccess.com" %>
+          <%= link_to "Edit", edit_campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
+      <% end %>
+      <%= link_to "Download as PDF", "#", class: "btn btn-info", style: "margin-top:-7px;", id: "download_as_pdf" %>
+
+    </div>
+
+    <div class="home-container">
+      <%= image_tag "titler.jpg", style: "width:60%;float:left" %>
+      <div style="float:left;width:38%;margin-left:2%">
+        <h1>Campaign Preliminaries</h1>
+
+        <h3>Target Group:</h3>
+        M, 25-44, SEC AB, C&S
+        <%#= @campaign.tg %>
+        <h3>Time Period: </h3>
+        <!--15th Nov’13-->
+        <%= @campaign.start_date %>
+        to
+        <%= @campaign.end_date %>
+        <!--14th Dec’13-->
+        <h3>Markets: </h3>
+        <!--All India, NEW-->
+        <%= @campaign.markets %>
+      </div>
+    </div>
+
+
+    <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
+        <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
+          <div class="menu-show-page">
+            <div class="controls" id="controls_<%= annochannel.options[:child_index] %>">
+              <%= annochannel.fields_for :annotations do |annotation| %>
+                  <%= annotation.hidden_field :comment %>
+                  <%= annotation.hidden_field :shape %>
+                  <%= annotation.hidden_field :posx %>
+                  <%= annotation.hidden_field :posy %>
+                  <%= annotation.hidden_field :height %>
+                  <%= annotation.hidden_field :width %>
+              <% end %>
+            </div>
+            <%# if !annochannel.object.header.blank? %>
+                <div class="title-placeholder-show-page" style="margin-left: 20px;" id="channel_<%= annochannel.options[:child_index] %>">
+                  <%= annochannel.object.header %>
+                </div>
+            <%# end %>
+
+          </div>
+          <% if !annochannel.object.header.blank? %>
+              <div class="title-header" style="margin-left: 20px;font-weight: bold;color: #ed1d24" >
+                <%= annochannel.object.header %>
+              </div>
+          <% end %>
+          <div id="grapher_<%= annochannel.options[:child_index] %>" class="graph-placeholder"></div>
+          <div class="commented-area" style="margin-top:0px;">
+            <h1  class="channelname-placeholder"></h1>
+            <% if !annochannel.object.comment.blank? %>
+            <div class="commented-placeholder"><%= annochannel.object.comment %></div>
+            <% end %>
+          </div>
+        </div>
+
+    <% end %>
+<% end %>
+
+<script>
+    var plots = [];
+    function show_graph(index) {
+        $('#channel_' + index).html(gon.channels[index]);
+        plots[index] = $.plot("#grapher_" + index, [
+                    {
+                        label: "Campaign Ad Spots",
+                        data: gon.channel_spots[index][1],
+                        bars: { show: true, fill: true, align: "center", barWidth: 0.5 }
+                    },
+                    {
+                        label: "TVR",
+                        data: gon.channel_slots[index][1],
+                        yaxis: 2
+                    }
+                ],
+                {
+                    xaxis: {
+                        ticks: [
+                            0,
+                            [ 2, "2AM" ],
+                            [ 3, "3AM" ],
+                            [ 4, "4AM" ],
+                            [ 5, "5AM" ],
+                            [ 6, "6AM" ],
+                            [ 7, "7AM" ],
+                            [ 8, "8AM" ],
+                            [ 9, "9AM" ],
+                            [ 10, "10AM" ],
+                            [ 11, "11AM" ],
+                            [ 12, "12PM" ],
+                            [ 13, "1PM" ],
+                            [ 14, "2PM" ],
+                            [ 15, "3PM" ],
+                            [ 16, "4PM" ],
+                            [ 17, "5PM" ],
+                            [ 18, "6PM" ],
+                            [ 19, "7PM" ],
+                            [ 20, "8PM" ],
+                            [ 21, "9PM" ],
+                            [ 22, "10PM" ],
+                            [ 23, "11PM" ],
+                            [ 24, "12AM" ],
+                            [ 25, "1AM" ]
+                        ]
+                    },
+                    yaxes: [
+                        { max: parseInt(gon.channel_max[index][1]) * 1.8
+                        },
+                        {
+                            // align if we are to the right
+                            alignTicksWithAxis: 1,
+                            position: "right",
+                            min: -0.005
+                        }
+                    ],
+                    legend: { position: "nw" },
+                    grid: {
+                        hoverable: true,
+                        borderWidth: 2,
+                        backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+                    }
+                }
+        );
+        var myCanvas = plots[index].getCanvas();
+//        var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  /// here is the most important part because if you dont replace you will get a DOM 18 exception.
+//        document.location.href=image;
+
+        $("#grapher_" + index).UseTooltip();
+
+        $.each($('#controls_' + index).find('.fields'), function (i, elm) {
+            create_annotation($(elm), $(elm).find('input').eq(2).val(), $(elm).find('input').eq(3).val(), $(elm).find('input').eq(4).val(), $(elm).find('input').eq(5).val(), $(elm).find('input').eq(0).val(), i,$($(elm).find('input:hidden')[1]).val());
+        });
+    }
+    function create_annotation(field, posx, posy, height, width, comment, counter,shape) {
+//        alert(shape);
+        var parentid = $(field).parent().attr('id').split("_")[1];
+        var fieldid = counter;
+        if (counter == "-1") {
+            fieldid = $(field).parent().find('.fields').length - 1;
+        }
+
+        $(field).attr("id", "anno-" + parentid + "_" + fieldid);
+        $('#graph-container_' + parseInt($(field).parent().attr("id").split("_")[1])).append("<div class='"+shape+"' style='left:" + posx + "px;top:" + (parseInt(posy)+80) + "px;height:" + height + "px;width:" + width + "px;position:absolute;' id='circle-" + parentid + "_" + fieldid + "'></div>");
+        var $circle = $('#circle-' + parentid + "_" + fieldid);
+        $circle.append('<div class="show_annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '">' + comment + '</div>');
+    }
+
+
+    var previousPoint = null, previousLabel = null;
+
+    $.fn.UseTooltip = function () {
+        $(this).bind("plothover", function (event, pos, item) {
+            if (item) {
+                if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                    previousPoint = item.dataIndex;
+                    previousLabel = item.series.label;
+                    $("#tooltip").remove();
+
+                    var x = item.datapoint[0];
+                    var y = item.datapoint[1];
+
+                    var color = item.series.color;
+
+
+                    showTooltip(item.pageX,
+                            item.pageY,
+                            color,
+                                    "<strong>" + item.series.label + "</strong><br>" + item.series.xaxis.ticks[x - 1].label + " to " + item.series.xaxis.ticks[x].label + " : <strong>" + y + "</strong>");
+                }
+            } else {
+                $("#tooltip").remove();
+                previousPoint = null;
+            }
+        });
+    };
+
+    function showTooltip(x, y, color, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css({
+            position: 'absolute',
+            display: 'none',
+            top: y - 40,
+            left: x - 120,
+            border: '2px solid ' + color,
+            padding: '3px',
+            'font-size': '9px',
+            'border-radius': '5px',
+            'background-color': '#fff',
+            'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+            opacity: 0.9
+        }).appendTo("body").fadeIn(200);
+    }
+
+    $(function () {
+
+        $('#channel').on('change', function () {
+            var index = parseInt($(this).val());
+            if (index == 999) {
+                $('.editable-graph-container').hide();
+                $('.home-container').fadeIn();
+            } else {
+                $('.home-container').hide();
+                $('.editable-graph-container').hide();
+                $('#graph-container_' + index).fadeIn(function () {
+                    show_graph(index);
+                });
+            }
+            $('#showcards').hide();
+            $('#showall').fadeIn();
+        });
+
+        $('#showall').on("click", function () {
+            $(this).hide();
+            $('.home-container').fadeIn();
+            $('#showcards').fadeIn();
+            $.each($('.editable-graph-container'), function (index, elm) {
+                $('#graph-container_' + index).fadeIn(function () {
+                    show_graph(index);
+                });
+            });
+
+
+        });
+        $('#showcards').on("click", function () {
+            $(this).hide();
+            $('#showall').fadeIn();
+            $('.editable-graph-container').hide();
+            $('.home-container').fadeIn();
+        });
+
+        $("#download_as_pdf").on("click", function(e) {
+            e.preventDefault();
+            var doc = new jsPDF('landscape');
+            html2canvas($('.home-container').first().get(0), {
+                onrendered: function(canvas) {
+                    //document.body.appendChild(canvas);
+                    var imgData = canvas.toDataURL('image/jpeg');
+                    console.log('Report Image URL: '+imgData);
+                    doc.addImage(imgData, 'JPEG', 10, 10, 260, 95);
+                    $('.fields').each(function(i,v){
+                        html2canvas($(v).get(0), {
+                            onrendered: function(canvas) {
+                                //document.body.appendChild(canvas);
+                                var imgData1 = canvas.toDataURL('image/jpeg');
+                                console.log('Report Image URL: '+imgData1);
+                                doc.addPage();
+                                doc.addImage(imgData1, 'JPEG', 10, 10, 260, 95);
+
+                            }
+                        });
+                    });
+                }
+            });
+            setTimeout(function(){doc.save('sample-file.pdf');},15000)
+        });
+
+        $(document).on('nested:fieldAdded', function (event) {
+            var field = event.field;
+            create_annotation(field, 50, 200, 100, 100, "", -1,"");
+        });
+
+        $("form").on("keypress", function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+
+    });
+
+</script>
+

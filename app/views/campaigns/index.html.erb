@@ -1,0 +1,44 @@
+<style>
+    body, html {
+        overflow: auto;
+    }
+
+    #fwrapper {
+        width: 960px;
+        margin: 40px auto;
+        padding: 40px;
+        background: white;;
+    }
+</style>
+<div id="fwrapper">
+  <h1>Listing campaigns for <%= current_client.name.titlecase %></h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Campaign Name</th>
+      <th>Campaign Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @campaigns.each do |campaign| %>
+        <tr>
+          <td><%= campaign.name %></td>
+          <td><%= campaign.active ? "Active": "Inactive" %></td>
+          <td><%= link_to 'Show', campaign %></td>
+          <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
+          <td><%= link_to 'Build Campaign', build_the_campaign_path(campaign) %></td>
+          <td><%= link_to 'Destroy', campaign, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <%= link_to "New Campaign", new_campaign_path, class: "btn btn-danger btn-lg" %>
+</div>
+

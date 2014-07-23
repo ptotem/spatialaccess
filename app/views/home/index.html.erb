@@ -1,0 +1,335 @@
+<div id="wrapper">
+  <div id="menu-section" class="col-lg-6 col-lg-offset-0 col-md-offset-0 col-md-4 col-sm-offset-3 col-sm-6 col-xs-6">
+    <ul id="scene">
+      <li id="layer0" class="layer" data-depth="0.10"><img src="/assets/layer0.png"></li>
+      <li id="layer1" class="layer" data-depth="0.20"><img src="/assets/layer1.png"></li>
+      <li id="layer2" class="layer" data-depth="0.30"><img src="/assets/layer2.png"></li>
+      <li id="layer3" class="layer" data-depth="0.40"><img src="/assets/layer3.png"></li>
+      <li id="layer4" class="layer" data-depth="0.50"><img src="/assets/layer4.png"></li>
+      <li id="layer5" class="layer" data-depth="0.60"><img src="/assets/layer5.png"></li>
+      <li id="layer6" class="layer" data-depth="0.70"><img src="/assets/layer6.png"></li>
+    </ul>
+    <div class="grower"><%= image_tag "logoname.png" %></div>
+  </div>
+  <div id="matter-section" class="col-lg-6 col-lg-offset-0 col-md-offset-0 col-md-8 col-sm-12 col-xs-6">
+    <div id="content-boxes" class="col-lg-8 col-lg-offset-0 col-md-6 col-sm-12 col-xs-6">
+      <div id="mb_pattern" class="mb_pattern"></div>
+      <div id="mb_content_wrapper" class="mb_content_wrapper">
+        <span class="mb_close"></span>
+
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+        <div class="mb_content">
+          <h2>About</h2>
+
+          <div class="mb_content_inner">
+            <p>His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he
+              looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul id="menu-circles">
+      <li id="menu0" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Audit</span></div>
+        <%= image_tag "audit.png" %>
+      </li>
+      <li id="menu1" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Advisory</span></div>
+        <%= image_tag "advisory.png" %>
+      </li>
+      <li id="menu2" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Analytics</span></div>
+        <%= image_tag "analytics.png" %>
+      </li>
+      <li id="menu3" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Appraisal</span></div>
+        <%= image_tag "assessment.png" %>
+      </li>
+      <li id="menu4" data-speed="1000" data-easing="easeOutBack">
+        <div><span>Training</span></div>
+        <%= image_tag "training.png" %>
+      </li>
+    </ul>
+    <div id="company-background">
+    </div>
+    <br/>
+    <br/>
+    <%= link_to "Let us show you something", campaign_path(current_client.campaigns.where(active: true).last), class: "btn btn-danger", id: "sampler-link" %>
+
+    <br/>
+    <br/>
+
+    <div id="admin-blocks" style="display: none;">
+      <% if current_user.email=="admin@spatialaccessapp.in" %>
+          <%= link_to "Admin Panel", '/admin', class: "btn btn-warning btn-lg" %>
+          <%= link_to "Campaigns List", campaigns_path, class: "btn btn-info btn-lg" %>
+          <%= link_to "Presentation", new_presentation_path , class: "btn btn-danger btn-lg", id: "presentation-link" %>
+      <% elsif current_user.email=="content@spatialaccessapp.in" %>
+          <%= link_to "Campaigns List", campaigns_path, class: "btn btn-warning btn-lg" %>
+          <%= link_to "Presentation", new_presentation_path , class: "btn btn-danger btn-lg", id: "presentation-link" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        $('#scene').parallax();
+        setTimeout(function () {
+            $('#scene').fadeIn(1500, function () {
+                $('.grower').animate({
+                    width: "50%",
+                    opacity: 1,
+                    marginTop: "0px"
+                }, 1000, function () {
+                    $('#menu-circles li').fade1by1();
+                    setTimeout(function () {
+                        var text = "India's first Media & Marketing Services Audit & Advisory Company, providing a wide range of audit, advisory and analytical services, our team services more than 120 clients across 7 cities in India and 6 countries across the globe.";
+                        var $company = $('#company-background');
+                        $.each(text.split(''), function (i, letter) {
+                            setTimeout(function () {
+                                $company.html($company.html() + letter);
+                            }, 20 * i);
+                        });
+                        setTimeout(function () {
+                            $('#sampler-link').fadeIn();
+                            $('#mb_pattern').fadeIn();
+                            $('#admin-blocks').fadeIn();
+                        }, 20 * text.length);
+                    }, 500 * $('#menu-circles li img').length);
+                });
+            });
+        }, 500);
+
+
+    });
+
+    (function ($) {
+        $.fn.fade1by1 = function (options) {
+            var opt = $.extend({
+                'delay': 500,
+                'speed': 500,
+                'ease': 'linear'
+            }, options);
+            var that = this;
+            for (var i = 0, d = 0, l = that.length; i < l; i++, d += opt.delay) {
+                that.eq(i).find('div').delay(d).animate({opacity: 0.8}, opt.speed, opt.ease, function () {
+                    var $this = $(this);
+                    setTimeout(function () {
+                        $this.next().fadeIn(opt.speed, opt.ease);
+                        $this.next().hover(
+                                function () {
+                                    $(this).css('opacity', 0);
+                                }, function () {
+                                    $(this).css('opacity', 1);
+                                });
+                    }, 6000);
+                });
+            }
+        };
+    })(jQuery);
+
+    $.fn.animateRotate = function (angle, duration, easing, complete) {
+        var args = $.speed(duration, easing, complete);
+        var step = args.step;
+        return this.each(function (i, e) {
+            args.step = function (now) {
+                $.style(e, 'transform', 'rotate(' + now + 'deg)');
+                if (step) return step.apply(this, arguments);
+            };
+
+            $({deg: 0}).animate({deg: angle}, args);
+        });
+    };
+
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        var $menu = $('#menu-circles'),
+                $menuItems = $menu.children('li'),
+                $mbWrapper = $('#mb_content_wrapper'),
+                $mbClose = $mbWrapper.children('.mb_close'),
+                $mbContentItems = $mbWrapper.children('.mb_content'),
+                $mbContentInnerItems = $mbContentItems.children('.mb_content_inner');
+        $mbPattern = $('#mb_pattern');
+
+        Menu = (function () {
+
+            var init = function () {
+                        initPlugins();
+                        initPattern();
+                        initEventsHandler();
+                    },
+            //initialise the jScollPane (scroll plugin)
+                    initPlugins = function () {
+                    },
+            /*
+             draws 16 boxes on a specific area of the page.
+             we randomly calculate the top, left, and rotation angle for each one of them
+             */
+                    initPattern = function () {
+                        for (var i = 0; i < 16; ++i) {
+                            //random opacity, top, left and angle
+                            var o = 0.3,
+                                    t = Math.floor(Math.random() * 196) + 5, // between 5 and 200
+                                    l = Math.floor(Math.random() * 546) + 75, // between 5 and 700
+                                    a = Math.floor(Math.random() * 101) - 50; // between -50 and 50
+
+                            $el = $('<div>').css({
+                                opacity: o,
+                                top: t + 'px',
+                                left: l + 'px'
+                            });
+
+                            $el.transform({'rotate': a + 'deg'});
+
+                            $el.appendTo($mbPattern);
+                        }
+                    },
+            /*
+             when the User closes a content item, we move the boxes back to the original place,
+             with new random values for top, left and angle though
+             */
+                    disperse = function () {
+                        $.each($mbPattern.children(), function (i) {
+                            //random opacity, top, left and angle
+                            var o = 0.3,
+                                    t = Math.floor(Math.random() * 196) + 5, // between 5 and 200
+                                    l = Math.floor(Math.random() * 546) + 75, // between 5 and 700
+                                    a = Math.floor(Math.random() * 101) - 50; // between -50 and 50
+                            $el = $(this),
+                                    param = {
+                                        width: '50px',
+                                        height: '50px',
+                                        opacity: o,
+                                        top: t + 'px',
+                                        left: l + 'px',
+                                        transform: 'rotate(' + a + 'deg)'
+                                    };
+                            $el.animate(param, 1000, 'easeOutExpo');
+                            $el.animateRotate(a);
+                        });
+                        setTimeout(function () {
+                            $('#company-background').fadeIn();
+                            $('#sampler-link').fadeIn();
+                        }, 1200);
+                    },
+                    initEventsHandler = function () {
+                        /*
+                         click a link in the menu
+                         */
+                        $menuItems.bind('click', function (e) {
+                            var $this = $(this),
+                                    pos = $this.index(),
+                                    speed = $this.data('speed'),
+                                    easing = $this.data('easing');
+                            //if an item is not yet shown
+                            if (!$menu.data('open')) {
+                                $('#company-background').fadeOut();
+                                $('#sampler-link').fadeOut();
+                                //if current animating return
+                                if ($menu.data('moving')) return false;
+                                $menu.data('moving', true);
+                                $.when(openItem(pos, speed, easing)).done(function () {
+                                    $menu.data({
+                                        open: true,
+                                        moving: false
+                                    });
+                                    showContentItem(pos);
+                                    $mbPattern.children().fadeOut(500);
+                                });
+                            }
+                            else
+                                showContentItem(pos);
+                            return false;
+                        });
+
+                        /*
+                         click close makes the boxes animate to the top of the page
+                         */
+                        $mbClose.on('click', function (e) {
+                            $menu.data('open', false);
+                            $mbPattern.children().fadeIn(500, function () {
+                                $mbContentItems.hide();
+                                $mbWrapper.hide();
+                            });
+
+                            disperse();
+                            return false;
+                        });
+
+                    },
+            /*
+             This shows a content item when there is already one shown:
+             */
+                    showContentItem = function (pos) {
+                        $mbContentItems.hide();
+                        $mbWrapper.show();
+                        $mbContentItems.eq(pos).show().children('.mb_content_inner');
+                    },
+            /*
+             moves the boxes from the top to the center of the page,
+             and shows the respective content item
+             */
+                    openItem = function (pos, speed, easing) {
+                        return $.Deferred(
+                                function (dfd) {
+                                    $mbPattern.children().each(function (i) {
+                                        $(this).animate({
+                                            width: '100px',
+                                            height: '100px',
+                                            top: 100 * Math.floor(i / 4) - 45,
+                                            left: 200 + 100 * (i % 4),
+                                            opacity: 0.8,
+                                            transform: 'rotate(' + 0 + 'deg)'
+                                        }, speed, easing, dfd.resolve);
+                                        $(this).animateRotate(0);
+                                    });
+                                }
+                        ).promise();
+                    };
+
+            return {
+                init: init
+            };
+
+        })();
+
+        /*
+         call the init method of Menu
+         */
+        Menu.init();
+    });
+</script>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  comment: MyText
+  channel_id: 1
+  campaign_id: 1
+
+two:
+  comment: MyText
+  channel_id: 1
+  campaign_id: 1

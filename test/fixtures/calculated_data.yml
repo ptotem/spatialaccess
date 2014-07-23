@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  campaign_id: 1
+  channel_id: 1
+  channel_slots: 
+  channel_spots: 
+  channel_maxes: 
+
+two:
+  campaign_id: 1
+  channel_id: 1
+  channel_slots: 
+  channel_spots: 
+  channel_maxes: 
