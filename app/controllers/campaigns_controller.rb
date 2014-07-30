@@ -22,9 +22,15 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1.json
   def show
 
-    @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
+    # @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
+    @channels = CalculatedData.where(:campaign_id => @campaign.id).map{|i| i.channel_id}
+
     @annochannels=[]
-    @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
+    @channels.each do |c|
+      @annochannels << Annochannel.where(campaign_id: @campaign.id, showable: true, channel_id: c).first
+    end
+
+    #@annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
     # @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all
     @channel_slots=[]
     @channel_spots=[]
@@ -154,7 +160,7 @@ class CampaignsController < ApplicationController
       # return
 
     end
-    gon.channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).map { |c| c.channel_name.upcase }
+    gon.channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).map { |c| c.channel_name }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes

@@ -7,12 +7,12 @@ class Slot < ActiveRecord::Base
 
   def self.import(campaign)
     @campaign = Campaign.find(campaign)
-    file = @campaign.sfile.url(:original)
+    file = @campaign.sfile#.url(:original)
     puts "---------------------------------------------------------------------------------"
     puts file
     puts "---------------------------------------------------------------------------------"
-    spreadsheet = Roo::Excelx.new(file, nil, :ignore)
-    # spreadsheet = open_spreadsheet(file)
+    # spreadsheet = Roo::Excelx.new(file, nil, :ignore)
+    spreadsheet = open_spreadsheet(file)
     (6..spreadsheet.last_row-22).each do |i|
       slot=Slot.new
       channel=Channel.find_by_name(spreadsheet.row(i)[0])

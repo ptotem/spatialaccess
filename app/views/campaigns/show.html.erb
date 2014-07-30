@@ -10,7 +10,7 @@
 
     <div style="text-align: center;" id="selector">
       <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}) %>
+      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}.sort) %>
       <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
       <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
       <% if current_user.email=="admin@spatialaccess.com" or current_user.email=="content@spatialaccess.com" %>
@@ -29,14 +29,14 @@
         M, 25-44, SEC AB, C&S
         <%#= @campaign.tg %>
         <h3>Time Period: </h3>
-        15th Nov’13
-        <%#= @campaign.start_date %>
+        <!--15th Nov’13-->
+        <%= @campaign.start_date %>
         to
-        <%#= @campaign.end_date %>
-        14th Dec’13
+        <%= @campaign.end_date %>
+        <!--14th Dec’13-->
         <h3>Markets: </h3>
-        All India, NEW
-        <%#= @campaign.markets %>
+        <!--All India, NEW-->
+        <%= @campaign.markets %>
       </div>
     </div>
 
