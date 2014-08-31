@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link href="/css/responsive-slider-parallax.css" rel="stylesheet">
+</head>
+<body>
+<!-- Responsive slider - START -->
+<ul class="nav nav-pills" role="tablist">
+  <li>
+    <a href="/">Home</a>
+  </li>
+  <% Slide.where(:root => true).each do |s| %>
+      <li>
+        <a href="/presentation_creator/<%= s.id %>" data-attr="<%= s.id %>"><%= s.name %></a>
+      </li>
+  <% end %>
+
+</ul>
+<div class="responsive-slider-parallax" data-spy="responsive-slider" data-parallax="true" data-parallax-direction="1">
+  <%#= select_tag "vertical", options_for_select([["Marketing Audit",3],["Media Audit ",4],["Partner Advisory",5],["Technology Solutions",6]]) %>
+
+  <div class="slides-container" data-group="slides">
+    <ul>
+
+      <!--<li>-->
+        <!--<div class="slide-body" data-group="slide">-->
+          <!--<div class="container">-->
+            <!--<div class="wrapper">-->
+              <!--<div class="caption header" data-animate="slideAppearRightToLeft" data-delay="500" data-length="300">-->
+                <!--<h2>Twitter Boostrap</h2>-->
+                <!--<div class="caption sub" data-animate="slideAppearLeftToRight" data-delay="800" data-length="300">Compatible!</div>-->
+              <!--</div>-->
+              <!--<div class="caption img-bootstrap" data-animate="slideAppearDownToUp" data-delay="200">-->
+                <!--<img src="/assets/bootstrap.png">-->
+              <!--</div>-->
+              <!--<div class="caption img-twitter" data-animate="slideAppearUpToDown">-->
+                <!--<img src="/assets/twitter.png">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</li>-->
+      <% @slide.childs.each do |cslide| %>
+          <li>
+            <div class="slide-body" data-group="slide">
+              <div class="container">
+                <div class="wrapper">
+                  <div class="caption header" data-animate="slideAppearRightToLeft" data-delay="500" data-length="300">
+                    <h2><%#= cslide.name %></h2>
+                  </div>
+                  <% cslide.childs.each do |ccslide| %>
+                      <!--<h1><%#= ccslide.id %></h1>-->
+                      <div class="caption img-html5" data-animate= "<%= ["slideAppearLeftToRight","slideAppearRightToLeft"].sample %>" data-delay= <%= rand(100..1000) %>>
+                        <img src=<%= ccslide.image %>>
+                      </div>
+                  <% end %>
+                  <!--<div class="caption img-html5" data-animate="slideAppearLeftToRight" data-delay="200">-->
+                    <!--<img src="/assets/html5.png">-->
+                  <!--</div>-->
+                  <!--<div class="caption img-css3" data-animate="slideAppearLeftToRight">-->
+                    <!--<img src="/assets/css3.png">-->
+                  <!--</div>-->
+                </div>
+              </div>
+            </div>
+          </li>
+      <% end %>
+      <!--<li>-->
+        <!--<div class="slide-body" data-group="slide">-->
+          <!--<div class="container">-->
+            <!--<div class="wrapper">-->
+              <!--<div class="caption header" data-animate="slideAppearRightToLeft" data-delay="500" data-length="300">-->
+                <!--<h2>Custom animations</h2>-->
+                <!--<div class="caption sub" data-animate="slideAppearLeftToRight" data-delay="800" data-length="300">For any caption you use!</div>-->
+              <!--</div>-->
+              <!--<div class="caption img-jquery" data-animate="slideAppearDownToUp" data-delay="200">-->
+                <!--<img src="/assets/jquery.png">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</li>-->
+
+    </ul>
+  </div>
+  <a class="slider-control left" href="#" data-jump="prev" style="display: none;">Prev</a>
+  <a class="slider-control right" href="#" data-jump="next" style="display: none;">Next</a>
+  <div class="pages" style="text-align: left;">
+    <% if @slide.root? %>
+        <% @slide.childs.each do |cslide| %>
+            <a class="pa" href="/presentation_creator/<%= cslide.id %>" style="background: white;padding:10px;text-decoration:none;color: black;"><%= cslide.name %></a>
+        <% end %>
+    <% else %>
+        <% @new_slide = @slide %>
+        <% while !@new_slide.root%>
+            <% @new_slide = @new_slide.parents.first %>
+        <% end %>
+        <% @new_slide.childs.each do |cslide| %>
+            <a class="pa" href="/presentation_creator/<%= cslide.id %>" style="background: white;padding:10px;text-decoration:none;color: black;"><%= cslide.name %></a>
+        <% end %>
+    <% end %>
+
+    <!--<a class="page" href="#" data-jump-to="1">1</a>-->
+    <!--<a class="page" href="#" data-jump-to="2">2</a>-->
+    <!--<a class="page" href="#" data-jump-to="3">3</a>-->
+  </div>
+</div>
+<!-- Responsive slider - END -->
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery.event.move.js"></script>
+<script src="/js/responsive-slider.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $('#vertical').on('change',function(){
+            window.location.href = "/presentation_creator/"+$(this).val();
+        });
+
+        $('.nav-pills').children().find("a[data-attr='" + <%= params[:id] %> + "']").addClass("active").addClass("btn-info");
+    });
+    $(document).keydown(function(e) {
+        switch(e.which) {
+            case 37: // left
+                $('.left').trigger("click");
+                break;
+
+            case 38: // up
+                break;
+
+            case 39: // right
+                $('.right').trigger("click");
+                break;
+
+            case 40: // down
+                break;
+
+            default: return; // exit this handler for other keys
+        }
+        e.preventDefault(); // prevent the default action (scroll / move caret)
+    });
+
+</script>
+</body>
+</html>

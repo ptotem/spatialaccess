@@ -66,6 +66,15 @@ class PresentationsController < ApplicationController
     @presentation = Presentation.find(params[:id])
   end
 
+  def presentation_creator
+    @slide = Slide.find(params[:id])
+    render :layout => false
+  end
+
+  def presentor
+    render :layout => false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_presentation

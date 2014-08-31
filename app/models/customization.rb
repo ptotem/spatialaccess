@@ -10,19 +10,19 @@ class Customization < ActiveRecord::Base
 
   rails_admin do
 
-    edit do
-      group :basic_group do
-        label "Basics"
-        field :client
-      end
-      group :design_group do
-        label "Theme"
-        active false
-        field :background do
-          label "Page Background"
-        end
-      end
-    end
+    # edit do
+    #   group :basic_group do
+    #     label "Basics"
+    #     field :client
+    #   end
+    #   group :design_group do
+    #     label "Theme"
+    #     active false
+    #     field :background do
+    #       label "Page Background"
+    #     end
+    #   end
+    # end
   end
 
 end

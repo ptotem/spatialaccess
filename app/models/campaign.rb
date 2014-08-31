@@ -5,6 +5,7 @@ class Campaign < ActiveRecord::Base
   has_many :channels, through: :spots
   has_many :annotations#, dependent: :destroy
   has_many :annochannels, dependent: :destroy
+  has_one :last_slide, dependent: :destroy
   has_attached_file :cfile
   has_attached_file :sfile
   do_not_validate_attachment_file_type :cfile
@@ -15,12 +16,12 @@ class Campaign < ActiveRecord::Base
 
   def self.import(campaign)
     @campaign = Campaign.find(campaign)
-    file = @campaign.cfile.url(:original)
+    file = @campaign.cfile#.url(:original)
     puts "---------------------------------------------------------------------------------"
     puts file
     puts "---------------------------------------------------------------------------------"
-    # spreadsheet = open_spreadsheet(file)
-    spreadsheet = Roo::Excelx.new(file, nil, :ignore)
+    spreadsheet = open_spreadsheet(file)
+    # spreadsheet = Roo::Excelx.new(file, nil, :ignore)
     (6..spreadsheet.last_row-31).each do |i|
       channel=Channel.find_by_name(spreadsheet.row(i)[0])
       unless channel.blank?
@@ -40,6 +41,7 @@ class Campaign < ActiveRecord::Base
         spot.save
       end
     end
+    Campaign.calculate_data(@campaign.id)
   end
 
   def delete_all_slots_and_spots

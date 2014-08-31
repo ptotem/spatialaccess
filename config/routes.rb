@@ -24,6 +24,10 @@ SpatialAccess::Application.routes.draw do
   get "/menu_new/:id" => 'slides#menu_new'
   get "/get_image/:id" => 'slides#get_image'
 
+  get "/presentation_creator/:id" => 'presentations#presentation_creator'
+
+  get "/presentor" => 'presentations#presentor'
+
 
   resources :clients
   resources :slots do

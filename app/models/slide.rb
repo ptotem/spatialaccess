@@ -8,4 +8,7 @@ class Slide < ActiveRecord::Base
   has_many :cslides
   has_many :childs, :through => :cslides
 
+  has_many :inverse_friendships, :class_name => "Cslide", :foreign_key => "child_id"
+  has_many :parents, :through => :inverse_friendships, :source => :slide
+
 end

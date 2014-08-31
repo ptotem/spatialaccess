@@ -10,7 +10,7 @@
 
     <div style="text-align: center;" id="selector">
       <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}) %>
+      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}.sort) %>
       <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
       <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
       <% if current_user.email=="admin@spatialaccess.com" or current_user.email=="content@spatialaccess.com" %>
@@ -29,20 +29,20 @@
         M, 25-44, SEC AB, C&S
         <%#= @campaign.tg %>
         <h3>Time Period: </h3>
-        15th Nov’13
-        <%#= @campaign.start_date %>
+        <!--15th Nov’13-->
+        <%= @campaign.start_date %>
         to
-        <%#= @campaign.end_date %>
-        14th Dec’13
+        <%= @campaign.end_date %>
+        <!--14th Dec’13-->
         <h3>Markets: </h3>
-        All India, NEW
-        <%#= @campaign.markets %>
+        <!--All India, NEW-->
+        <%= @campaign.markets %>
       </div>
     </div>
 
 
     <%= f.fields_for :annochannels, @annochannels do |annochannel| %>
-        <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container">
+        <div id="graph-container_<%= annochannel.options[:child_index] %>" class="editable-graph-container show-page">
           <div class="menu-show-page">
             <div class="controls" id="controls_<%= annochannel.options[:child_index] %>">
               <%= annochannel.fields_for :annotations do |annotation| %>
@@ -55,14 +55,14 @@
               <% end %>
             </div>
             <%# if !annochannel.object.header.blank? %>
-                <div class="title-placeholder-show-page" style="margin-left: 20px;" id="channel_<%= annochannel.options[:child_index] %>">
+                <div class="title-placeholder-show-page" style="margin-left: 20px;margin-top: 10px;" id="channel_<%= annochannel.options[:child_index] %>">
                   <%= annochannel.object.header %>
                 </div>
             <%# end %>
 
           </div>
           <% if !annochannel.object.header.blank? %>
-              <div class="title-header" style="margin-left: 20px;font-weight: bold;color: #ed1d24" >
+              <div class="title-header" style="margin-left: 20px;font-weight: bold;color: #ed1d24;margin-top: 10px;" >
                 <%= annochannel.object.header %>
               </div>
           <% end %>
@@ -76,6 +76,17 @@
         </div>
 
     <% end %>
+
+    <div class="last-container" style="display: none;">
+      <%image_url = @campaign.last_slide.image.url rescue "titler.jpg"%>
+      <%= image_tag image_url, style: "width:60%;float:left" %>
+      <div style="float:left;width:38%;margin-left:2%">
+        <h1><%= @campaign.last_slide.header rescue "Last Header"%></h1>
+
+        <%= @campaign.last_slide.comment rescue "No Comments yet." %>
+      </div>
+    </div>
+
 <% end %>
 
 <script>
@@ -131,9 +142,12 @@
                             // align if we are to the right
                             alignTicksWithAxis: 1,
                             position: "right",
-                            min: -0.005
+                            min: -0.005,
+                            color: "red"
                         }
                     ],
+                    //colors: ["", "#800000"],
+                    colors: ["<%= current_user.client.customizations.first.bar_color rescue "" %>", "<%= current_user.client.customizations.first.line_color rescue ""%>"],
                     legend: { position: "nw" },
                     grid: {
                         hoverable: true,
@@ -154,6 +168,7 @@
     }
     function create_annotation(field, posx, posy, height, width, comment, counter,shape) {
 //        alert(shape);
+        shape = shape.length < 0 ? "red-circle" : shape;
         var parentid = $(field).parent().attr('id').split("_")[1];
         var fieldid = counter;
         if (counter == "-1") {
@@ -238,7 +253,7 @@
                     show_graph(index);
                 });
             });
-
+            $('.last-container').show();
 
         });
         $('#showcards').on("click", function () {
@@ -246,6 +261,7 @@
             $('#showall').fadeIn();
             $('.editable-graph-container').hide();
             $('.home-container').fadeIn();
+            $('.last-contianer').hide();
         });
 
         $("#download_as_pdf").on("click", function(e) {

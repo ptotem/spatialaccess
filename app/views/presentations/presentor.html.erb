@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--/**************************************************************
+  * Project 	    : http://www.spatialaccess.com
+  * Client  	    : Spatial Access
+  * Powered By  	: spatialaccess.com
+  * Developed By  : http://i2-green.com
+  * Date	  	    : March 04 2013.
+  **************************************************************/-->
+<head>
+<meta charset="UTF-8" />
+<title>Spatial Access</title>
+
+<!-- HTML 5 IE Support -->
+<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<meta name="google-site-verification" content="VzdG2yF9Ed1zNrtZiEw20YnO6E-bsB_lWoqhIjcQqZ4" />
+<meta name="Keywords" content="Spatial Access, Marketing Investments, Media & Analytics, Media & International, Marketing Services,Audits, Advisory, Analytics,Spatial Access Technologies, SAT"/>
+<meta name="description" content="Spatial Access works with advertisers in pursuit of continual improvement in efficiency and effectiveness of media and marketing investments."/>
+<meta name="title" content="Spatial Access"/>
+<meta name="revisit-after" content="7 days"/>
+
+
+
+<link href="http://spatialaccess.com/wp-content/themes/spatialaccess/images/favicon.ico" rel="shortcut icon">
+
+<link rel="stylesheet" type="text/css" media="all" href="http://spatialaccess.com/wp-content/themes/spatialaccess/style.css" />
+<link rel="stylesheet" href="http://spatialaccess.com/wp-content/themes/spatialaccess/css/nivo-slider.css" type="text/css">
+<!--<link rel="pingback" href="http://spatialaccess.com/xmlrpc.php" />-->
+
+
+<script src="http://spatialaccess.com/wp-content/themes/spatialaccess/js/jquery-1.7.1.min.js"></script>
+<script src="http://spatialaccess.com/wp-content/themes/spatialaccess/js/jquery.tools.min.js" type="text/javascript"></script>
+<script src="http://spatialaccess.com/wp-content/themes/spatialaccess/js/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+<script src="http://spatialaccess.com/wp-content/themes/spatialaccess/js/jquery.chili.pack.js" type="text/javascript"></script>
+
+<!--Gallery- Life at SA-->
+
+<!-- Custom JQuery -->
+<script>
+
+//    $(window).resize(function(){
+//        var dw=$(document).width();
+//        if(dw<763){ //hompage nivo slider only for big screens
+//            $('#homeAnimWrap').hide();
+//        }
+//        else{
+//            $('#homeAnimWrap').show();
+//        }
+//
+//        //if(dw<480){
+//        $('#introbaner,.slider-wrapper').fadeOut('slow');
+//        //}
+//
+//    });
+
+    $(document).ready(function(){
+        $('#introbaner,.slider-wrapper').hide();
+        $('#homeAnimWrap').show();
+        var dw=$(document).width();
+
+        //Main Navigation
+        $('#mainNav ul').hide();
+        $('#mainNav li.selected > ul').slideDown('slow');
+        $("#subNav li:last").css({'border-right-width': '0px', 'padding-right': '0'});
+
+
+        //Mobile Menu Animation
+        $("#mob_menu").click(function(){
+            $("#mob_main_nav").stop().slideToggle('slow');
+            $('#mob_main_nav li.selected > ul').stop().slideDown('slow');
+            $("#mob_main_nav li.selected > ul > li > a ").css({'background-color': '#b8b8b8'});
+            $("#mob_main_nav li.selected > ul > li > ul > li > a").css({'background-color': '#979797'});
+        });
+
+        //Service Page Circle Menu Hover Bg Effect
+        $("UL#menu-circle LI A").hover(
+                function () {$(this).parent().addClass('hover');},
+                function () {$(this).parent().removeClass('hover');}
+        );
+
+
+
+        if(dw>763){//hompage nivo slider only for big screens
+
+            /*NIVOSLIDER for Home Page*/
+            $("#introbaner .nivo-prevNav").hide();
+            $('#introbaner').nivoSlider({
+                effect: 'fold', // Specify sets like: 'fold,fade,sliceDown'
+                animSpeed: 600, // Slide transition speed
+                pauseTime: 4000, // How long each slide will show
+                startSlide: 0, // Set starting Slide (0 index)
+                directionNav: false, // Next & Prev navigation
+                directionNavHide: false, // Only show on hover
+                controlNav: false, // 1,2,3... navigation
+                controlNavThumbs: false, // Use thumbnails for Control Nav
+                keyboardNav: true, // Use left & right arrows
+                pauseOnHover: false, // Stop animation while hovering
+                manualAdvance: false, // Force manual transitions
+                randomStart: false, // Start on a random slide
+                slideshowEnd: function(){}, // Triggers after all slides have been shown
+                beforeChange: function(){}, // Triggers before a slide transition
+                afterChange: function(){}, // Triggers after a slide transition
+                lastSlide: function(){
+                    $('#introbaner').data('nivo:vars').stop = true;
+                    $('.slider-wrapper').hide();
+                    $('#introbaner').fadeOut('slow',function(){
+                        $('#homeAnimWrap').fadeIn('slow');
+                    });
+                } // Triggers when last slide is shown
+            });
+
+        }//end of if condition
+
+        $('#btn-intro').click(function(e) {
+            e.preventDefault();
+            $('#introbaner').data('nivo:vars').stop = true;
+            $('.slider-wrapper').hide();
+            $('#introbaner').fadeOut('slow',function(){
+                $('#homeAnimWrap').fadeIn('slow');
+            });
+        });
+
+        /*Home Page Animate Boxes*/
+        $('#homeAnimWrap .text').hover(
+                function () {
+                    $(this).css({'color':'#000000','background-repeat':'no-repeat','background-position':'-100px -100px'});
+                },
+                function () {
+                    $(this).css({'color':'#FFFFFF','background-repeat':'repeat','background-position':'0px 0px'});
+                });
+
+
+        if(dw > 960){
+            $('#home-box1 .text').click(function() {
+                $('#home-box1').css({'z-index':'999'});
+                $('#home-box1 .text em').hide();
+                $('#home-box1').animate({'width':'719px' ,'height':'659px' } , 700, function(){
+                    $('#btn-home1').show();
+                });
+            });
+
+            $('#btn-home1').click(function() {
+                $('#home-box1').animate({'width':'357px' ,'height':'217px' }, 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box1 .text em').show();
+                    $('#btn-home1').hide();
+                });
+            });
+
+            $('#home-box2 .text').click(function() {
+                $('#home-box2').css({'z-index':'999'});
+                $('#home-box2 .text em').hide();
+                $('#home-box2').animate({ clip :'rect(0px, 720px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home2').show();
+                });
+            });
+            $('#btn-home2').click(function() {
+                $('#home-box2').animate({ clip :'rect(0px, 720px, 217px, 362px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box2 .text em').show();
+                    $('#btn-home2').hide();
+                });
+            });
+
+            $('#home-box3 .text').click(function() {
+                $('#home-box3').css({'z-index':'999'});
+                $('#home-box3 .text em').hide();
+                $('#home-box3').animate({ clip :'rect(0px, 720px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home3').show();
+                });
+            });
+            $('#btn-home3').click(function() {
+                $('#home-box3').animate({ clip :'rect(222px, 720px, 437px, 0px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box3 .text em').show();
+                    $('#btn-home3').hide();
+                });
+            });
+
+            $('#home-box4 .text').click(function() {
+                $('#home-box4').css({'z-index':'999'});
+                $('#home-box4 .text em').hide();
+                $('#home-box4').animate({ clip :'rect(0px, 720px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home4').show();
+                });
+            });
+            $('#btn-home4').click(function() {
+                $('#home-box4').animate({ clip :'rect(442px, 356px, 659px, 0px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box4 .text em').show();
+                    $('#btn-home4').hide();
+                });
+            });
+
+
+            $('#home-box5 .text').click(function() {
+                $('#home-box5').css({'z-index':'999'});
+                $('#home-box5 .text em').hide();
+                $('#home-box5').animate({ clip :'rect(0px, 720px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home5').show();
+                });
+            });
+            $('#btn-home5').click(function() {
+                $('#home-box5').animate({ clip :'rect(442px, 720px, 659px, 362px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box5 .text em').show();
+                    $('#btn-home5').hide();
+                });
+            });
+
+        }
+
+
+
+        if(dw < 960 && dw > 480){
+            $('#home-box1 .text').click(function() {
+                $('#home-box1').css({'z-index':'999'});
+                $('#home-box1 .text em').hide();
+                $('#home-box1').animate({'width':'520px' ,'height':'659px' } , 700, function(){
+                    $('#btn-home1').show();
+                });
+            });
+
+            $('#btn-home1').click(function() {
+                $('#home-box1').animate({'width':'257px' ,'height':'217px' }, 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box1 .text em').show();
+                    $('#btn-home1').hide();
+                });
+            });
+
+            $('#home-box2 .text').click(function() {
+                $('#home-box2').css({'z-index':'999'});
+                $('#home-box2 .text em').hide();
+                $('#home-box2').animate({ clip :'rect(0px, 520px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home2').show();
+                });
+            });
+            $('#btn-home2').click(function() {
+                $('#home-box2').animate({ clip :'rect(0px, 520px, 217px, 262px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box2 .text em').show();
+                    $('#btn-home2').hide();
+                });
+            });
+
+            $('#home-box3 .text').click(function() {
+                $('#home-box3').css({'z-index':'999'});
+                $('#home-box3 .text em').hide();
+                $('#home-box3').animate({ clip :'rect(0px, 520px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home3').show();
+                });
+            });
+            $('#btn-home3').click(function() {
+                $('#home-box3').animate({ clip :'rect(222px, 520px, 437px, 0px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box3 .text em').show();
+                    $('#btn-home3').hide();
+                });
+            });
+
+            $('#home-box4 .text').click(function() {
+                $('#home-box4').css({'z-index':'999'});
+                $('#home-box4 .text em').hide();
+                $('#home-box4').animate({ clip :'rect(0px, 520px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home4').show();
+                });
+            });
+            $('#btn-home4').click(function() {
+                $('#home-box4').animate({ clip :'rect(442px, 257px, 659px, 0px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box4 .text em').show();
+                    $('#btn-home4').hide();
+                });
+            });
+
+
+            $('#home-box5 .text').click(function() {
+                $('#home-box5').css({'z-index':'999'});
+                $('#home-box5 .text em').hide();
+                $('#home-box5').animate({ clip :'rect(0px, 520px, 659px, 0px)'} , 700, function(){
+                    $('#btn-home5').show();
+                });
+            });
+            $('#btn-home5').click(function() {
+                $('#home-box5').animate({ clip :'rect(442px, 520px, 659px, 262px)'} , 700, function(){
+                    $(this).css({'z-index':'2'});
+                    $('#home-box5 .text em').show();
+                    $('#btn-home5').hide();
+                });
+            });
+
+        }
+        /*only for home page condition*/
+
+        /*only for inner pages*/
+
+
+        /*Team*/
+        /*only for page Team*/
+
+
+        //FAQ
+        /*only for page FAQ*/
+
+
+        //Marketing Services Audit Subpage From Top Animation
+
+
+    });
+</script>
+
+
+<!-- Gallery - Life at SA -->
+<!--Life at SA gallery end-->
+
+
+<link rel="alternate" type="application/rss+xml" title="Spatial Access &raquo; Feed" href="http://spatialaccess.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Spatial Access &raquo; Comments Feed" href="http://spatialaccess.com/comments/feed/" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://spatialaccess.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://spatialaccess.com/wp-includes/wlwmanifest.xml" />
+
+<!-- Begin Easy Columns 1.0 by Pat Friedl http://www.affiliatetechhelp.com -->
+<link rel="stylesheet" href="http://spatialaccess.com/wp-content/plugins/easy-columns/css/wp-ez-columns.css?1409473313" type="text/css" media="screen, projection" />
+<!-- End Easy Columns 1.0 -->
+</head>
+
+<body class="home blog">
+
+
+<div class="wrapper">
+<div class="mobile_header">
+  <h1 class="logo_mob"><a class="logo-wrapper" href="http://spatialaccess.com/" title="Spatial Access" rel="home">Spatial Access</a></h1>
+  <!--<a href="index.html" ><img src="images/sa-logo.png" alt="Spatial Access"></a>-->
+  <input id="mob_menu" class="mob_menu_icon" type="button">
+  <div class="clear"></div>
+  <div class="menu-header"><ul id="mob_main_nav" class="mob_menu">
+    <li id="menu-item-19" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19">
+      <a href="http://spatialaccess.com/about-us/">About Us</a>
+    </li>
+    <li id="menu-item-161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-161">
+      <a href="http://spatialaccess.com/services/">Services</a>
+    </li>
+    <li id="menu-item-202" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-202">
+      <a href="http://spatialaccess.com/footprint/">Footprint</a>
+    </li>
+    <li id="menu-item-203" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-203">
+      <a href="http://spatialaccess.com/client-testimonials/">Client Testimonials</a>
+    </li>
+    <li id="menu-item-204" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-204">
+      <a href="http://spatialaccess.com/life-at-sa/">Life at SA</a>
+    </li>
+    <li id="menu-item-205" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-205">
+      <a href="http://spatialaccess.com/faqs/">FAQs</a>
+    </li>
+    <li id="menu-item-206" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-206">
+      <a href="http://spatialaccess.com/press-room/">Press Room</a>
+    </li>
+    <li id="menu-item-212" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-212">
+      <a href="http://spatialaccess.com/contact-us/">Contact Us</a>
+    </li>
+  </ul>
+  </div>
+</div><!--mobile_header-->
+
+
+<!--LEFT SIDEBAR MENU HOLDER-->
+<aside class="sidebar_wrap" style="margin-top:90px;">
+
+  <div class="menu_container">
+    <h1 class="site_logo" ><a class="logo-wrapper" href="http://spatialaccessapp.in/" title="Spatial Access" rel="home">Spatial Access</a></h1>
+    <div id="access" role="navigation">
+      <div class="menu-header"><ul id="mainNav" class="main-nav"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19"><a href="http://spatialaccess.com/about-us/">About Us</a>
+        <ul class="sub-menu">
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24"><a href="http://spatialaccess.com/about-us/founders/">Founders</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23"><a href="http://spatialaccess.com/about-us/team/">Team</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-22"><a href="http://spatialaccess.com/about-us/structure/">Structure</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21"><a href="http://spatialaccess.com/about-us/identity/">Identity</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="http://spatialaccess.com/about-us/affiliations/">Affiliations</a></li>
+        </ul>
+      </li>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-161"><a href="http://spatialaccess.com/services/">Services</a>
+          <ul class="sub-menu">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-177"><a href="http://spatialaccess.com/services/audit/media-audit/">Audit</a>
+              <ul class="sub-menu">
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-163"><a href="http://spatialaccess.com/services/audit/media-audit/"><span>•</span> Media Audit</a>
+                  <ul class="sub-menu">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-164"><a href="http://spatialaccess.com/services/audit/media-audit/planning-audit/">Planning Audit</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-165"><a href="http://spatialaccess.com/services/audit/media-audit/buying-audit/">Buying Audit</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-166"><a href="http://spatialaccess.com/services/audit/media-audit/implementation-audit/">Implementation Audit</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-167"><a href="http://spatialaccess.com/services/audit/media-audit/process-audit/">Process Audit</a></li>
+                  </ul>
+                </li>
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-168"><a href="http://spatialaccess.com/services/audit/marketing-services-audit/"><span>•</span> Marketing Services Audit</a>
+                  <ul class="sub-menu">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-169"><a href="http://spatialaccess.com/services/audit/marketing-services-audit/film-production-audit/">Film Production Audit</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-170"><a href="http://spatialaccess.com/services/audit/marketing-services-audit/print-production-audit/">Print Production Audit</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-171"><a href="http://spatialaccess.com/services/audit/marketing-services-audit/event-audit/">Event Audit</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-172"><a href="http://spatialaccess.com/services/audit/marketing-services-audit/public-relations-pr-audit/">Public Relations (PR) Audit</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173"><a href="http://spatialaccess.com/services/advisory/">Advisory</a>
+              <ul class="sub-menu">
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-227"><a href="http://spatialaccess.com/services/advisory/media-planning-advisory/">• Media Planning Advisory</a></li>
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-228"><a href="http://spatialaccess.com/services/advisory/media-buying-advisory/">• Media Buying Advisory</a></li>
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-229"><a href="http://spatialaccess.com/services/advisory/production-advisory/">• Production Advisory</a></li>
+              </ul>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-174"><a href="http://spatialaccess.com/services/analytics/">Analytics</a>
+              <ul class="sub-menu">
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-238"><a href="http://spatialaccess.com/services/analytics/brand-impact-audit/">• Brand Impact Audit</a></li>
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-239"><a href="http://spatialaccess.com/services/analytics/media-integrated-research-analysis/">• Media Integrated Research    Analysis (MIRA)</a></li>
+              </ul>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-175"><a href="http://spatialaccess.com/services/partner-evaluation/">Partner Evaluation</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-176"><a href="http://spatialaccess.com/services/training/">Training</a></li>
+          </ul>
+        </li>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-202"><a href="http://spatialaccess.com/footprint/">Footprint</a></li>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-203"><a href="http://spatialaccess.com/client-testimonials/">Client Testimonials</a></li>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-204"><a href="http://spatialaccess.com/life-at-sa/">Life at SA</a></li>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-205"><a href="http://spatialaccess.com/faqs/">FAQs</a></li>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-206"><a href="http://spatialaccess.com/press-room/">Press Room</a>
+          <ul class="sub-menu">
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-445"><a href="http://spatialaccess.com/category/thought-leadership/">Thought Leadership</a></li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-442"><a href="http://spatialaccess.com/category/our-views/">Our Views</a></li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-446"><a href="http://spatialaccess.com/category/sa-in-the-news/">SA: In the News</a></li>
+          </ul>
+        </li>
+        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-212"><a href="http://spatialaccess.com/contact-us/">Contact Us</a></li>
+      </ul></div>				</div><!-- #access -->
+
+    <!--<ul class="main-nav" id="mainNav">
+      <li class="selected item101"><a href="index.html">Home</a></li>
+      <li class=" parent item102"><a href="about-us.html">About Us</a>
+          <ul>
+         <li class="item110"><a href="founders.html">Founders</a></li>
+         <li class="item111"><a href="team.html">Team</a></li>
+         <li class="item112"><a href="structure.html">Structure</a></li>
+         <li class="item113"><a href="identity.html">Identity</a></li>
+         <li class="item114"><a href="affiliations.html">Affiliations</a></li>
+       </ul>
+      </li>
+      <li class="parent item103"><a href="services.html">Services</a>
+          <ul style="display: block;">
+         <li class="parent item115"><a href="media-audit.html">Audit</a>
+          <ul style="display: block;">
+             <li class="parent item119"><a href="media-audit.html">• Media Audit</a>
+              <ul style="display: block;">
+                 <li class="item121"><a href="planning-audit.html">Planning Audit</a></li>
+                 <li id="current" class="item122"><a href="buying-audit.htm">Buying Audit</a></li>
+                 <li class="item123"><a href="implementation-audit.html">Implementation Audit</a></li>
+                 <li class="item124"><a href="process-audit.html">Process Audit</a></li>
+               </ul>
+            </li>
+             <li class="parent item120"><a href="marketing-service-audit.html">• Marketing Services Audit</a>
+              <ul>
+                 <li class="item133"><a href="film-production-audit.html">Film Production Audit</a></li>
+                 <li class="item134"><a href="print-production-audit.html">Print Production Audit</a></li>
+                 <li class="item135"><a href="event-audit.html">Event Audit</a></li>
+                 <li class="item136"><a href="public-relations-pr-audit.html">Public Relations (PR) Audit</a></li>
+               </ul>
+            </li>
+           </ul>
+        </li>
+        <li class="parent item116"><a href="advisory.html">Advisory</a>
+          <ul>
+             <li class="item128"><a href="media-planning-advisory.html">• Media Planning Advisory</a></li>
+             <li class="item129"><a href="media-buying-advisory.html">• Media Buying Advisory</a></li>
+             <li class="item130"><a href="production-advisory.html">• Production Advisory</a></li>
+           </ul>
+        </li>
+         <li class="parent item117"><a href="analytics.html">Analytics</a>
+          <ul>
+             <li class="item137"><a href="brand-impact-audit.html">• Brand Impact Audit</a></li>
+             <li class="item131"><a href="media-integrated-research-analysis.html">• Media Integrated Research Analysis (MIRA)</a></li>
+           </ul>
+        </li>
+         <li class="item118"><a href="partner-evaluation.html">Partner Evaluation</a></li>
+         <li class="item132"><a href="training.html">Training</a></li>
+       </ul>
+      </li>
+      <li class="item104"><a href="footprint.html">Footprint</a></li>
+      <li class="item105"><a href="client-testimonials.html">Client Testimonials</a></li>
+      <li class="item106"><a href="life-at-sa.html">Life at SA</a></li>
+      <li class="item107"><a href="faq.html">FAQs</a></li>
+      <li class="parent item108"><a href="press-room.html">Press Room</a>
+      <ul>
+         <li class="item139"><a href="articles-by-ceo.html">Articles by CEO</a></li>
+         <li class="item138"><a href="interviews.html">Interviews</a></li>
+         <li class="item140"><a href="launches.html">Launches</a></li>
+         <li class="item141"><a href="features-and-quotes.html">Features and Quotes</a></li>
+         <li class="item142"><a href="sa-in-the-news.html">SA: In the News</a></li>
+       </ul>
+      </li>
+      <li class="item109"><a href="contact-us.html">Contact Us</a></li>
+      </ul>-->
+  </div><!--main_container-->
+</aside><!--menu_sidebar-->
+<!--RIGHT SIDE MAIN CONTAINER-->
+<section class="main_container">
+  <!--Nivo Slider Only on Home Page-->
+  <div class="slider-wrapper theme-default">
+    <div class="nivoSlider" id="introbaner">
+      <img alt="The balance of elements" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home/home-img1.jpg" style="display: none;">
+      <img alt="The need to conserve" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home/home-img2.jpg" style="display: none;">
+      <img alt="The benefits of optimising" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home/home-img3.jpg" style="display: none;">
+      <img alt="Conserving business resources to reduce risk and enhance value" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home/home-img4.jpg" style="display: none;">
+    </div><!--nivoSlider-->
+    <a href="#" id="btn-intro">Skip this intro</a>
+  </div><!--slider-wrapper theme-default-->
+  <div class="clear"></div>
+
+
+  <script type="text/javascript">
+      swfobject.registerObject("FlashID");
+  </script>
+
+  <div id="homeAnimWrap">
+    <div id="home-box1">
+      <div class="home-box">
+        <div class="home-circle">
+          <div class="title">&nbsp;</div>
+          <div class="text">
+            <br>
+            <br>
+            MEDIA,<br>
+            the ocean of<br>
+            knowledge<br>
+            <br>
+            <em>Click here</em>
+          </div>
+        </div>
+        <div class="dsc">
+          <p class="right"><img alt="" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home-water.png" style="width: 190px; height: 190px;"></p>
+          <p class="font30">Our Media Audit service provides advertisers with an independent and unbiased assessment and evaluation of their media investments.</p><p class="font20">In addition to the media audit, our Media Advisory service provides the marketer with strategic inputs prior to the media investment or brand decision process.</p>
+          <p><a class="btn-more" href="/presentation_creator/3">Learn more</a></p>
+        </div><a class="btnClose" href="#" id="btn-home1">&nbsp;</a></div>
+    </div>
+
+    <div id="home-box2">
+      <div class="home-box">
+        <div class="home-circle">
+          <div class="title">&nbsp;</div>
+          <div class="text">
+            <br><br>
+            ANALYTICS,<br>
+            the power of<br>
+            unlimited access<br>
+            <br>
+            <em>Click here</em>
+          </div>
+        </div>
+        <div class="dsc">
+          <p><img alt="" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home-cloud.png" style="width: 190px; height: 190px;"></p>
+          <p class="font30">Marketing analytics moves beyond traditional measures of media plan efficiency and towards more crucial measures of effectiveness.</p>
+          <p class="font20">In other words, Analytics computes the effect that media and advertising have had on the brand.</p>
+          <p><a class="btn-more" href="/presentation_creator/4">Learn more</a></p>
+        </div><a class="btnClose" href="#" id="btn-home2">&nbsp;</a></div>
+    </div>
+
+
+    <div id="home-box3">
+      <div class="home-box">
+        <div class="dsc" style="margin-bottom:29px;">
+          <p><img alt="" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home-earth.png" style="width: 190px; height: 190px;"></p>
+        </div>
+        <div class="home-circle">
+          <div class="title">&nbsp;</div>
+          <div class="text">
+            <br><br>
+            PRODUCTION,<br>
+            the new, emerging<br>
+            Landscape<br>
+            <br>
+            <em>Click here</em>
+          </div>
+        </div>
+        <div class="dsc">
+          <p class="font30">Production Audit brings measurability &amp; transparency into film &amp; print production investments, through domain expertise.</p>
+          <p class="font20">In addition to production, we evaluate deliveries across Events, PR &amp; Activation programs.</p>
+          <p><a class="btn-more" href="/presentation_creator/5">Learn more</a></p>
+        </div>
+        <a class="btnClose" href="#" id="btn-home3">&nbsp;</a>
+      </div>
+    </div>
+
+
+    <div id="home-box4">
+      <div class="home-box">
+        <div class="dsc">
+          <p><img alt="" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home-air.png" style="width: 190px; height: 190px;"></p>
+          <p class="font30">We have a wide network of alliances with established media auditing firms across the globe and can provide auditing services &amp; assistance in confluence with them.</p>
+          <p class="font20">Our approach is to create a winning formula by combining our vast experience in process management, system design and technical expertise with local expertise brought to the table by our local associates.</p>
+          <a class="btn-more" href="/presentation_creator/6">Learn more</a>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="home-circle">
+          <div class="title">&nbsp;</div>
+          <div class="text">
+            <br> <br>
+            PARTNERS,<br>
+            the basic<br>
+            connection to life<br>
+            <br>
+            <em>Click here</em>
+          </div>
+        </div>
+        <a class="btnClose" href="#" id="btn-home4">&nbsp;</a>
+      </div>
+    </div>
+
+    <div id="home-box5">
+      <div class="home-box">
+        <div class="dsc">
+          <p><img alt="" src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/home-fire.png" style="width: 190px; height: 190px;"></p>
+          <p class="font30">We work with clients across the country and across categories like FMCG, automobiles, durables, paints, foods, healthcare, beverages, Banking &amp; Finance and telecom among others.</p><p class="font20">The value delivered by us in the home market has been recognized by our clients and it is at their behest that we have expanded our services to markets outside India within the APAC region.</p>
+          <p><a class="btn-more" href="http://spatialaccess.com/client-testimonials/">Learn more</a></p>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="home-circle">
+          <div class="title">&nbsp;</div>
+          <div class="text">
+            <br><br>
+            CLIENTS,<br>
+            the nurturing<br>
+            energy<br>
+            <br>
+            <em>Click here</em>
+          </div>
+        </div>
+        <a class="btnClose" href="#" id="btn-home5">&nbsp;</a>
+      </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div>
+  <!--</div>-->
+  <div class="clear">&nbsp;</div>
+
+
+
+
+  <!--FOR MOBILE-->
+
+
+  <div class="home_block_wrapper">
+    <ul class="mob_home_menu">
+      <li><a class="blue01" href="http://spatialaccess.com/about-us/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/about.png">About Us</a></li>
+      <li><a class="blue02" href="http://spatialaccess.com/services/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/services.png">Services</a></li>
+      <li><a class="green01" href="http://spatialaccess.com/footprint/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/footmark.png">Footprint</a></li>
+      <li><a class="green02" href="http://spatialaccess.com/client-testimonials/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/testimonial.png">Client Testimonials</a></li>
+      <li><a class="orange01" href="http://spatialaccess.com/life-at-sa/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/life.png">Life at SA</a></li>
+      <li><a class="orange02" href="http://spatialaccess.com/faqs/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/faq.png">FAQs</a></li>
+      <li><a class="red01" href="http://spatialaccess.com/press-room/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/press.png">Press Room</a></li>
+      <li><a class="red02" href="http://spatialaccess.com/contact-us/"><img src="http://spatialaccess.com/wp-content/themes/spatialaccess/images/icons_home/white/reachus.png">Contact Us</a></li>
+    </ul>
+  </div><!--home_block_wrapper-->
+
+  <div class="clear">&nbsp;</div>
+  <footer class="footer"><p>&copy; <a href="index.html">Spatial Access</a> Pvt Ltd 2013 <script>
+      var d=new Date();
+      yr=d.getFullYear();
+      if (yr!=2013)
+          document.write("- "+yr);
+  </script></p></footer>
+</section><!--main_container-->
+
+</div><!--wrapper-->
+
+
+<!-- Video Popup on Header Slider-->
+<div class="overlay">
+  <a class="close"></a>
+  <!-- flowplayer container -->
+  <a id="player" href="AnjanaGrewal.flv">
+    <!-- some initial content so that player is not loaded upon page load -->
+    &nbsp;
+  </a>
+</div><!--overlay-->
+
+</body>
+</html>

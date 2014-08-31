@@ -22,9 +22,13 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1.json
   def show
 
-    @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
+    @channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name)
     @annochannels=[]
-    @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
+    @channels.each do |c|
+      @annochannels << Annochannel.where(campaign_id: @campaign.id, showable: true, channel_id: c.channel_id).first
+    end
+
+    #@annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
     # @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all
     @channel_slots=[]
     @channel_spots=[]
@@ -44,7 +48,7 @@ class CampaignsController < ApplicationController
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
-    # render :json => @annochannels
+    # render :json => @channels
     # return
   end
 
@@ -143,7 +147,7 @@ class CampaignsController < ApplicationController
       @annochannels=[]
       if @campaign.annochannels.blank?
         @channels.each do |channel|
-          @annochannels << Annochannel.create!(channel_id: channel.id, campaign_id: @campaign.id)
+          @annochannels << Annochannel.create!(channel_id: channel.channel_id, campaign_id: @campaign.id)
         end
       else
         @channels.each do |channel|
@@ -154,7 +158,7 @@ class CampaignsController < ApplicationController
       # return
 
     end
-    gon.channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).map { |c| c.channel_name.upcase }
+    gon.channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name).map { |c| c.channel_name }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes

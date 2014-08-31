@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :get_customization
 
+  def after_sign_in_path_for(user)
+    if user.email == "admin@spatialaccessapp.in"
+      "/admin"
+    else
+      "/"
+    end
+  end
+
   def current_user
     User.unscoped { super }
   end
