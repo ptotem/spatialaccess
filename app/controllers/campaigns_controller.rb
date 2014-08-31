@@ -21,7 +21,6 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
-
     @channels=CalculatedData.where(:campaign_id =>@campaign.id).order(:channel_name)
     @annochannels=[]
     @channels.each do |c|
