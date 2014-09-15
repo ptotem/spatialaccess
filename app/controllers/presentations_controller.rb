@@ -62,6 +62,10 @@ class PresentationsController < ApplicationController
     end
   end
 
+  def check_parallax
+    render :layout => false
+  end
+
   def create_presentation
     @presentation = Presentation.find(params[:id])
   end
