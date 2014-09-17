@@ -155,17 +155,6 @@ ActiveRecord::Schema.define(version: 20140831114652) do
     t.string   "title"
   end
 
-  create_table "presesntation_slides", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "presesntations", force: true do |t|
-    t.string   "header"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
     t.string   "username"
