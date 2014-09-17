@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link href="/css/responsive-slider-parallax.css" rel="stylesheet">
+
+
+  <link type="text/css" rel="stylesheets" href="/parallax_css/lib.css" />
+  <script type="text/javascript" src="/parallax_js/third_party/jquery.js"></script>
+
+  <link type="text/css" rel="stylesheets" href="/parallax_css/general.css" />
+  <link type="text/css" rel="stylesheets" href="/parallax_css/slides.css" />
+
+  <script type="text/javascript" src="/parallax_js/third_party/jquery.mousewheel.js"></script>
+  <script type="text/javascript" src="/parallax_js/third_party/jquery.custom.js"></script>
+
+
+</head>
+<body class='unloaded' >
+
+<ul class="nav nav-pills" role="tablist">
+  <li>
+    <a href="/">Home</a>
+  </li>
+  <% Slide.where(:root => true).each do |s| %>
+      <li>
+        <a href="/presentation_creator_new/<%= s.id %>" data-attr="<%= s.id %>"><%= s.name %></a>
+      </li>
+  <% end %>
+
+</ul>
+
+
+<div id="parallax" style="horizontal-align:middle;" >
+
+  <img alt="0" class="parallaxBackground" src="/parallax_img/background.jpg" style="margin-bottom: "  />
+
+  <% @slide.childs.each do |cslide| %>
+
+        <div id="slide<%= cslide.id  %>"  >
+            <% cslide.childs.each do |ccslide| %>
+                  <img alt=<%=ccslide.seq %> src=<%=ccslide.image %> height="92%"  style="left: 195px;">
+            <% end %>
+        </div>
+  <% end %>
+
+</div>
+
+
+<!--<a class="slider-control left" href="#" data-jump="prev" style="display: none;">Prev</a>-->
+<!--<a class="slider-control right" href="#" data-jump="next" style="display: none;">Next</a>-->
+<div class="pages" style="text-align: left;z-index:100;position:absolute;bottom : 0;height : 30px;">
+  <% if @slide.root? %>
+      <% @slide.childs.each do |cslide| %>
+          <a class="pa" href="/presentation_creator_new/<%= cslide.id %>" style="background: #f5f5f5;padding:10px;text-decoration:none;color: blue;"><%= cslide.name %></a>
+      <% end %>
+  <% else %>
+      <% @new_slide = @slide %>
+      <% while !@new_slide.root%>
+          <% @new_slide = @new_slide.parents.first %>
+      <% end %>
+      <% @new_slide.childs.each do |cslide| %>
+          <a class="pa" href="/presentation_creator_new/<%= cslide.id %>" style="background: #f5f5f5;padding:10px;text-decoration:none;color: blue;"><%= cslide.name %></a>
+      <% end %>
+  <% end %>
+
+  <!--<a class="page" href="#" data-jump-to="1">1</a>-->
+  <!--<a class="page" href="#" data-jump-to="2">2</a>-->
+  <!--<a class="page" href="#" data-jump-to="3">3</a>-->
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/parallax_js/third_party/modernizr.custom.js"></script>
+<script type="text/javascript" src="/parallax_js/lib.js"></script>
+<script type="text/javascript" src="/parallax_js/parallax.js"></script>
+<script type="text/javascript" src="/parallax_js/index/resizeables.js"></script>
+<script type="text/javascript" src="/parallax_js/index/preloader.js"></script>
+<script type="text/javascript" src="/parallax_js/custom_events.js"></script>
+<script type="text/javascript" src="/parallax_js/index/i.js"></script>
+
+
+
+
+<!--<script src="/js/jquery.js"></script>-->
+<script src="/js/jquery.event.move.js"></script>
+<script src="/js/responsive-slider.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $('#vertical').on('change',function(){
+            window.location.href = "/presentation_creator/"+$(this).val();
+        });
+
+        $('.nav-pills').children().find("a[data-attr='" + <%= params[:id] %> + "']").addClass("active").addClass("btn-info");
+    });
+    $(document).keydown(function(e) {
+        switch(e.which) {
+            case 37: // left
+                $('.left').trigger("click");
+                break;
+
+            case 38: // up
+                break;
+
+            case 39: // right
+                $('.right').trigger("click");
+                break;
+
+            case 40: // down
+                break;
+
+            default: return; // exit this handler for other keys
+        }
+        e.preventDefault(); // prevent the default action (scroll / move caret)
+    });
+
+</script>
+
+</body>
+</html>

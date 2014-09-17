@@ -75,6 +75,11 @@ class PresentationsController < ApplicationController
     render :layout => false
   end
 
+  def presentation_creator_new
+    @slide = Slide.find(params[:id])
+    render :layout => false
+  end
+
   def presentor
     render :layout => false
   end
