@@ -10,14 +10,16 @@
 
     <div style="text-align: center;" id="selector">
       <h1 style="color:white">Select a Channel</h1>
-      <%= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}.sort) %>
+      <%#= select_tag :channel, options_for_select([["HOME", 999]]+CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}.sort) %>
+      <%= select_tag :channel, options_for_select([["HOME", 999]]+@annochannels.compact.map.with_index { |c,i| [c.channel.name.upcase, i] }.sort) %>
       <%= link_to "Show All", "#", class: "btn btn-danger", style: "margin-top:-7px", id: "showall" %>
       <%= link_to "Show Cards", "#", class: "btn btn-danger", style: "margin-top:-7px;display:none;", id: "showcards" %>
       <% if current_user.email=="admin@spatialaccess.com" or current_user.email=="content@spatialaccess.com" %>
           <%= link_to "Edit", edit_campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
       <% end %>
       <%= link_to "Download as PDF", "#", class: "btn btn-info", style: "margin-top:-7px;", id: "download_as_pdf" %>
-
+      <%= link_to "Home", "/", class: "btn btn-info", style: "margin-top:-7px;", id: "homePage" %>
+      <%= link_to "Edit", "/build_campaign/#{params[:id]}", class: "btn btn-info", style: "margin-top:-7px;", id: "homePage" %>
     </div>
 
     <div class="home-container">

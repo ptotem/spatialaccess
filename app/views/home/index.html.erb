@@ -66,24 +66,22 @@
     <aside class="sidebar_wrap" style="margin-top:90px;">
 
       <div class="menu_container">
-        <h1 class="site_logo" ><a class="logo-wrapper" href="http://spatialaccessapp.in/" title="Spatial Access" rel="home">Spatial Access</a></h1>
+        <h1 class="site_logo" ><a class="logo-wrapper" href="/" title="Spatial Access" rel="home">Spatial Access</a></h1>
         <div id="access" role="navigation">
           <div class="menu-header">
             <ul id="mainNav" class="main-nav">
               <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19">
-                <a href="http://spatialaccess.com/about-us/">About Us</a>
+                <a href="<%= campaign_path(current_client.campaigns.where(active: true).last) %>">Sampler</a>
               </li>
             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-161">
-              <a href="http://spatialaccess.com/services/">Services</a>
+              <a href="/presentor">Services</a>
             </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-202"><a href="http://spatialaccess.com/footprint/">Footprint</a></li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-203"><a href="http://spatialaccess.com/client-testimonials/">Client Testimonials</a></li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-204"><a href="http://spatialaccess.com/life-at-sa/">Life at SA</a></li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-205"><a href="http://spatialaccess.com/faqs/">FAQs</a></li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-206"><a href="http://spatialaccess.com/press-room/">Press Room</a>
-            </li>
-            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-212"><a href="http://spatialaccess.com/contact-us/">Contact Us</a></li>
-          </ul></div>				</div><!-- #access -->
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-202"><a href="/campaigns">Campaigns</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-203"><a href="/admin">Admin</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-212"><%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %></li>
+          </ul>
+          </div>
+        </div><!-- #access -->
 
         <!--<ul class="main-nav" id="mainNav">
           <li class="selected item101"><a href="index.html">Home</a></li>
@@ -231,12 +229,12 @@
 
     <div id="admin-blocks" style="display: none;">
       <% if current_user.email=="admin@spatialaccessapp.in" %>
-          <%= link_to "Let us show you something", campaign_path(current_client.campaigns.where(active: true).last), class: "btn btn-danger", id: "sampler-link" %>
+          <%#= link_to "Let us show you something", campaign_path(current_client.campaigns.where(active: true).last), class: "btn btn-danger", id: "sampler-link" %>
           <br/>
           <br/>
-          <%= link_to "Admin Panel", '/admin', class: "btn btn-warning btn-lg" %>
-          <%= link_to "Campaigns List", campaigns_path, class: "btn btn-info btn-lg" %>
-          <%= link_to "Presentation", new_presentation_path , class: "btn btn-danger btn-lg", id: "presentation-link" %>
+          <%#= link_to "Admin Panel", '/admin', class: "btn btn-warning btn-lg" %>
+          <%#= link_to "Campaigns List", campaigns_path, class: "btn btn-info btn-lg" %>
+          <%#= link_to "Presentation", new_presentation_path , class: "btn btn-danger btn-lg", id: "presentation-link" %>
       <% elsif current_user.email=="content@spatialaccessapp.in" %>
           <%= link_to "Let us show you something", campaign_path(current_client.campaigns.where(active: true).last), class: "btn btn-danger", id: "sampler-link" %>
           <br/>

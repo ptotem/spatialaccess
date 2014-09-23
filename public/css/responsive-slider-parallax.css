@@ -140,7 +140,7 @@
 }
 @media (min-width: 1024px) {
   .responsive-slider-parallax .slides-container ul li .slide-body {
-    height: 620px;
+    height: 790px;/*To be removed later*/
   }
 }
 @media (min-width: 768px) and (max-width: 979px) {

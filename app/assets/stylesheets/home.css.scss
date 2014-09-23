@@ -3,7 +3,7 @@
 html {
   width: 100%;
   height: 100%;
-  background: url('/assets/htmlBack.jpg');
+  background: url('/assets/slide1_bg.png');
   background-size: 100% 100%;
   //  overflow: hidden;
 }
@@ -236,7 +236,7 @@ span.mb_close:hover{
   position: relative;
   box-sizing: border-box;
   width: 960px;
-  height: 450px;
+  height: 500px;
   padding-top: 20px;
   padding-right: 15px;
   padding-left: 15px;
@@ -274,7 +274,7 @@ span.mb_close:hover{
 
 .graph-placeholder {
   width: 100%;
-  height: 100%;
+  height: 90%;
   font-size: 14px;
   line-height: 1.2em;
 }

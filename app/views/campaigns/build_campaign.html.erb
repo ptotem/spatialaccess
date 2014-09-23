@@ -12,6 +12,8 @@
       <%= select_tag :channel, options_for_select(CalculatedData.where(:campaign_id => @campaign.id).map{|i| [Channel.find(i.channel_id).name, CalculatedData.where(:campaign_id => @campaign.id).index(i)]}) %>
       <%= f.submit "Save All", class: "btn btn-danger", style: "margin-top:-7px" %>
       <%= link_to "Cancel", campaign_path(@campaign), class: "btn btn-warning", style: "margin-top:-7px;", id: "editview" %>
+      <%= link_to "Home", "/", class: "btn btn-info", style: "margin-top:-7px;", id: "homePage" %>
+
     </div>
 
     <%= f.fields_for :annochannels, @annochannels do |annochannel| %>

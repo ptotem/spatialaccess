@@ -43,7 +43,9 @@ class CampaignsController < ApplicationController
         i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
       end
     end
-    gon.channels=@annochannels.map { |c| c.channel.name.upcase }
+    # render :json => @annochannels.compact!
+    # return
+    gon.channels=@annochannels.compact!.map { |c| c.channel.name.upcase }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
