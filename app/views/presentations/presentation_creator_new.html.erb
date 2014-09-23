@@ -3,7 +3,12 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-  <title>Hot Dot Production</title>
+  <title>Spatial Access</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link href="/css/responsive-slider-parallax.css" rel="stylesheet">
+
 
   <meta http-equiv="Content-Language" content="en">
   <meta name="Description" content="Web development at Dot where design and technology meet" />
@@ -28,11 +33,15 @@
 </head>
 <body  class='unloaded'>
 
-<img class="loadBackground" src="/parallax_img/background.jpg">
+
+
+
 
 <div class='preloaderCont vAligner alignCenter'>
-  <span class='ending'><img src="/static/img/logo/classic.svg" /></span><span class='starting'><img src="/static/img/logo/preload.svg" /></span>
+  <span class='ending'><img src="/static/logo/SPATIAL ACCESS2.svg" /></span><span class='starting'><img src="/static/logo/SPATIAL ACCESS1.svg" /></span>
 </div>
+
+<!--<img class="loadBackground" src="/parallax_img/background.jpg" style="margin-top: 40px">-->
 
 <div style='display: none' class='preloadedImages'>
   <% @slide.childs.each do |cslide| %>
@@ -42,12 +51,14 @@
   <% end %>
 </div>
 
-<div id="parallax">
+<div id="parallax" style="bottom: 50px;">
+
   <img alt="0" class="parallaxBackground" src="/parallax_img/background.jpg" />
+
   <% @slide.childs.each do |cslide| %>
       <div id="slide<%= cslide.id  %>"  >
         <% cslide.childs.each do |ccslide| %>
-            <img alt=<%=ccslide.seq %> src=<%=ccslide.image %> height="92%"  style="left: 195px;">
+            <img alt=<%=ccslide.seq %> src=<%=ccslide.image %> height="92%" style="left: 195px">
         <% end %>
       </div>
   <% end %>
@@ -63,6 +74,35 @@
 <a class="left-arrow">
   <img src="/static/img/arrow_left.png">
 </a>
+
+<div id="footer" style="bottom: -35px;">
+
+  <ul class="aligner root footer-menu">
+    <li class="team">
+      <a href="/en/we/">Home</a>
+    </li>
+    <li class="works">
+      <% Slide.where(:root => true).each do |s| %>
+        <li>
+          <div class="btn-group dropup">
+            <button type="button" class="btn btn-default" data-attr="<%= s.id %>" onclick='window.location.href="/presentation_creator_new/<%= s.id %>"'><%= s.name %></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown-menu">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li><!-- Dropdown menu links -->
+            </ul>
+
+        </li>
+    <% end %>
+    </li>
+  </ul>
+</div>
 
 
 

@@ -43,6 +43,7 @@ ul {
 #footer {
 	
 	font-family: 'pt_sans',sans-serif;
+    bottom: 20px;
 }
 
 /* Параллакс в общем */

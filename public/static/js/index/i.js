@@ -453,7 +453,7 @@ var hashProcessingSystem = {
 			if (hashProcessingSystem.userLock) {
 				infoString += ' Has userHashLock.';
 			}
-			
+
 			window.location.hash = hashProcessingSystem.addrMap[para.currentSlideI];
 
 		}
@@ -640,19 +640,19 @@ var lophoto = {
 lophoto.init = function() {
 
 	lophoto.$src = $("#lophoto_ipad");
-
+//
 	customEventEngine.bind(para, 'scrollChange', function(amount) {
-
-		if (lophoto.paraEngineWrapper.prnt.childrenVisible) {
-
-			x = Math.ceil((lophoto.paraEngineWrapper.currentLeft / windowWidth) * 10);
-			if (x < lophoto.startCount)
-				x = lophoto.startCount;
-			if (x > lophoto.imagesCount)
-				x = lophoto.imagesCount;
-			lophoto.$src.attr("src", "/static/img/lp/ipad/" + x + ".png");
-		}
-
+//
+//		if (lophoto.paraEngineWrapper.parent.childrenVisible) {
+//
+//			x = Math.ceil((lophoto.paraEngineWrapper.currentLeft / windowWidth) * 10);
+//			if (x < lophoto.startCount)
+//				x = lophoto.startCount;
+//			if (x > lophoto.imagesCount)
+//				x = lophoto.imagesCount;
+//			lophoto.$src.attr("src", "/static/img/lp/ipad/" + x + ".png");
+//		}
+//
 	});
 
 	lophoto.animation.resume();
