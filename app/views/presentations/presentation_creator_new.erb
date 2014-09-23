@@ -4,7 +4,7 @@
 
   <link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-  <link href="/css/responsive-slider-parallax.css" rel="stylesheet">
+  <!--<link href="/css/responsive-slider-parallax.css" rel="stylesheet">-->
 
 
   <link type="text/css" rel="stylesheets" href="/parallax_css/lib.css" />
@@ -20,13 +20,13 @@
 </head>
 <body class='unloaded' >
 
-<ul class="nav nav-pills" role="tablist">
+<ul class="nav nav-pills" role="tablist" style="background-color: #424242;color:#2E64FE.">
   <li>
     <a href="/">Home</a>
   </li>
   <% Slide.where(:root => true).each do |s| %>
       <li>
-        <a href="/presentation_creator_new/<%= s.id %>" data-attr="<%= s.id %>"><%= s.name %></a>
+        <a href="/presentation_creator_new/<%= s.id %>" data-attr="<%= s.id %>" ><%= s.name %></a>
       </li>
   <% end %>
 
@@ -35,7 +35,7 @@
 
 <div id="parallax" style="horizontal-align:middle;" >
 
-  <img alt="0" class="parallaxBackground" src="/parallax_img/background.jpg" style="margin-bottom: "  />
+  <img alt="0" class="parallaxBackground" src="/parallax_img/background.jpg" />
 
   <% @slide.childs.each do |cslide| %>
 
@@ -48,29 +48,43 @@
 
 </div>
 
+<a class="right-arrow no-touch" style="display: inline;">
+  <img src="/parallax_img/arrow_left.png">
+</a>
 
+
+<a class="right-arrow no-touch" style="display: inline;">
+  <img src="/parallax_img/arrow_right.png">
+</a>
+
+
+<% if false %>
 <!--<a class="slider-control left" href="#" data-jump="prev" style="display: none;">Prev</a>-->
 <!--<a class="slider-control right" href="#" data-jump="next" style="display: none;">Next</a>-->
-<div class="pages" style="text-align: left;z-index:100;position:absolute;bottom : 0;height : 30px;">
-  <% if @slide.root? %>
-      <% @slide.childs.each do |cslide| %>
-          <a class="pa" href="/presentation_creator_new/<%= cslide.id %>" style="background: #f5f5f5;padding:10px;text-decoration:none;color: blue;"><%= cslide.name %></a>
-      <% end %>
-  <% else %>
-      <% @new_slide = @slide %>
-      <% while !@new_slide.root%>
-          <% @new_slide = @new_slide.parents.first %>
-      <% end %>
-      <% @new_slide.childs.each do |cslide| %>
-          <a class="pa" href="/presentation_creator_new/<%= cslide.id %>" style="background: #f5f5f5;padding:10px;text-decoration:none;color: blue;"><%= cslide.name %></a>
-      <% end %>
-  <% end %>
+<!--<div class="footer" style="text-align: left;z-index:100;position:absolute;bottom : 0;height : 30px;">-->
+  <!--<div class="aligner root">-->
+  <!--<% if @slide.root? %>-->
+      <!--<% @slide.childs.each do |cslide| %>-->
 
-  <!--<a class="page" href="#" data-jump-to="1">1</a>-->
-  <!--<a class="page" href="#" data-jump-to="2">2</a>-->
-  <!--<a class="page" href="#" data-jump-to="3">3</a>-->
-</div>
+          <!--<a class="pa" href="/presentation_creator_new/<%= cslide.id %>" style="background: #6E6E6E;padding:10px;text-decoration:none;color: #f5f5f5   ;"><%= cslide.name %></a>-->
 
+        <!--<% end %>-->
+  <!--<% else %>-->
+      <!--<% @new_slide = @slide %>-->
+      <!--<% while !@new_slide.root%>-->
+          <!--<% @new_slide = @new_slide.parents.first %>-->
+      <!--<% end %>-->
+      <!--<% @new_slide.childs.each do |cslide| %>-->
+          <!--<a class="pa" href="/presentation_creator_new/<%= cslide.id %>" style="background: #f5f5f5;padding:10px;text-decoration:none;color: #f5f5f5;"><%= cslide.name %></a>-->
+      <!--<% end %>-->
+  <!--<% end %>-->
+
+  <!--&lt;!&ndash;<a class="page" href="#" data-jump-to="1">1</a>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a class="page" href="#" data-jump-to="2">2</a>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a class="page" href="#" data-jump-to="3">3</a>&ndash;&gt;-->
+    <!--</div>-->
+<!--</div>-->
+<% end %>
 
 
 
@@ -90,39 +104,39 @@
 
 
 <!--<script src="/js/jquery.js"></script>-->
-<script src="/js/jquery.event.move.js"></script>
-<script src="/js/responsive-slider.js"></script>
-<script>
+<!--<script src="/js/jquery.event.move.js"></script>-->
+<!--<script src="/js/responsive-slider.js"></script>-->
+<!--<script>-->
 
-    $(document).ready(function(){
-        $('#vertical').on('change',function(){
-            window.location.href = "/presentation_creator/"+$(this).val();
-        });
-
-        $('.nav-pills').children().find("a[data-attr='" + <%= params[:id] %> + "']").addClass("active").addClass("btn-info");
-    });
-    $(document).keydown(function(e) {
-        switch(e.which) {
-            case 37: // left
-                $('.left').trigger("click");
-                break;
-
-            case 38: // up
-                break;
-
-            case 39: // right
-                $('.right').trigger("click");
-                break;
-
-            case 40: // down
-                break;
-
-            default: return; // exit this handler for other keys
-        }
-        e.preventDefault(); // prevent the default action (scroll / move caret)
-    });
-
-</script>
+//    $(document).ready(function(){
+//        $('#vertical').on('change',function(){
+//            window.location.href = "/presentation_creator/"+$(this).val();
+//        });
+//
+//        $('.nav-pills').children().find("a[data-attr='" + <%= params[:id] %> + "']").addClass("active").addClass("btn-info");
+//    });
+//    $(document).keydown(function(e) {
+//        switch(e.which) {
+//            case 37: // left
+//                $('.left').trigger("click");
+//                break;
+//
+//            case 38: // up
+//                break;
+//
+//            case 39: // right
+//                $('.right').trigger("click");
+//                break;
+//
+//            case 40: // down
+//                break;
+//
+//            default: return; // exit this handler for other keys
+//        }
+//        e.preventDefault(); // prevent the default action (scroll / move caret)
+//    });
+//
+<!--</script>-->
 
 </body>
 </html>
