@@ -1,0 +1,252 @@
+body {
+	background: url(/static/img/text_page_background.jpg) 50% 0% no-repeat;
+	background-color: #ededed;
+	text-align: center;
+}
+
+#footer {
+	background: #151515;
+}
+
+.fixedWidth {
+	max-width: 1300px;
+	display: inline-block;
+	text-align: left;
+	padding: 0px 10%;
+	/*width: 1105px;;*/
+}
+
+.fixedWidth  a {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.fixedWidth  h2, 
+.fixedWidth p a, 
+.fixedWidth ul li a {
+	color: #dc3333;
+}
+
+table.compare th+ th+ th,
+ table.compare td+ td+ td,
+  ul.horizontal li a,
+   .fixedWidth p a:hover, 
+   .fixedWidth ul li a:hover {
+	background: #dc3333;
+}
+
+
+
+ul.horizontal li a:hover  {
+	background: black;
+}
+
+.fixedWidth  p, 
+.fixedWidth  h1, 
+.fixedWidth  h3 {
+	color: black
+}
+
+ul.horizontal li a, table.compare th, table.compare td+ td+ td, table.compare td+ td+ td p,
+.fixedWidth p a:hover, .fixedWidth ul li a:hover
+{
+	color: white;
+}
+
+.fixedWidth p a, 
+.fixedWidth ul li a {
+	
+	position: relative;
+}
+
+.fixedWidth p a:hover, 
+.fixedWidth ul li a:hover  {
+	padding: 3px 5px 5px;
+}
+
+.fixedWidth  p a:hover, 
+.fixedWidth  ul li a:hover {
+	text-decoration: none;
+}
+
+.fixedWidth ul {
+	list-style: disc;
+	font-size: 14px;
+	padding-left: 30px;
+	margin-bottom: 20px;
+}
+
+.fixedWidth  h3, table.compare td[colspan='3'] {
+	font-weight: bold
+}
+
+.fixedWidth  a, 
+.fixedWidth p, 
+ul.horizontal li a, 
+.fixedWidth  ul li, 
+.fixedWidth  h3, 
+table.compare td[colspan='3'] {
+	font-family: 'pt_sans', sans-serif;
+}
+
+.fixedWidth  h1, 
+.fixedWidth  h2, 
+table.compare th {
+	font-family: 'pf_din_text_comp_proregular', sans-serif;
+	line-height: 100%;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
+.fixedWidth  p, 
+.fixedWidth  ul li {
+	font-size: 22px;
+	line-height: 26px;
+}
+
+.fixedWidth  h1 {
+	font-size: 70px;
+}
+
+.fixedWidth  h2, table.compare th {
+	font-size: 35px;
+}
+
+ul.horizontal {
+	list-style: none;
+	padding-left: 0px;
+}
+
+ul.horizontal li {
+	display: inline-block;
+}
+
+.fixedWidth .horizontal li a {
+	text-decoration: none;
+	font-size: 19px;
+	line-height: normal;
+	margin: 0px;
+}
+
+.fixedWidth .horizontal li a,
+.fixedWidth .horizontal li a:hover {
+	padding: 3px 11px;
+}
+
+.fixedWidth h3, table.compare td[colspan='3'] {
+	font-size: 22px;
+}
+
+table.compare {
+	border-collapse: collapse;
+}
+
+table.compare th, table.compare td {
+	width: 49%;
+	padding: 30px;
+}
+
+table.compare th {
+	text-align: center;
+	padding: 10px 0px;
+	background: black;
+}
+
+table.compare .spacer {
+	width: 2%;
+	padding: 0px;
+	background: transparent;
+}
+
+table.compare td[colspan='3'] {
+	background: transparent;
+	text-align: center;
+	padding: 10px 0px;
+}
+
+table.compare td {
+	padding: 30px;
+	vertical-align: top;
+	background: #f1f1f1;
+	background: rgba(0,0,0,.05);
+}
+
+table.compare td p {
+	font-size: 18px;
+	line-height: 22px
+}
+
+.twoColumn > div {
+	width: 49%;
+	min-width: 300px;
+}
+
+.twoColumn:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.twoColumn > div:first-child {
+	float: left;
+}
+
+.twoColumn > div+ div {
+	float: right;
+}
+
+/* */
+
+.fixedWidth p, .fixedWidth ul, table, .fixedWidth h2, .fixedWidth h3 {
+	margin-bottom: 20px;
+}
+
+.fixedWidth h1 {
+	margin-bottom: 25px;
+}
+
+.twoColumn > div {
+	margin-bottom: 50px;
+}
+
+.logicalBlock {
+	margin-bottom: 60px;
+}
+
+table.compare p {
+	margin-bottom: 15px
+}
+
+.fixedWidth ul li {
+	margin-bottom: 3px
+}
+
+.fixedWidth  ul.horizontal li {
+	margin-right: 6px;
+	margin-bottom: 13px;
+}
+
+.fixedWidth {
+	
+	margin-top: 150px;
+	margin-bottom: 180px;
+}
+
+
+table.compare {
+    margin-top: 40px;
+    margin-bottom: 45px
+}
+
+.fixedWidth h2 {
+    margin-top: 55px
+}
+
+/* */
+
+.fixedWidth a {
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}

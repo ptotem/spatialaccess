@@ -25,8 +25,10 @@ SpatialAccess::Application.routes.draw do
   get "/get_image/:id" => 'slides#get_image'
 
   get "/presentation_creator/:id" => 'presentations#presentation_creator'
+  get "/presentation_creator_new/:id" => 'presentations#presentation_creator_new'
 
   get "/presentor" => 'presentations#presentor'
+  get "/check_parallax" => 'presentations#check_parallax'
 
 
   resources :clients

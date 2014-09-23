@@ -1,0 +1,338 @@
+body {
+	font: 16px 'pt_sans',sans-serif;
+	color: white;
+	cursor: hand;
+	  cursor:grab;
+	  cursor:-moz-grab;
+	  cursor:-webkit-grab;
+}
+::selection {
+	color:#fff;
+    background: #dc3333;
+}
+
+body.grabbing {
+  cursor:grabbing;
+  cursor:-moz-grabbing;
+  cursor:-webkit-grabbing;
+	
+}
+
+.task h2 {
+	font-size: 23px;
+}
+
+.task p {
+	line-height: 24px;	
+}
+
+table.bck {
+	border-spacing: 0px;
+}
+
+table td img {
+	display: block;
+}
+
+h1 {
+	font: 52px 'pf_din_text_comp_proregular',sans-serif;
+	text-transform: uppercase;
+	line-height: 49px;
+}
+
+.task.tmpl, .nav {
+	position: absolute;
+}
+
+.task.tmpl {
+	left: 77px;
+	top: 77px; 
+}
+
+.task.tmpl h1 { 
+	margin-bottom: 23px;
+}
+
+.task.tmpl p {
+	position: relative;
+	bottom: 1px;
+}
+
+/**/
+	
+body > .nav {
+	width: 295px;
+	position: fixed;
+	right: 13px;
+	top:13px;
+}
+
+.nav .hint {
+	position: absolute;
+	left: 50%;
+	top: 100%;
+	width: 0px;
+	height:0px;
+	padding-top: 7px;
+	display:none;
+}
+
+.nav .hint > .expander  {
+	position: relative;
+	
+	width: 200px;
+	left: -100px;
+	text-align: center;
+	line-height: 0px;
+}
+
+.nav .hint > .expander > * {
+	display: inline-block;	
+}
+
+.nav .hint > .expander.popup > div, 
+.nav .hint > .expander.popup > ul{
+	font-size: 14px;
+	line-height: normal;
+	padding: 4px 10px 5px;
+	color: white;
+	background: black;
+	
+	vertical-align: top;
+}
+
+
+.nav .hint > .expander.popup > ul{
+   
+    list-style: none;
+	padding: 12px 18px 10px;
+	width: 180px;
+	
+	
+	vertical-align: top;
+}
+
+.nav .hint > .expander.popup > ul p {
+  text-align: left;   
+  font-size:16px;
+
+}
+
+.nav .hint > .expander.popup > ul p.role {
+  text-align: left;  
+  color: #787878;
+  line-height: 16px;
+   
+}
+
+.nav .hint > .expander.popup > ul p.person{
+   margin-bottom:8px
+   
+}
+ 
+
+.nav .hint > .expander.tria > div {
+	border: 5px solid;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: black;
+	border-top: 0px;
+	vertical-align: bottom;
+}
+
+
+.nav > * {
+	margin-right:  5px;
+	display:inline-block;
+	position: relative;
+}
+
+
+.nav > .up {
+	margin-right: 0px;
+}
+
+.nav > .team {
+	margin-right: 38px
+}
+
+/* Анимация ссылок */
+.nav .animated-bg img{
+	vertical-align:middle;
+}
+.animated-bg{
+	position:relative;
+	overflow:hidden;
+}
+	/* иконка */
+	.animated-bg .anim-in{
+		position:absolute;
+		top:0;
+		left:0;
+		z-index:20;
+		opacity:0;
+		
+		-moz-transition:opacity .2s linear 0s;
+		-o-transition:opacity .2s linear 0s;
+		-webkit-transition:opacity .2s linear 0s;
+		transition:opacity .2s linear 0s;
+	}
+		.animated-bg:hover .anim-in{
+			opacity:1;
+		}
+/* фон */
+
+.animated-bg:before{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:10;
+	
+	-webkit-backface-visibility:hidden;
+	backface-visibility:hidden;
+	
+	width:100%;
+	height:100%;
+	background:#DC3333;
+	content:"";
+	
+	-moz-transition:-moz-transform .4s ease-in 0s;
+	-o-transition:-o-transform .4s ease-in 0s;
+	-webkit-transition:-webkit-transform .4s ease-in 0s;
+	transition:transform .4s ease-in 0s;
+}
+	.animated-bg.anim-s:before{
+		-moz-transform:translate(0,100%);
+		-o-transform:translate(0,100%);
+		-webkit-transform:translate(0,100%);
+		transform:translate(0,100%);
+	}
+	.animated-bg.anim-w:before{
+		-moz-transform:translate(-100%, 0);
+		-o-transform:translate(-100%, 0);
+		-webkit-transform:translate(-100%, 0);
+		transform:translate(-100%, 0);
+	}
+	.animated-bg.anim-e:before{
+		-moz-transform:translate(100%, 0);
+		-o-transform:translate(100%, 0);
+		-webkit-transform:translate(100%, 0);
+		transform:translate(100%, 0);
+	}
+	.animated-bg.anim-n:before{
+		-moz-transform:translate(0, -100%);
+		-o-transform:translate(0, -100%);
+		-webkit-transform:translate(0, -100%);
+		transform:translate(0,-100%);
+	}
+	/* Все вертикальные */
+	.animated-bg.anim-n:hover:before,.animated-bg.anim-s:hover:before,.animated-bg.anim-e:hover:before,.animated-bg.anim-w:hover:before{
+		-moz-transform:translate(0,0);
+		-o-transform:translate(0,0);
+		-webkit-transform:translate(0,0);
+		transform:translate(0,0);
+	}
+	/* Снизу-справа */
+	.animated-bg.anim-se:before,.animated-bg.anim-sw:before{
+		width:141.43%;
+		height:141.43%;
+	
+		-moz-transform-origin: 61% 25% 0;
+		-o-transform-origin: 61% 25% 0;
+		-webkit-transform-origin: 61% 25% 0;
+		transform-origin: 61% 25% 0;
+	}
+	.animated-bg.anim-se:before{
+		-moz-transform: translate(100%, 100%) rotate(45deg);
+		-o-transform: translate(100%, 100%) rotate(45deg);
+		-webkit-transform: translate(100%, 100%) rotate(45deg);
+		transform: translate(100%, 100%) rotate(45deg);
+	}
+	/* Снизу-слева */
+	.animated-bg.anim-sw:before{
+		-moz-transform: translate(-100%, 100%) rotate(45deg);
+		-o-transform: translate(-100%, 100%) rotate(45deg);
+		-webkit-transform: translate(-100%, 100%) rotate(45deg);
+		transform: translate(-100%, 100%) rotate(45deg);
+	}
+	.animated-bg.anim-se:hover:before,.animated-bg.anim-sw:hover:before{
+		-moz-transform:rotate(45deg) translate(0, 0);	
+		-o-transform:rotate(45deg) translate(0, 0);	
+		-webkit-transform:rotate(45deg) translate(0, 0);	
+		transform:rotate(45deg) translate(0, 0);	
+	}
+/* В IE8 скрываем новый фон и иконку */
+@media \0screen\,screen\9{
+	.animated-bg:before{
+		width:100%;
+		height:100%;
+		display:none;
+	}
+	.animated-bg .anim-in{
+		display:none;
+	}
+	.animated-bg:hover:before, .animated-bg:hover .anim-in{
+		display:block;
+	}
+}
+
+
+/**/	
+	
+body.miniature {
+	min-width: 100%;
+	min-height: 100%;
+	background: gray;
+	text-align: center;
+}
+.miniature .subCont {
+	position: relative;
+	display: inline-block;
+	text-align: left;
+}
+
+body.miniature {
+	
+	background: #5b5b5b; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #5b5b5b 0%, #303030 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#5b5b5b), color-stop(100%,#303030)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #5b5b5b 0%,#303030 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #5b5b5b 0%,#303030 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #5b5b5b 0%,#303030 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #5b5b5b 0%,#303030 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b5b5b', endColorstr='#303030',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+.hotdotLogo {
+	position: fixed;
+	left: 15px;
+	bottom: 15px;
+}
+
+
+.hotdotLogo img{
+	width: 143px;
+}
+
+a.portfolio-home-link {
+	width: 47px;
+	height: 47px;
+	background-color: rgba(0,0,0,.72);
+}
+a.portfolio-home-link:hover{
+    background-color: #dc3333;
+}
+
+a.portfolio-home-link::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left:50%;
+	margin-left: -10px;
+	margin-top: -10px;
+	background-color: #DC3333;
+	border-radius: 100%;
+	width: 20px;
+	height: 20px;
+}

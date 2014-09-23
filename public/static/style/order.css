@@ -1,0 +1,126 @@
+#id_first_name{display:none;}
+.coast {
+
+	width: 910px;
+	display: inline-block;
+	text-align: left;
+	
+	color: #fff;
+	font: 13px pt_sansregular, sans-serif ;
+
+	margin-bottom: 50px;
+}
+
+.coast strong {
+	font-weight: normal;
+	color: #fff;
+}
+
+.coast .hidden{
+	display: none;
+}
+
+#old_site:after {
+	top: -12px;
+}
+
+.coast p {
+	color: #aaa;
+}
+
+#body {
+	padding-top: 30px;
+}
+
+.title {
+	margin-bottom: 35px;
+}
+
+
+.coast h2{
+	margin: 15px 0px;
+	font-size: 17px;
+	font-family: 'PFBeauSansProRegular', 'Tahoma', 'Arial', sans-serif;
+	font-weight: normal;
+	color: #f9aa00;
+	margin-top: 0px;
+}
+
+.coast h3{
+	margin: 15px 0px;
+	color: #f9aa00;
+	font-weight: normal;
+	text-align: center;
+	font-size: 17px;
+	font-family: 'PFBeauSansProItalic', Tahoma;
+}
+
+
+/* Для анкеты */
+
+#body #add_info {
+	display: none;
+}
+
+#body #add_info.on {
+	display: block;
+}
+
+#body > h2 {
+	font: 23px pf_din_text_comp_proregular, sans-serif ;
+	text-transform: uppercase;
+	color: #DC3333;
+}
+
+#body > p {
+	font: 15px pt_sans, sans-serif ;
+	margin-bottom: 30px;
+	color: white;
+}
+
+
+
+@media (max-width: 910px) {
+	
+	#body .coast #short_info {
+		width: 100%;
+		
+	}
+	
+	#body .coast #short_info > li {
+		display: block;
+		
+	}		
+	
+	#body .coast,
+	#body .coast {
+		width: 90%;
+		max-width: 400px;
+	}
+	
+	#body .coast .row.down  {
+		text-align: left;
+	}
+	
+	#body .coast .row.down .but{
+		float: none;
+	}
+	
+	.coast #togler,
+	#body #add_info.on {
+		display: none;
+	}
+	
+	#short_info input[type="text"],
+	#short_info #id_site,
+	#short_info #id_phone,
+	#short_info #id_email {
+		width: 100%;
+	}
+	
+	#short_info #id_fio, #short_info #id_company
+	 {
+		width: 100%;
+	}
+
+}
