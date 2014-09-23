@@ -1,0 +1,524 @@
+html{
+	height: 100%;
+}
+
+body{
+	
+	height: 100%;
+	font-size: 10px;
+	background-color: black;
+	
+}
+
+.fullScreen {
+	height: 100%;
+	width: 100%;
+}
+
+ul {
+	list-style-type: none;
+}
+
+::selection {
+	color:#fff;
+    background: #dc3333;
+}
+
+#parallax h2,
+.title {
+	font-family: pf_din_text_comp_proregular,sans-serif;
+	text-transform: uppercase;
+	font-weight: 100;
+
+}
+
+#parallax,
+#footer,
+.title {
+	
+	color: white;
+}
+
+#parallax,
+#footer {
+	
+	font-family: 'pt_sans',sans-serif;
+}
+
+/* Параллакс в общем */
+
+*[alt]{
+	bottom: 0px;
+}
+
+#parallax h1 {
+	font: 720% pf_din_text_comp_proregular,sans-serif;
+	text-transform: uppercase;
+	line-height: 92%;
+	left: auto;
+}
+
+/* Футер */
+
+
+
+#footer{
+	position: fixed;
+	z-index: 2;
+	width: 100%;
+	height:77px;
+	text-align: center;
+	font-size:10px;
+/* Хак */
+	bottom: -1px;
+	
+	
+}
+
+#footer > .aligner {
+	overflow: hidden;
+}
+
+
+#footer > ul {
+	height: 100%;
+	list-style-type: none;
+	margin: 0px
+}
+
+#footer a,
+#footer p {
+	font: 14px 'pt_sans';
+	padding-top:.23em;
+	margin-bottom:.23em;
+	color: white;
+	
+}
+
+#parallax a,
+#footer a {
+	display: inline-block;
+	border-bottom:1px solid #dc3333;
+	text-decoration:none;
+}
+
+#footer a{
+	white-space:nowrap;
+	margin-left:.66em;
+	margin-right:.66em;
+	border-bottom-width:2px;
+	color:white;
+	font-size:18px;
+	text-transform:lowercase;
+}
+
+#footer a:hover {
+	margin: 0px 0px;
+	padding:.23em .66em;
+	color: white;
+	background-color: #dc3333;
+	border-color: transparent;
+
+}
+
+#footer li {
+	vertical-align:middle;
+}
+
+#footer a.blankStyle {
+	padding:0px;
+	margin:0px;
+	border: 0px;
+}
+
+#footer a.blankStyle:hover {
+	background: transparent;
+}
+
+
+/* Закрашивание логотипов */
+
+#footer .strt .logo{
+	position: relative;
+	overflow: hidden;
+}
+
+#footer .logo .clickableArea {
+	width: 130px;
+	height: 100%;
+	display: inline-block;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+
+#footer .strt .logo,
+#footer .strt .logo .overlay > *,
+#footer .strt .logo .base > * {
+	
+	width: 143px;
+	height: 37px;
+}
+
+
+#footer .strt .logo .overlay,
+#footer .strt .logo .base,
+.preloaderCont .ending,
+.preloaderCont .starting  {
+	overflow: hidden;
+	display: inline-block;
+	top:0px;
+}
+
+#footer .strt .logo .overlay,
+#footer .strt .logo .base {
+	height: 100%;
+}
+
+#footer .strt .logo a {
+	position: absolute;
+	left:0px;
+	top:0px;
+}
+
+#footer .strt .logo .base {
+	width: 100%;
+}
+
+#footer .strt .logo .overlay {
+	width: 0%;
+}
+
+#footer .strt .logo .base > *,
+.preloaderCont .starting > * {
+	float: right;
+}
+
+#footer .strt .logo .overlay > *,
+.preloaderCont .ending > * {
+	float: left;
+}
+
+/* Зайчатки адаптивности */
+
+#footer .root > .phoneAndLocation .location {
+	display: none;/* помощь для map.js */
+}
+
+
+/* Логотип */
+
+#footer > ul .strt{
+	vertical-align:middle;
+	height:100%;
+}
+#footer > ul > li:first-child{
+	padding-left:2em;
+}
+#footer > ul > .strt img {
+	border: 0px;
+	width: 143px;
+	height: 37px;
+	cursor: pointer;
+}
+#footer > ul > li:last-child{
+	padding-right: 2em;
+}
+
+/* */
+
+#footer .phoneNumber {
+	white-space:nowrap;
+}
+
+#footer .phoneNumber p {
+	display:inline-block;
+}
+
+#footer .phoneNumber > *{
+	vertical-align: middle;
+}
+#footer .phoneNumber > .icon.mobile{
+	margin-left: 7px;
+}
+
+#footer .location a {
+	position: relative;
+}
+
+
+/* */
+
+#footer .languageSwitch{
+	height: 100%;
+	width: 68px;
+}
+
+#footer .languageSwitch form {
+    height: 100%;
+}
+
+#footer .languageSwitch .a {
+	border-bottom: none;
+	margin: 0;
+	padding:0;
+	position: relative;
+}
+
+#footer .languageSwitch .a:after{
+	content:'';
+	height: 100%;
+	width: 0px;
+	background: yellow;
+	display: inline-block;
+}
+#footer .languageSwitch .a .caption{
+	text-transform:uppercase;
+	color: white;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	font: 28px/99px pf_din_text_comp_proregular;
+	 
+}
+
+#footer .languageSwitch .shadow {
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	text-align: center;
+}
+
+#footer .languageSwitch .centered {
+	display: inline-block;
+	width: 0px;
+	height: 100%;
+	position: relative;
+}
+
+#footer .languageSwitch .a:hover {
+	background: transparent;
+	border-bottom: none;
+	margin:0px;;
+}
+
+
+#footer .languageSwitch .megaChild {
+	display: none;
+	position: absolute;
+	text-align: center;
+	height: 100%;
+	top: 0px;
+	width: 120px;
+	left: -60px;
+}
+
+#footer .languageSwitch .a.hover .megaChild {
+	display: block;
+}
+
+/* */
+
+#footer .share{
+	margin-right:1.5%;
+}
+
+#footer .share > a.icon{
+	margin: 0px 4px;
+	
+}
+	
+
+/* Иконки в футере */
+#footer .icon{
+	display: inline-block;
+	line-height: 0px;	
+}
+#footer a.icon {
+	border:none;
+	padding:0px;
+	margin:0px;
+	background-color: transparent;
+}
+#footer .icon{
+	content:"";
+	background: url(../img/icons.png) no-repeat;
+	display: inline-block;
+	
+}
+#footer .icon.mobile{
+	background-position: 0px 0px;
+	width: 11px;
+	height: 16px;
+}
+
+#footer .icon.vk{
+	background-position: -91px -1px;
+	width: 18px;
+	height: 18px;
+}
+#footer .icon.gpls{
+	background-position: -65px -1px;
+	width: 18px;
+	height: 18px;
+}
+#footer .icon.twt {
+	background-position: -40px -1px;
+	width: 17px;
+	height: 18px;
+}
+#footer .icon.fcb{
+	background-position: -13px -1px;
+	width: 18px;
+	height: 18px;
+}
+#footer .icon.queen {
+	background-position: -117px -3px ;
+	width: 68px;
+	height: 67px;
+}
+#footer .icon.pushkin {
+	background-position: -193px -6px ;
+	width: 65px;
+	height: 64px;
+}
+
+#footer .icon.vk:hover,
+#footer .icon.gpls:hover,
+#footer .icon.fcb:hover,
+#footer .icon.twt:hover{ 
+	background-position-y: -81px;
+}
+
+/* Всплывающая карта*/
+#popupMap {
+	position: fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0 !important;
+	z-index:1000;
+	
+	font-size:10px;
+	display:none;
+}
+
+#popupMap .info-block{
+	position:absolute;
+	top:0;
+	z-index:10;
+	
+	display:table;
+	height: 50%;
+	width: 100%;
+	background-color: #131313;
+	
+	font-family:pf_din_text_comp_proregular,sans-serif;
+	font-size:2.6em;
+	text-align: center;
+	line-height:1.2;
+}
+	#popupMap .info-block>div{
+		display:table-cell;
+		vertical-align:middle;
+	}
+	#popupMap .icon-close{
+		position:absolute;
+		top:0;
+		right:0;
+		z-index:20;
+		width:100px;
+		height:100px;
+		background-color:#131313;
+		background-position:center;
+		cursor:pointer;
+	}
+	#popupMap .info-block p, #popupMap .info-block a{
+		font-size:inherit;
+	}
+	#popupMap .info-block p{
+		padding:0;
+		margin:0 .5em .85em;
+	}
+	#popupMap .info-block a{
+		text-transform:none;
+		border-width:1px;
+	}
+	#popupMap .info-block .address{
+		margin-top:2.7em;
+	}
+	/* Ссылка на Яндекс-карту */
+	#popupMap .info-block .yandex-link{
+		border:none;
+		font-size:.616em;
+	}
+	#popupMap .info-block .yandex-link span{
+		position:relative;
+		margin-left:1.3em;
+		border-bottom:1px solid #dc3333;
+	}
+		#popupMap .info-block .yandex-link span:before{
+			position:absolute;
+			bottom:.1875em;
+			left:-1.25em;
+			width: 15px;
+			height: 12px;
+			background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAMCAYAAAC9QufkAAAAgUlEQVQokWOQkZH5D8NNGhr/7xgbE4XVZWX/M6BrLlNX/48shg1fNDKiguYOTc3/hwwM/h8yMPh/wcjo/zlDQzgfGe/U18fUPENb+3+Cisp/M3l5vPiikRFuzficqS4rO8CaNeXk/mvKyZGu+bax8f/zhoZwTLazYZhyzcQkR2yaAfq4I+oRtQAaAAAAAElFTkSuQmCC') 0px 0px no-repeat;
+			content:"";
+		}
+		#popupMap .info-block .yandex-link:hover span:before{
+			background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAMCAYAAAC9QufkAAAAL0lEQVQokWNgQAIyMjL/icUM6ACrIBZAHc3kOBVFM6lOHUmaMQKPvnGLzzmkJEkAM5ZOIizQ4HsAAAAASUVORK5CYII=');
+		}
+	/* Карта */
+	#htdt-map{
+		position:absolute;
+		top:0;
+		right:0;
+		bottom:0;
+		left:0;
+		z-index:5;		
+		
+		background-color:#f07373;
+	}
+	#htdt-map .gm-style-cc span, #htdt-map .gm-style-cc a, #htdt-map .gm-style-mtc div{
+		font-size:10px;
+		margin:0;
+		padding:0;
+		border:none;
+	}
+	#htdt-map a:hover{
+		background:none;
+	}
+
+
+/* Логотип в подвале сайта */
+a.home-link {
+	background-color: #DC3333;
+	border: medium none !important;
+	border-radius: 100%;
+	display: block;
+	height: 23px;
+	margin: 0 0 0 10px !important;
+	padding: 0 !important;
+	vertical-align: inherit;
+	width: 23px;
+	-webkit-transition:-webkit-transform .5s;
+	transition:transform .5s;
+}
+a.home-link:hover{
+    border-radius: 0%;
+	-webkit-transform:scale(1.2);
+	transform:scale(1.2);
+}
+
+#priceB a.html5 {
+	display: inline ;
+}
+
+/* Иконки разные */
+.icon-close{
+	width:32px;
+	height:31px;
+	background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAfCAYAAACGVs+MAAABwElEQVRIib3WX0RDYRiA8REjxogYY4wxuooYy4gRY+wqIiKiq+iqqxgRERElRoyI6KqrrroqEREREWOMscSYRoqni7PD27tvf852zvnuzr7zvb9nm9kJBDoLKAR8WEAESOkXd7FWyQf8DWgCafvFAv/XmUd4tIPbqwGE7M2yiih7gL+L+d9dXzlQ0hHAhAt4DKgoPN/rZh1xPk6EAW8DuUGHTlXExSgRQByoOsLF4WMVcekkoge+6PQdHKmIKyA4xLkEUFN41hEuhh06iQCSBnxhJFwMPVAR16YIA94CMmPhYvh+vwhgBqh7ggtkT0XcAMEeeNpVvE/EPfAhrpue4SKiiHk10f9yHkacKPwHmPcLnwM+DZ/ALTDpB94U6JeKuPMsAkgpvAHMAtuGiJDbeNqEi/0tFfHgWkQHbyl8xnDfpiEiPC6eUXjdhPeJeBw5ooO3h8XFuQ0V8eQ4AsgqvAYkHZw3RUz5gos56yrieWAEkDPgCae4mLcG/KqI6WHxKhAfFe8T8dIVAeSxHpddxcX8VRXxCkTszazCK0DMLVxErBgiQgEgjPV79QwXEcsioig3wliP3lGvcGEtATv29R+gD7vcvVF+fQAAAABJRU5ErkJggg==') 0px 0px no-repeat;
+}

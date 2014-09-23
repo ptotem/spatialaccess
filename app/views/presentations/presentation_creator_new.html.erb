@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+  <title>Hot Dot Production</title>
+
+  <meta http-equiv="Content-Language" content="en">
+  <meta name="Description" content="Web development at Dot where design and technology meet" />
+  <meta name="Keywords" content="web development website design django framework html5 webgl 3d responsive parallax" />
+
+  <meta name="robots" content="index,follow" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+  <link rel="icon" type="image/png" href="/static/img/fav.png">
+  <link type="text/css" rel="stylesheet" href="/static/style/lib.css">
+  <link type="text/css" rel="stylesheet" href="/static/style/fonts.css">
+  <script type="text/javascript" src="/static/js/third_party/modernizr.custom.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="/static/style/general.css">
+  <link type="text/css" rel="stylesheet" href="/static/style/slides.css">
+  <link type="text/css" rel="stylesheet" href="/static/style/navigation.css">
+  <link type="text/css" rel="stylesheet" href="/static/style/adapt.css">
+  <link type="text/css" rel="stylesheet" href="/static/style/minimal_footer.css">
+  <link type="text/css" rel="stylesheet" href="/static/style/loader.css">
+
+</head>
+<body  class='unloaded'>
+
+<img class="loadBackground" src="/parallax_img/background.jpg">
+
+<div class='preloaderCont vAligner alignCenter'>
+  <span class='ending'><img src="/static/img/logo/classic.svg" /></span><span class='starting'><img src="/static/img/logo/preload.svg" /></span>
+</div>
+
+<div style='display: none' class='preloadedImages'>
+  <% @slide.childs.each do |cslide| %>
+        <% cslide.childs.each do |ccslide| %>
+            <img alt=<%=ccslide.seq %> src=<%=ccslide.image %> height="92%"  style="left: 195px;">
+        <% end %>
+  <% end %>
+</div>
+
+<div id="parallax">
+  <img alt="0" class="parallaxBackground" src="/parallax_img/background.jpg" />
+  <% @slide.childs.each do |cslide| %>
+      <div id="slide<%= cslide.id  %>"  >
+        <% cslide.childs.each do |ccslide| %>
+            <img alt=<%=ccslide.seq %> src=<%=ccslide.image %> height="92%"  style="left: 195px;">
+        <% end %>
+      </div>
+  <% end %>
+</div>
+
+<div class="nav-animation">
+  <img src="/static/img/mouse.png" class="active">
+  <img src="/static/img/arrows.png">
+</div>
+<a class="right-arrow">
+  <img src="/static/img/arrow_right.png">
+</a>
+<a class="left-arrow">
+  <img src="/static/img/arrow_left.png">
+</a>
+
+
+
+<script type="text/javascript" src="/static/js/third_party/jquery.js"></script>
+<script type="text/javascript" src="/static/js/lib.js"></script>
+<script type="text/javascript" src="/static/js/general.js"></script>
+
+
+<script type="text/javascript" src="/static/js/third_party/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="/static/js/third_party/jquery.custom.js"></script>
+<script type="text/javascript" src="/static/js/parallax.js"></script>
+<script type="text/javascript" src="/static/js/index/resizeables.js"></script>
+<script type="text/javascript" src="/static/js/index/preloader.js"></script>
+<script type="text/javascript" src="/static/js/custom_events.js"></script>
+
+<script type="text/javascript" src="/static/js/index/i.js"></script>
+<script type="text/javascript" src="/static/js/nav.js"></script>
+
+</body>
+</html>

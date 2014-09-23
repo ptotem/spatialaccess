@@ -1,0 +1,142 @@
+.left-arrow {
+	left: 0;
+}
+.right-arrow {
+	right: 0;
+}
+.left-arrow,
+.right-arrow {
+	background     : none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border         : medium none;
+	height         : 100%;
+	text-decoration: none;
+	top            : 0;
+	width          : 180px;
+	text-align     : center;
+	display        : none;
+	z-index        : 8020;
+	position       : fixed;
+	z-index        : 1;
+	cursor         : pointer;
+}
+.left-arrow.touch, .right-arrow.touch {
+	height    : 80px;
+	margin-top: -40px;
+	position  : absolute;
+	top       : 50%;
+	width     : 80px;
+}
+.left-arrow.touch {
+	left: 60px;
+}
+
+.right-arrow.touch {
+	right: 60px;
+}
+.left-arrow.touch img,
+.right-arrow.touch img {
+	position: static;
+	margin: 0;
+}
+.nav-animation.touch {
+	display: none !important;
+}
+.left-arrow img,
+.right-arrow img {
+	width      : 50px;
+	height     : 80px;
+	position   : absolute;
+	top        : 50%;
+	left       : 50%;
+	margin-top : -40px;
+	margin-left: -20px;
+ }
+.nav-animation {
+	position  : fixed;
+	right     : 140px;
+	top       : 50%;
+	margin-top: -40px;
+	left      : auto !important;
+	display   : none;
+	width     : 80px;
+	height    : 80px;
+}
+.nav-animation img {
+	display : block;
+	position: absolute;
+	top     : 0;
+	left    : 0;
+}
+.nav-animation .active {
+	display: none;
+}
+@media screen and (max-width: 321px) {
+	.left-arrow.touch {
+		left: 0;
+	}
+	.right-arrow.touch {
+		right: 0;
+	}
+}
+/*
+@-webkit-keyframes fadeElemOut {
+  0%,100%   { opacity: 1; }
+  50% { opacity: 0; }
+}
+@-moz-keyframes fadeElemOut {
+  0%,100%   { opacity: 1; }
+  50% { opacity: 0; }
+}
+@-o-keyframes fadeElemOut {
+  0%,100%   { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes fadeElemOut {
+  0%,100%   { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@-webkit-keyframes fadeElemIn {
+  0%,100%   { opacity: 0; }
+  50% { opacity: 1; }
+}
+@-moz-keyframes fadeElemIn {
+  0%,100%   { opacity: 0; }
+  50% { opacity: 1; }
+}
+@-o-keyframes fadeElemIn {
+  0%,100%   { opacity: 0; }
+  50% { opacity: 1; }
+}
+@keyframes fadeElemIn {
+  0%,100%   { opacity: 0; }
+  50% { opacity: 1; }
+}
+.nav-animation .active {
+	-webkit-animation: fadeElemIn 7.5s infinite 0s alternate; 
+	-moz-animation   : fadeElemIn 7.5s infinite 0s alternate; 
+	-o-animation     : fadeElemIn 7.5s infinite 0s alternate; 
+	animation        : fadeElemIn 7.5s infinite 0s alternate; 
+}
+.nav-animation img {
+	-webkit-animation: fadeElemOut 7.5s infinite 0s alternate; 
+	-moz-animation   : fadeElemOut 7.5s infinite 0s alternate; 
+	-o-animation     : fadeElemOut 7.5s infinite 0s alternate; 
+	animation        : fadeElemOut 7.5s infinite 0s alternate; 
+}*/
+/*
+@media screen and (max-width: 1024px) and (min-width: 480px) {
+	.left-arrow,
+	.right-arrow {
+		height    : 80px;
+		width     : 40px;
+		top       : 50%;
+		margin-top: -40px;
+	}
+	.left-arrow {
+		left: 40px;
+	}
+	.right-arrow {
+		right: 40px;
+	}
+}*/
