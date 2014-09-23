@@ -6,7 +6,8 @@
   <title>Spatial Access</title>
 
   <link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
   <link href="/css/responsive-slider-parallax.css" rel="stylesheet">
 
 
@@ -29,7 +30,12 @@
   <link type="text/css" rel="stylesheet" href="/static/style/adapt.css">
   <link type="text/css" rel="stylesheet" href="/static/style/minimal_footer.css">
   <link type="text/css" rel="stylesheet" href="/static/style/loader.css">
+  <style>
+      .dropdown-menu li a {
+          color: black;
 
+      }
+  </style>
 </head>
 <body  class='unloaded'>
 
@@ -84,20 +90,20 @@
     <li class="works">
       <% Slide.where(:root => true).each do |s| %>
         <li>
-          <div class="btn-group dropup">
-            <button type="button" class="btn btn-default" data-attr="<%= s.id %>" onclick='window.location.href="/presentation_creator_new/<%= s.id %>"'><%= s.name %></button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown-menu">
+          <div class="dropup">
+            <button type="button" class="btn btn-default"><%= s.name %></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a></li><!-- Dropdown menu links -->
+            <ul class="dropdown-menu" role="menu">
+              <% if !s.childs.nil? %>
+              <% s.childs.each do |cs| %>
+                  <li><a href="#" style="color:black"><%= cs.name %></a></li>
+              <% end %>
+              <% end %>
             </ul>
-
+          </div>
         </li>
     <% end %>
     </li>
@@ -107,6 +113,7 @@
 
 
 <script type="text/javascript" src="/static/js/third_party/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/js/lib.js"></script>
 <script type="text/javascript" src="/static/js/general.js"></script>
 
@@ -120,6 +127,10 @@
 
 <script type="text/javascript" src="/static/js/index/i.js"></script>
 <script type="text/javascript" src="/static/js/nav.js"></script>
-
+<script>
+    $(document).ready(function () {
+        $('.dropdown-menu').css("left", "auto");
+    });
+</script>
 </body>
 </html>
