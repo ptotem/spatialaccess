@@ -110,7 +110,7 @@ ul {
 	border-bottom-width:2px;
 	color:white;
 	font-size:18px;
-	text-transform:lowercase;
+	/*text-transform:lowercase;*/
 }
 
 #footer a:hover {

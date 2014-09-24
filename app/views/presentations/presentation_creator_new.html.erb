@@ -50,6 +50,7 @@
 <!--<img class="loadBackground" src="/parallax_img/background.jpg" style="margin-top: 40px">-->
 
 <div style='display: none' class='preloadedImages'>
+  <img alt="0" class="parallaxBackground" src="/parallax_img/background.jpg"/>
   <% @slide.childs.each do |cslide| %>
         <% cslide.childs.each do |ccslide| %>
             <img alt=<%=ccslide.seq %> src=<%=ccslide.image %> height="92%"  style="left: 195px;">
@@ -99,7 +100,7 @@
             <ul class="dropdown-menu" role="menu">
               <% if !s.childs.nil? %>
               <% s.childs.each do |cs| %>
-                  <li><a href="/presentation_creator_new/<%= cs.id %>" style="color:black"><%= cs.name %></a></li>
+                  <li><a href="#" style="color:black"><%= cs.name %></a></li>
               <% end %>
               <% end %>
             </ul>
