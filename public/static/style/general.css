@@ -66,7 +66,7 @@ ul {
 #footer{
 	position: fixed;
 	z-index: 2;
-	width: 100%;
+	width: 95%;
 	height:77px;
 	text-align: center;
 	font-size:10px;
@@ -113,14 +113,14 @@ ul {
 	/*text-transform:lowercase;*/
 }
 
-#footer a:hover {
-	margin: 0px 0px;
-	padding:.23em .66em;
-	color: white;
-	background-color: #dc3333;
-	border-color: transparent;
+/*#footer a:hover {*/
+	/*margin: 0px 0px;*/
+	/*padding:.23em .66em;*/
+	/*color: white;*/
+	/*background-color: #dc3333;*/
+	/*border-color: transparent;*/
 
-}
+/*}*/
 
 #footer li {
 	vertical-align:middle;
