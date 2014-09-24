@@ -99,7 +99,7 @@
             <ul class="dropdown-menu" role="menu">
               <% if !s.childs.nil? %>
               <% s.childs.each do |cs| %>
-                  <li><a href="#" style="color:black"><%= cs.name %></a></li>
+                  <li><a href="/presentation_creator_new/<%= cs.id %>" style="color:black"><%= cs.name %></a></li>
               <% end %>
               <% end %>
             </ul>
