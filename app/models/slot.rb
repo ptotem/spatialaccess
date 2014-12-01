@@ -13,19 +13,26 @@ class Slot < ActiveRecord::Base
     puts "---------------------------------------------------------------------------------"
     # spreadsheet = Roo::Excelx.new(file, nil, :ignore)
     spreadsheet = open_spreadsheet(file)
-    (6..spreadsheet.last_row-22).each do |i|
-      slot=Slot.new
-      channel=Channel.find_by_name(spreadsheet.row(i)[0])
-      if channel.blank?
-        channel=Channel.create!(name: spreadsheet.row(i)[0])
+    is_blank = false
+    (6..spreadsheet.last_row).each do |i|
+      if is_blank == false
+        if spreadsheet.row(i)[0].blank?
+          is_blank = true
+        else
+          slot=Slot.new
+          channel=Channel.find_by_name(spreadsheet.row(i)[0])
+          if channel.blank?
+            channel=Channel.create!(name: spreadsheet.row(i)[0])
+          end
+          slot.campaign_id=campaign
+          slot.channel_id=channel.id
+          slot.start_date=spreadsheet.row(i)[1]
+          slot.end_date=spreadsheet.row(i)[2]
+          slot.hour_id=Hour.where(name: "#{((i-6)%24)+2}").first.id
+          slot.tvr=spreadsheet.row(i)[5]
+          slot.save
+        end
       end
-      slot.campaign_id=campaign
-      slot.channel_id=channel.id
-      slot.start_date=spreadsheet.row(i)[1]
-      slot.end_date=spreadsheet.row(i)[2]
-      slot.hour_id=Hour.where(name: "#{((i-6)%24)+2}").first.id
-      slot.tvr=spreadsheet.row(i)[5]
-      slot.save
     end
   end
 

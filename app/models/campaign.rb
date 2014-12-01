@@ -21,24 +21,31 @@ class Campaign < ActiveRecord::Base
     puts file
     puts "---------------------------------------------------------------------------------"
     spreadsheet = open_spreadsheet(file)
+    is_blank = false
     # spreadsheet = Roo::Excelx.new(file, nil, :ignore)
-    (6..spreadsheet.last_row-31).each do |i|
+    (6..spreadsheet.last_row).each do |i|
       channel=Channel.find_by_name(spreadsheet.row(i)[0])
-      unless channel.blank?
-        spot=Spot.new
-        spot.campaign_id=campaign
-        spot.channel_id=channel.id
-        spot.airdate=spreadsheet.row(i)[2]
-        spot.programme=spreadsheet.row(i)[5]
-        spothour=Time.at(spreadsheet.row(i)[4]).getgm.hour
-        if spothour==0
-          spothour=24
+      if is_blank == false
+        if spreadsheet.row(i)[0].blank?
+          is_blank = true
+        else
+          unless channel.blank?
+            spot=Spot.new
+            spot.campaign_id=campaign
+            spot.channel_id=channel.id
+            spot.airdate=spreadsheet.row(i)[2]
+            spot.programme=spreadsheet.row(i)[5]
+            spothour=Time.at(spreadsheet.row(i)[4]).getgm.hour
+            if spothour==0
+              spothour=24
+            end
+            if spothour==1
+              spothour=25
+            end
+            spot.hour_id = Hour.find_by_name("#{spothour}").id
+            spot.save
+          end
         end
-        if spothour==1
-          spothour=25
-        end
-        spot.hour_id = Hour.find_by_name("#{spothour}").id
-        spot.save
       end
     end
     Campaign.calculate_data(@campaign.id)
