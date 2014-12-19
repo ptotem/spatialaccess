@@ -1,0 +1,16 @@
+.left_wrapper
+{
+    float: left;
+    width: 50%;
+    height: 100%;
+    border: 1px solid grey;
+
+
+}
+.right_wrapper
+{
+    float: left;
+    width: 49%;
+    border: 1px solid grey;
+    height: 100%;
+}

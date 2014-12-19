@@ -1,0 +1,195 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#blocks-content{
+    font-size: 1.4em;
+}
+
+html {
+    background-image: url('/assets/homepage/images/bg.png');
+    /*background-color: rgba(1,1,1,0.7);*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    /*opacity: 0.7;*/
+}
+
+.main_wrapper {
+    width: 84%;
+    /*background-color: #000000;*/
+    margin: 0 auto;
+}
+
+.box_style
+{
+    text-align: center;
+    padding-top: 65px;
+}
+.audit
+{
+    text-align: center;
+    padding-top: 65px;
+}
+
+.logo {
+    background-color: rgba(1,1,1,0.5);
+    /*opacity: 0.7;*/
+    border-radius: 25%;
+    float: left;
+    height: 125px;
+    /*padding-right: 13%;*/
+    width: 15%;
+    margin-left: 0.7%;
+    margin-top: 1%;
+    text-align: center;
+}
+
+.content {
+    margin-top: 1%;
+    /*background: rgba(1,1,1,0.7);*/
+    /*border-radius: 5%;*/
+    color: #fff;
+    /*border: 2px solid #808080;*/
+    /*box-shadow: 5px 5px 10px black;*/
+    padding: 1%;
+    float: right;
+    font-size: 18px;
+    height: 125px;
+    text-align: center;
+    width: 72%;
+    margin-right:3%;
+}
+.philosophy
+{
+    text-align: center;
+    padding-top: 60px;
+}
+.testimonial
+{
+    text-align: center;
+    padding-top: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape) {
+    /*.live-tile.two-wide*/
+    /*{*/
+    /*width: 100px !important;*/
+    /*background-color: red;*/
+    /*}*/
+    body
+    {
+        width: 100%;
+    }
+    .main_wrapper {
+        width: 100%;
+        margin: 2%;
+    }
+    .tile-group.three-wide {
+        width: 32%
+    }
+    .tile-group.two-wide {
+        width: 32%
+    }
+    .two-wide-box {
+        width: 181px !important;
+    }
+    .live-tile-box {
+        width: 126px;
+    }
+    .content {
+        width: 72%;
+        height: 125px;
+        text-align: right;
+        float: left;
+    }
+    .logo {
+        float: left;
+        height: 125px;
+        /*padding-right: 13%;*/
+        width: 15%;
+    }
+    .philosophy
+    {
+        text-align: center;
+        padding: 45px 8px 0  0;
+    }
+}
+
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: portrait) {
+    body {
+        width: 100%;
+    }
+    .main_wrapper {
+        width: 100%;
+        margin: 1%;
+    }
+    .philosophy
+    {
+        text-align: center;
+        padding-top: 30px;
+    }
+    .testimonial
+    {
+        background-color: #009145;
+        text-align: center;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .audit
+    {
+        padding-right: 25%;
+
+    }
+    .logo {
+        float: left;
+        height: 125px;
+        /*padding-right: 13%;*/
+        width: 15%;
+    }
+
+
+    .content {
+        float: left;
+        height: 125px;
+        text-align: right;
+        width: 72%;
+    }
+
+    .tile-group.three-wide {
+        width: 32%;
+    }
+
+    .tile-group.two-wide {
+        width: 32%;
+    }
+
+    .two-wide-box {
+        width: 141px !important;
+    }
+
+    .live-tile-box {
+        width: 84px;
+    }
+
+    .live-tile-box-sec-two {
+        width: 112px;
+
+    }
+
+    .tall-title {
+        width: 113px;
+
+    }
+
+}
