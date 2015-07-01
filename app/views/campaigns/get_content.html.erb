@@ -14,9 +14,39 @@
       Add the Ad Spots File
       <%= file_field_tag :spotsfile %>
       <br/>
-      <%= submit_tag "Import", class: "btn btn-danger btn-lg" %>
+      <%= submit_tag "Import", class: "btn btn-danger btn-lg", :onclick=>"displayModal();" %>
       <br/>
-      <h3>P.S. This will take about 5 odd minutes, please be patient.</h3>
+      <!--<h3>P.S. This will take about 5 odd minutes, please be patient.</h3>-->
   <% end %>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="waitModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="waitModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #c9302c">
+        <h4 class="modal-title" id="waitModalLabel" style="color: #ffffff;">Data Uploading...</h4>
+      </div>
+      <div class="modal-body">
+        <h4>Your data is being uploaded. This could take several minutes. Please be patient.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function(){
+
+    });
+
+    function closeModal(){
+        $('#waitModal').modal('hide');
+    }
+
+    function displayModal(){
+        //$('#waitModal').modal({backdrop: 'static',keyboard: false});
+        $('#waitModal').modal('show');
+    }
+
+</script>
