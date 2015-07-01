@@ -191,7 +191,8 @@ class CampaignsController < ApplicationController
     Slot.delay.import(@campaign.id)
     Campaign.delay.import(@campaign.id)
     # Campaign.delay.calculate_data(@campaign.id)
-    redirect_to edit_campaign_path(@campaign), notice: "Campaign imported."
+    # flash[:success] = "Data Imported"
+    redirect_to edit_campaign_path(@campaign), notice: "Campaign successfully imported."
   end
 
   # PATCH/PUT /campaigns/1
