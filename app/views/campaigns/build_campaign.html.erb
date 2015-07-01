@@ -144,8 +144,13 @@
                        '</select>'+
                        '<a href="#" class="confirmer btn btn-xs btn-danger" id="confirm-' + parentid + "_" + fieldid + '">OK</a>');
 //        $circle.append('<textarea class="annotation_field" id="annotationfield-' + parentid + "_" + fieldid + '" placeholder="Put in the comment">' + comment + '</textarea><a href="#" class="confirmer btn btn-xs btn-danger" id="confirm-' + parentid + "_" + fieldid + '">OK</a>');
+        setMarkerAttributes('shape', parentid, fieldid, 'red-circle');
+        setMarkerAttributes('pos', parentid, fieldid, posx, posy);
+        setMarkerAttributes('height', parentid, fieldid, height, width);
+
         $('.change_circle').on("change",function(){
             $circle.removeClass().addClass($(this).val());
+            setMarkerAttributes('shape', parentid, fieldid, $(this).val());
             $($(this).parents('.editable-graph-container').find('input:hidden')[1]).val($(this).val());
         });
         var $annocomment = $('#annotationfield-' + parentid + "_" + fieldid);
@@ -171,19 +176,35 @@
             containment: "parent",
             stop: function (event, ui) {
                 var Stoppos = $(this).position();
-                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-                $annotation.find('input').eq(2).val(Stoppos.left);
-                $annotation.find('input').eq(3).val(Stoppos.top);
+                setMarkerAttributes('pos', parentid, $(this).attr("id").split("_")[1], Stoppos.left, Stoppos.top);
             }
         });
         $circle.resizable({
             containment: "parent",
             stop: function (event, ui) {
-                var $annotation = $("#anno-" + parentid + "_" + $(this).attr("id").split("_")[1]);
-                $annotation.find('input').eq(4).val(ui.size.height);
-                $annotation.find('input').eq(5).val(ui.size.width);
+                setMarkerAttributes('height', parentid, $(this).attr("id").split("_")[1], ui.size.height, ui.size.width);
             }
         });
+    }
+    //type can be height(for resizablitily) and pos(for draggablity) and shape(for setting shape)
+    function setMarkerAttributes(type, parentId, attribId, attrOne, attrTwo){
+        var $annotation = $("#anno-" + parentId + "_" + attribId);
+        switch(type){
+            case 'height':
+                var eqOne= 4,eqTwo=5;
+                $annotation.find('input').eq(eqOne).val(attrOne);
+                $annotation.find('input').eq(eqTwo).val(attrTwo);
+                break;
+            case 'pos':
+                var eqOne= 2,eqTwo=3;
+                $annotation.find('input').eq(eqOne).val(attrOne);
+                $annotation.find('input').eq(eqTwo).val(attrTwo);
+                break;
+            case 'shape':
+                var eqOne= 1;
+                $annotation.find('input').eq(eqOne).val(attrOne);
+                break;
+        }
     }
 
     var previousPoint = null, previousLabel = null;

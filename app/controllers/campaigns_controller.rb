@@ -27,6 +27,7 @@ class CampaignsController < ApplicationController
       @annochannels << Annochannel.where(campaign_id: @campaign.id, showable: true, channel_id: c.channel_id).first
     end
 
+
     #@annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all.sort_by! { |c| c.channel.name }
     # @annochannels = Annochannel.where(campaign_id: @campaign.id, showable: true).all
     @channel_slots=[]
@@ -43,9 +44,7 @@ class CampaignsController < ApplicationController
         i.channel_maxes.map{|i,v| @channel_maxes<<[i,eval(v)]}
       end
     end
-    # render :json => @annochannels.compact!
-    # return
-    gon.channels=@annochannels.compact!.map { |c| c.channel.name.upcase }
+    gon.channels=@annochannels.map { |c| c.channel.name.upcase }
     gon.channel_slots=@channel_slots
     gon.channel_spots=@channel_spots
     gon.channel_max=@channel_maxes
@@ -69,7 +68,6 @@ class CampaignsController < ApplicationController
 
     #This code will come inside a
     if CalculatedData.where(:campaign_id => @campaign.id).blank?
-
       @channels=@campaign.channels.uniq.sort_by! { |c| c.name }
       @annochannels=[]
       if @campaign.annochannels.blank?
