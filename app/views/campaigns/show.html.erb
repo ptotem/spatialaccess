@@ -95,6 +95,8 @@
 <script>
     var plots = [];
     function show_graph(index) {
+        console.log("gon.channels :- ");
+        console.log(gon.channels);
         $('#channel_' + index).html(gon.channels[index]);
         plots[index] = $.plot("#grapher_" + index, [
                     {
